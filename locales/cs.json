@@ -1,0 +1,40 @@
+{
+    "blips": {
+        "name-fuel": "Čerpací stanice",
+        "name-ev": "Stanice EV"
+    },
+    "target": {
+        "refuel-nozzle": "Vložit pistoli",
+        "refuel-jerrycan": "Doplnit (kanystr)",
+        "take-nozzle": "Vzít pistoli",
+        "take-charger": "Vzít nabíječku",
+        "return-nozzle": "Vrátit pistoli",
+        "return-charger": "Vrátit nabíječku",
+        "buy-jerrycan": "Koupit/Doplnit kanystr"
+    },
+    "input": {
+        "select-amount": "Vyberte částku"
+    },
+    "menu": {
+        "confirm-title": "Celková cena je: %d$ včetně daní.",
+        "confirm-choice-title": "Potvrdit",
+        "cancel-choice-title": "Zrušit",
+        "payment-title": "Vyberte způsob platby (%d$)",
+        "payment-bank": "Banka",
+        "payment-bank-desc": "Na účtu máte %s$.",
+        "payment-cash": "Hotovost",
+        "payment-cash-desc": "Máte %s$ v hotovosti."
+    },
+    "progress": {
+        "refueling-vehicle": "Tankování vozidla..."
+    },
+    "notify": {
+        "not-ev": "Vozidlo není elektrické",
+        "not-fv": "Vozidlo nepoužívá palivo",
+        "not-enough-money": "Nemáte dostatek peněz",
+        "not-enough-space": "Nemáte dostatek místa",
+        "jerrycan-not-empty": "Kanystr není prázdný",
+        "vehicle-full": "Vozidlo je již plné",
+        "refuel-success": "Vozidlo bylo úspěšně natankováno"
+    }
+}
