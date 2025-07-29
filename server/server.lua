@@ -1,11 +1,54 @@
+---@description MODULES/DATA LOADING
 local config = lib.load("config.config")
-local stations = lib.load("config.stations")
+local zones = lib.load("config.zones")
 local jerrycan = require "server.jerrycan"
-local InStation = {}
 
+---@description INIT
+local InStation = {}
 GlobalState:set("fuelPrice", config.fuelPrice, true)
 
----@return boolean
+---@description ZONE ENTER/EXIT/INSIDE HANDLING
+local function inside(coords, name)
+    local zone = zones[name]
+    if not zone then
+        return false
+    end
+
+    local relative = coords - zone.coords
+    local heading = zone.rotation or 0.0
+
+    local rad = math.rad(-heading)
+    local cosH = math.cos(rad)
+    local sinH = math.sin(rad)
+
+    local localX = relative.x * cosH - relative.y * sinH
+    local localY = relative.x * sinH + relative.y * cosH
+    local localZ = relative.z
+
+    local halfSize = zone.size / 2
+
+    return math.abs(localX) <= halfSize.x and math.abs(localY) <= halfSize.y and math.abs(localZ) <= halfSize.z
+end
+
+RegisterNetEvent("mnr_fuel:server:RegisterEntry", function(name)
+	local src = source
+
+	if not type(name) == "string" or not zones[name] then return end
+
+	if InStation[src] == name then
+		InStation[src] = nil
+		return
+	end
+
+	local playerPed = GetPlayerPed(src)
+	local playerCoords = GetEntityCoords(playerPed)
+	local isInside = inside(playerCoords, name)
+
+	if not isInside then return end
+
+    InStation[src] = name
+end)
+
 local function inStation(source)
 	local src = source
 	return InStation[src] ~= nil
@@ -13,7 +56,7 @@ end
 
 lib.callback.register("mnr_fuel:server:InStation", inStation)
 
----@return number, number
+---@description DATA FOR CLIENT REQUESTS
 lib.callback.register("mnr_fuel:server:GetPlayerMoney", function(source)
 	local src = source
 	local cashMoney, bankMoney = server.GetPlayerMoney(src)
@@ -21,30 +64,7 @@ lib.callback.register("mnr_fuel:server:GetPlayerMoney", function(source)
 	return cashMoney, bankMoney
 end)
 
----@param name string
-RegisterNetEvent("mnr_fuel:server:EnterStation", function(name)
-	local src = source
-    local station = stations[name]
-
-    if not station then return end
-    
-    local stationCoords = station.coords
-    local stationRadius = station.radius
-    local playerPed = GetPlayerPed(src)
-    local playerCoords = GetEntityCoords(playerPed)
-
-    if #(playerCoords - stationCoords) > stationRadius then return end
-
-    InStation[src] = name
-end)
-
-RegisterNetEvent("mnr_fuel:server:ExitStation", function()
-	local src = source
-    InStation[src] = nil
-end)
-
----@param netID number
----@param fuelAmount number
+---@description REFUEL HANDLING
 local function setFuel(netID, fuelAmount)
 	local vehicle = NetworkGetEntityFromNetworkId(netID)
 	if vehicle == 0 or GetEntityType(vehicle) ~= 2 then return end
@@ -57,18 +77,13 @@ local function setFuel(netID, fuelAmount)
 	vehicleState:set("fuel", fuel, true)
 end
 
----@param purchase string
----@param method string
----@param total number
----@param amount number
----@param netId number
 RegisterNetEvent("mnr_fuel:server:ElaborateAction", function(purchase, method, total, amount, netId)
 	local src = source
 	if not inStation(src) then return end
 
 	local price = purchase == "fuel" and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
 	local playerMoney = server.GetPlayerMoney(src, method)
-	
+
 	if playerMoney < price then
 		return server.Notify(src, locale("notify.not-enough-money"), "error")
 	end

@@ -1,9 +1,7 @@
 local config = lib.load("config.config")
-local stations = lib.load("config.stations")
 local utils = require "client.utils"
 local state = require "client.state"
 
-local Blips = {}
 local FuelEntities = { nozzle = nil, rope = nil }
 
 ---@description TARGET EVENTS
@@ -209,35 +207,10 @@ AddEventHandler("onResourceStop", function(resourceName)
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
 
 	target.RemoveGlobalVehicle()
-
-	for _, blip in pairs(Blips) do
-		RemoveBlip(blip)
-	end
 end)
-
----@description INITIALIZATION FUNCTIONS
-local function CreateStation(name, data)
-	lib.zones.sphere({
-		coords = data.coords,
-		radius = data.radius,
-		onEnter = function(self)
-			TriggerServerEvent("mnr_fuel:server:EnterStation", name)
-		end,
-		onExit = function(self)
-			TriggerServerEvent("mnr_fuel:server:ExitStation")
-		end,
-		debug = data.debug,
-	})
-
-	Blips[name] = utils.CreateBlip(data.coords, data.type == "ev")
-end
 
 ---@description INITIALIZATION
 state:init()
-
-for name, data in pairs(stations) do
-	CreateStation(name, data)
-end
 
 target.AddGlobalVehicle()
 
