@@ -26,7 +26,7 @@ function target.AddGlobalVehicle()
                     return not state.refueling and state.holding == "jerrycan"
                 end,
                 action = function(entity)
-                    TriggerEvent("mnr_fuel:client:RefuelVehicleFromJerrycan", {entity = vehNetID})
+                    TriggerEvent("mnr_fuel:client:RefuelVehicleFromJerrycan", {entity = entity})
                 end,
             },
         },
