@@ -1,6 +1,8 @@
 -- code by (https://github.com/overextended/ox_fuel)
 -- with a little but unwanted simplification (https://github.com/overextended/ox_fuel/pull/110)
 
+local utils = require "client.utils"
+
 SetFuelConsumptionState(true)
 SetFuelConsumptionRateMultiplier(10.0)
 
@@ -18,8 +20,7 @@ local function startFuelConsumption()
 
 	local vehState = Entity(vehicle).state
 	if not vehState.fuel then
-		vehState:set("fuel", GetVehicleFuelLevel(vehicle), true)
-		while not vehState.fuel do Wait(0) end
+		utils.InitFuelState(vehicle)
 	end
 
 	SetVehicleFuelLevel(vehicle, vehState.fuel)

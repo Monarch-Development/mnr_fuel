@@ -65,9 +65,11 @@ lib.callback.register("mnr_fuel:server:GetPlayerMoney", function(source)
 end)
 
 ---@description REFUEL HANDLING
-local function setFuel(netID, fuelAmount)
-	local vehicle = NetworkGetEntityFromNetworkId(netID)
-	if vehicle == 0 or GetEntityType(vehicle) ~= 2 then return end
+local function setFuel(netId, fuelAmount)
+	local vehicle = GetEntityType(vehicle) ~= 2 and NetToVeh(netId)
+	if not vehicle or vehicle == 0 then
+		return
+	end
 
 	local vehicleState = Entity(vehicle)?.state
 	local fuelLevel = vehicleState.fuel
@@ -100,18 +102,21 @@ RegisterNetEvent("mnr_fuel:server:ElaborateAction", function(purchase, method, t
 	end
 end)
 
-RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(data)
+RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
 	local src = source
-	if not data.entity then return end
+
+	local vehicle = GetEntityType(vehicle) ~= 2 and NetToVeh(netId)
+	if not vehicle or vehicle == 0 then
+		return
+	end
 
 	local item, durability = inventory.GetJerrycan(src)
-	if not item or item.name ~= "WEAPON_PETROLCAN" then return end
+	if not item or item.name ~= "WEAPON_PETROLCAN" then
+		return
+	end
 
-	local vehicle = NetworkGetEntityFromNetworkId(data.entity)
-	if vehicle == 0 or GetEntityType(vehicle) ~= 2 then return end
-
-	local vehicleState = Entity(vehicle)?.state
-	local fuelLevel = math.ceil(vehicleState.fuel)
+	local vehState = Entity(vehicle)?.state
+	local fuelLevel = math.ceil(vehState.fuel)
 	local requiredFuel = 100 - fuelLevel
 	if requiredFuel <= 0 then
 		server.Notify(src, locale("notify.vehicle-full"), "error")
@@ -119,11 +124,13 @@ RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(data)
 	end
 
 	local item, durability = inventory.GetJerrycan(src)
-	if not item or durability <= 0 then return end
+	if not item or durability <= 0 then
+		return
+	end
 
 	local newDurability = math.floor(durability - requiredFuel)
 	inventory.UpdateJerrycan(src, item, newDurability)
 
-	setFuel(data.entity, requiredFuel)
-	TriggerClientEvent("mnr_fuel:client:PlayRefuelAnim", src, {netId = data.entity, amount = requiredFuel}, false)
+	setFuel(netId, requiredFuel)
+	TriggerClientEvent("mnr_fuel:client:PlayRefuelAnim", src, {netId = netId, amount = requiredFuel}, false)
 end)

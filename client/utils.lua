@@ -8,6 +8,16 @@ function utils.DeleteFuelEntities(nozzle, rope)
     DeleteRope(rope)
 end
 
+function utils.InitFuelState(vehicle)
+    local vehState = Entity(vehicle).state
+    
+    vehState:set("fuel", GetVehicleFuelLevel(vehicle), true)
+
+    while not vehState.fuel do
+        Wait(0)
+    end
+end
+
 function utils.RotateOffset(offset, heading)
     local rad = math.rad(heading)
     local cosH = math.cos(rad)

@@ -147,6 +147,20 @@ RegisterNetEvent("mnr_fuel:client:RefuelVehicle", function(data)
 	SecondaryMenu("fuel", data.entity, fuelAmount)
 end)
 
+RegisterNetEvent("mnr_fuel:client:RefuelVehicleFromJerrycan", function(data)
+	if not data.entity or state.refueling and not state.holding == "jerrycan" then return end
+
+	local vehicle = data.entity
+	local vehState = Entity(vehicle).state
+	if not vehState.fuel then
+		utils.InitFuelState(vehicle)
+	end
+
+	local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
+
+	TriggerServerEvent("mnr_fuel:server:RefuelVehicle", netId)
+end)
+
 RegisterNetEvent("mnr_fuel:client:BuyJerrycan", function(data)
 	if not data.entity or state.refueling and not (state.holding ~= "fv_nozzle" and state.holding ~= "ev_nozzle") then return end
 	if not lib.callback.await("mnr_fuel:server:InStation") then return end

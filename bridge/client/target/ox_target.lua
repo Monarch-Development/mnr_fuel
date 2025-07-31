@@ -25,7 +25,7 @@ function target.AddGlobalVehicle()
             canInteract = function()
                 return not state.refueling and state.holding == "jerrycan"
             end,
-            serverEvent = "mnr_fuel:server:RefuelVehicle"
+            event = "mnr_fuel:client:RefuelVehicleFromJerrycan"
         },
     })
 end
