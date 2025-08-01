@@ -66,7 +66,7 @@ end)
 
 ---@description REFUEL HANDLING
 local function setFuel(netId, fuelAmount)
-	local vehicle = GetEntityType(vehicle) ~= 2 and NetToVeh(netId)
+	local vehicle = GetEntityType(vehicle) == 2 and NetToVeh(netId)
 	if not vehicle or vehicle == 0 then
 		return
 	end
@@ -105,7 +105,7 @@ end)
 RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
 	local src = source
 
-	local vehicle = GetEntityType(vehicle) ~= 2 and NetToVeh(netId)
+	local vehicle = GetEntityType(vehicle) == 2 and NetToVeh(netId)
 	if not vehicle or vehicle == 0 then
 		return
 	end
