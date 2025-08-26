@@ -79,6 +79,38 @@ local function setFuel(netId, fuelAmount)
 	vehicleState:set("fuel", fuel, true)
 end
 
+local function purchaseJerrycan(src, method, price)
+	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+	if weapon and weapon.name == 'WEAPON_PETROLCAN' then
+    	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+		if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
+		    return
+		end
+
+		if weapon.metadata.durability > 0 then
+		    server.Notify(src, locale('notify.jerrycan-not-empty'), 'error')
+		    return
+		end
+
+		if not server.PayMoney(src, method, price) then
+		    return
+		end
+
+		exports.ox_inventory:SetMetadata(src, weapon.slot, { durability = 100, ammo = 100 })
+	else
+    	if not exports.ox_inventory:CanCarryItem(src, 'WEAPON_PETROLCAN', 1, { weight = 4000 + 15000 }) then
+    		server.Notify(src, locale('notify.not-enough-space'), 'error')
+    		return
+		end
+
+		if not server.PayMoney(src, method, price) then
+		    return
+		end
+
+		exports.ox_inventory:AddItem(src, 'WEAPON_PETROLCAN', 1, { durability = 100, ammo = 100 })
+	end
+end
+
 RegisterNetEvent("mnr_fuel:server:ElaborateAction", function(purchase, method, total, amount, netId)
 	local src = source
 	if not inStation(src) then return end
@@ -98,11 +130,11 @@ RegisterNetEvent("mnr_fuel:server:ElaborateAction", function(purchase, method, t
 
 		TriggerClientEvent("mnr_fuel:client:PlayRefuelAnim", src, {netId = netId, amount = fuelAmount}, true)
 	elseif purchase == "jerrycan" then
-		jerrycan.purchase(src, method, price)
+		purchaseJerrycan(src, method, price)
 	end
 end)
 
-RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
+RegisterNetEvent('mnr_fuel:server:RefuelVehicle', function(netId)
 	local src = source
 
 	local vehicle = NetworkGetEntityFromNetworkId(netId)
@@ -110,13 +142,6 @@ RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
 		return
 	end
 
-	---@todo Test Inversion [BLOCK 1]
-	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
-	if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
-		return
-	end
-
-	---@todo Test Inversion [BLOCK 2]
 	local vehState = Entity(vehicle)?.state
 	local fuelLevel = math.ceil(vehState.fuel)
 	local requiredFuel = 100 - fuelLevel
@@ -125,12 +150,16 @@ RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
 		return
 	end
 
-	local item, durability = inventory.GetJerrycan(src)
-	if not item or durability <= 0 then
+	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+	if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
 		return
 	end
 
-	local newDurability = math.floor(durability - requiredFuel)
+	if weapon.metadata.durability <= 0 then
+		return
+	end
+
+	local newDurability = math.floor(weapon.metadata.durability - requiredFuel)
 	exports.ox_inventory:SetMetadata(src, item.slot, {durability = newDurability, ammo = newDurability})
 
 	setFuel(netId, requiredFuel)
