@@ -1,17 +1,16 @@
----@description UPDATE-RENAME CHECKER
---- This part of the script is used to detect script updates and the correct
---- rename of it to avoid problems with exports (if any).
-
 ---@diagnostic disable
+---@description UPDATE-RENAME-DEPENDENCIES CHECKER (DON'T DELETE)
+--- If you are here means you had an error called from here, install the dependencies or
+--- rename the script with the correct name to avoid the error and use the script
 
-local ExpectedName = GetResourceMetadata(GetCurrentResourceName(), "name")
+assert(GetResourceState('ox_lib') == 'started', 'ox_lib not found or not started before this script, install or start before ox_lib')
 
-lib.versionCheck(("Monarch-Development/%s"):format(ExpectedName))
+local expectedName = GetResourceMetadata(GetCurrentResourceName(), 'name')
 
-AddEventHandler("onResourceStart", function(resourceName)
+lib.versionCheck(('Monarch-Development/%s'):format(expectedName))
+
+AddEventHandler('onResourceStart', function(resourceName)
     if GetCurrentResourceName() ~= resourceName then return end
 
-    if GetCurrentResourceName() ~= ExpectedName then
-        print(("^1[WARNING]: The resource name is incorrect. Please set it to %s.^0"):format(ExpectedName))
-    end
+    assert(GetCurrentResourceName() == expectedName, ('The resource name is incorrect. Please set it to %s.^0'):format(expectedName))
 end)

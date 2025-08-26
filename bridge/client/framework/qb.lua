@@ -1,8 +1,8 @@
 ---@diagnostic disable: duplicate-set-field, lowercase-global
 
-if GetResourceState("qb-core") ~= "started" then return end
+if GetResourceState('qb-core') ~= 'started' then return end
 
-local QBCore = exports["qb-core"]:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject()
 
 client = {}
 

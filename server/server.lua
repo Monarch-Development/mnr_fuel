@@ -2,7 +2,7 @@ local config = lib.load('config.config')
 local zones = lib.load('config.zones')
 
 local InStation = {}
-GlobalState:set("fuelPrice", config.fuelPrice, true)
+GlobalState:set('fuelPrice', config.fuelPrice, true)
 
 local function inside(coords, name)
     local zone = zones[name]
@@ -26,10 +26,10 @@ local function inside(coords, name)
     return math.abs(localX) <= halfSize.x and math.abs(localY) <= halfSize.y and math.abs(localZ) <= halfSize.z
 end
 
-RegisterNetEvent("mnr_fuel:server:RegisterEntry", function(name)
+RegisterNetEvent('mnr_fuel:server:RegisterEntry', function(name)
 	local src = source
 
-	if not type(name) == "string" or not zones[name] then return end
+	if not type(name) == 'string' or not zones[name] then return end
 
 	if InStation[src] == name then
 		InStation[src] = nil
@@ -50,10 +50,10 @@ local function inStation(source)
 	return InStation[src] ~= nil
 end
 
-lib.callback.register("mnr_fuel:server:InStation", inStation)
+lib.callback.register('mnr_fuel:server:InStation', inStation)
 
 ---@description DATA FOR CLIENT REQUESTS
-lib.callback.register("mnr_fuel:server:GetPlayerMoney", function(source)
+lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
 	local src = source
 	local cashMoney, bankMoney = server.GetPlayerMoney(src)
 
@@ -72,7 +72,7 @@ local function setFuel(netId, fuelAmount)
 
 	local fuel = math.min(fuelLevel + fuelAmount, 100)
 
-	vehicleState:set("fuel", fuel, true)
+	vehicleState:set('fuel', fuel, true)
 end
 
 local function purchaseJerrycan(src, method, price)
@@ -107,25 +107,25 @@ local function purchaseJerrycan(src, method, price)
 	end
 end
 
-RegisterNetEvent("mnr_fuel:server:ElaborateAction", function(purchase, method, total, amount, netId)
+RegisterNetEvent('mnr_fuel:server:ElaborateAction', function(purchase, method, total, amount, netId)
 	local src = source
 	if not inStation(src) then return end
 
-	local price = purchase == "fuel" and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
+	local price = purchase == 'fuel' and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
 	local playerMoney = server.GetPlayerMoney(src, method)
 
 	if playerMoney < price then
-		return server.Notify(src, locale("notify.not-enough-money"), "error")
+		return server.Notify(src, locale('notify.not-enough-money'), 'error')
 	end
 
-	if purchase == "fuel" then
+	if purchase == 'fuel' then
 		if not server.PayMoney(src, method, price) then return end
 
 		local fuelAmount = math.floor(amount)
 		setFuel(netId, fuelAmount)
 
-		TriggerClientEvent("mnr_fuel:client:PlayRefuelAnim", src, {netId = netId, amount = fuelAmount}, true)
-	elseif purchase == "jerrycan" then
+		TriggerClientEvent('mnr_fuel:client:PlayRefuelAnim', src, {netId = netId, amount = fuelAmount}, true)
+	elseif purchase == 'jerrycan' then
 		purchaseJerrycan(src, method, price)
 	end
 end)
@@ -142,7 +142,7 @@ RegisterNetEvent('mnr_fuel:server:RefuelVehicle', function(netId)
 	local fuelLevel = math.ceil(vehState.fuel)
 	local requiredFuel = 100 - fuelLevel
 	if requiredFuel <= 0 then
-		server.Notify(src, locale("notify.vehicle-full"), "error")
+		server.Notify(src, locale('notify.vehicle-full'), 'error')
 		return
 	end
 
@@ -159,5 +159,5 @@ RegisterNetEvent('mnr_fuel:server:RefuelVehicle', function(netId)
 	exports.ox_inventory:SetMetadata(src, item.slot, {durability = newDurability, ammo = newDurability})
 
 	setFuel(netId, requiredFuel)
-	TriggerClientEvent("mnr_fuel:client:PlayRefuelAnim", src, {netId = netId, amount = requiredFuel}, false)
+	TriggerClientEvent('mnr_fuel:client:PlayRefuelAnim', src, {netId = netId, amount = requiredFuel}, false)
 end)

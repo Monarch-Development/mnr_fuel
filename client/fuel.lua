@@ -1,7 +1,7 @@
 -- code by (https://github.com/overextended/ox_fuel)
 -- with a little but unwanted simplification (https://github.com/overextended/ox_fuel/pull/110)
 
-local utils = require "client.utils"
+local utils = require 'client.utils'
 
 SetFuelConsumptionState(true)
 SetFuelConsumptionRateMultiplier(10.0)
@@ -10,7 +10,7 @@ local function setFuel(vehState, vehicle, amount, replicate)
     if not DoesEntityExist(vehicle) then return end
 	
 	SetVehicleFuelLevel(vehicle, amount)
-	vehState:set("fuel", amount, replicate)
+	vehState:set('fuel', amount, replicate)
 end
 
 local function startFuelConsumption()
@@ -55,7 +55,7 @@ end
 
 if cache.seat == -1 then CreateThread(startFuelConsumption) end
 
-lib.onCache("seat", function(seat)
+lib.onCache('seat', function(seat)
     if seat == -1 then
         SetTimeout(0, startFuelConsumption)
     end

@@ -1,191 +1,191 @@
 return {
-    ["A01"] = { --[[Globe Oil | Alta Street]]
+    ['A01'] = { --[[Globe Oil | Alta Street]]
         coords = vec3(-319.4735, -1471.9589, 33.00),
         size = vec3(30.00, 20.00, 7.00),
         rotation = 30.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A02"] = { --[[Globe Oil | Clinton Avenue]]
+    ['A02'] = { --[[Globe Oil | Clinton Avenue]]
         coords = vec3(620.9170, 268.8990, 105.00),
         size = vec3(22.00, 35.00, 7.00),
         rotation = 90.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A03"] = { --[[Globe Oil | Harmony]]
+    ['A03'] = { --[[Globe Oil | Harmony]]
         coords = vec3(1208.5097, 2659.4279, 39.00),
         size = vec3(12.00, 17.00, 5.00),
         rotation = 45.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A04"] = { --[[Globe Oil | Paleto]]
+    ['A04'] = { --[[Globe Oil | Paleto]]
         coords = vec3(1701.7243, 6416.4829, 34.00),
         size = vec3(15.00, 20.00, 6.00),
         rotation = 65.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A05"] = { --[[Globe Oil | Rex's Diner]]
+    ['A05'] = { --[[Globe Oil | Rex's Diner]]
         coords = vec3(2539.7944, 2594.8078, 39.00),
         size = vec3(15.00, 15.00, 5.00),
         rotation = 25.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A06"] = { --[[Globe Oil | Route 68]]
+    ['A06'] = { --[[Globe Oil | Route 68]]
         coords = vec3(1038.6393, 2670.8201, 41.00),
         size = vec3(19.00, 20.00, 6.00),
         rotation = 270.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A07"] = { --[[Globe Oil | Route 68 Workshop]]
+    ['A07'] = { --[[Globe Oil | Route 68 Workshop]]
         coords = vec3(264.0419, 2606.9702, 46.00),
         size = vec3(20.00, 15.00, 5.00),
         rotation = 10.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A08"] = { --[[Globe Oil | Sandy Shores]]
+    ['A08'] = { --[[Globe Oil | Sandy Shores]]
         coords = vec3(1785.8026, 3330.2847, 43.00),
         size = vec3(12.00, 15.00, 6.00),
         rotation = 215.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A09"] = { --[[LTD | Grapeseed]]
+    ['A09'] = { --[[LTD | Grapeseed]]
         coords = vec3(1687.3678, 4929.5850, 44.00),
         size = vec3(19.00, 15.00, 6.00),
         rotation = 325.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A10"] = { --[[LTD | Groove Street]]
+    ['A10'] = { --[[LTD | Groove Street]]
         coords = vec3(-70.7294, -1761.7605, 32.00),
         size = vec3(12.00, 30.00, 8.00),
         rotation = 250.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A11"] = { --[[LTD | Little Seoul]]
+    ['A11'] = { --[[LTD | Little Seoul]]
         coords = vec3(-723.8441, -935.5363, 21.00),
         size = vec3(20.00, 30.00, 7.00),
         rotation = 90.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A12"] = { --[[LTD | Mirror Park]]
+    ['A12'] = { --[[LTD | Mirror Park]]
         coords = vec3(1180.7856, -327.5051, 71.00),
         size = vec3(20.00, 32.00, 7.00),
         rotation = 10.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A13"] = { --[[LTD | North Rockford]]
+    ['A13'] = { --[[LTD | North Rockford]]
         coords = vec3(-1799.7219, 803.1752, 140.00),
         size = vec3(20.00, 33.00, 8.00),
         rotation = 308.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A14"] = { --[[Ron | Capital Blvd]]
+    ['A14'] = { --[[Ron | Capital Blvd]]
         coords = vec3(1208.4717, -1402.3417, 37.00),
         size = vec3(15.00, 20.00, 6.00),
         rotation = 225.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A15"] = { --[[Ron | Davis Avenue]]
+    ['A15'] = { --[[Ron | Davis Avenue]]
         coords = vec3(175.4103, -1561.7323, 31.50),
         size = vec3(20.00, 22.00, 7.00),
         rotation = 132.50,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A16"] = { --[[Ron | North Rockford]]
+    ['A16'] = { --[[Ron | North Rockford]]
         coords = vec3(-1436.8403, -276.8882, 48.00),
         size = vec3(20.00, 25.00, 7.00),
         rotation = 40.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A17"] = { --[[Ron | Paleto]]
+    ['A17'] = { --[[Ron | Paleto]]
         coords = vec3(162.2254, 6604.8882, 34.00),
         size = vec3(60.00, 70.00, 7.00),
         rotation = 45.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A18"] = { --[[Ron | Palmino Freeway]]
+    ['A18'] = { --[[Ron | Palmino Freeway]]
         coords = vec3(2580.8799, 361.7864, 111.00),
         size = vec3(20.00, 33.00, 8.00),
         rotation = 267.50,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A19"] = { --[[Ron | Popular Street]]
+    ['A19'] = { --[[Ron | Popular Street]]
         coords = vec3(819.6821, -1028.6316, 29.00),
         size = vec3(20.00, 30.00, 8.00),
         rotation = 270.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A20"] = { --[[Ron | Route 68]]
+    ['A20'] = { --[[Ron | Route 68]]
         coords = vec3(-2555.2881, 2334.2251, 35.00),
         size = vec3(30.00, 25.00, 7.00),
         rotation = 275.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A21"] = { --[[Xero | Dutch London]]
+    ['A21'] = { --[[Xero | Dutch London]]
         coords = vec3(-525.3783, -1211.3749, 20.00),
         size = vec3(20.00, 22.00, 7.00),
         rotation = 245.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A22"] = { --[[Xero | Great Ocean]]
+    ['A22'] = { --[[Xero | Great Ocean]]
         coords = vec3(-2096.8140, -320.1179, 15.00),
         size = vec3(30.00, 25.00, 7.00),
         rotation = 355.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A23"] = { --[[Xero | Paleto Blvd]]
+    ['A23'] = { --[[Xero | Paleto Blvd]]
         coords = vec3(-93.9469, 6419.9297, 33.00),
         size = vec3(13.00, 17.00, 7.00),
         rotation = 135.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A24"] = { --[[Xero | Route 68]]
+    ['A24'] = { --[[Xero | Route 68]]
         coords = vec3(49.5958, 2779.0056, 59.00),
         size = vec3(15.00, 15.00, 6.00),
         rotation = 52.50,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A25"] = { --[[Xero | Sandy Shores]]
+    ['A25'] = { --[[Xero | Sandy Shores]]
         coords = vec3(2005.2441, 3774.3682, 34.00),
         size = vec3(15.00, 20.00, 6.00),
         rotation = 120.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A26"] = { --[[Xero | Senora Freeway]]
+    ['A26'] = { --[[Xero | Senora Freeway]]
         coords = vec3(2679.4157, 3264.4072, 57.00),
         size = vec3(20.00, 20.00, 6.00),
         rotation = 150.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
-    ["A27"] = { --[[Xero | Strawberry Avenue]]
+    ['A27'] = { --[[Xero | Strawberry Avenue]]
         coords = vec3(265.0627, -1261.2980, 32.00),
         size = vec3(33.00, 23.00, 8.00),
         rotation = 0.00,
         debug = false,
-        type = "fv",
+        type = 'fv',
     },
 }
