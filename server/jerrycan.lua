@@ -2,16 +2,22 @@ local jerrycan = {}
 
 function jerrycan.refill(source, method, price)
     local src = source
-    local item, durability = inventory.GetJerrycan(src)
-    if not item or item.name ~= "WEAPON_PETROLCAN" then return end
 
-    if durability > 0 then
-        return server.Notify(src, locale("notify.jerrycan-not-empty"), "error")
+    local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+    if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
+        return
     end
 
-    if not server.PayMoney(src, method, price) then return end
+    if weapon.metadata.durability > 0 then
+        server.Notify(src, locale("notify.jerrycan-not-empty"), "error")
+        return
+    end
 
-    inventory.UpdateJerrycan(src, item, 100)
+    if not server.PayMoney(src, method, price) then
+        return
+    end
+
+    exports.ox_inventory:SetMetadata(src, weapon.slot, {durability = 100, ammo = 100})
 end
 
 function jerrycan.buy(source, method, price)
@@ -27,8 +33,9 @@ end
 
 function jerrycan.purchase(source, method, price)
     local src = source
-    local item = inventory.GetJerrycan(src)
-    if item and item.name == "WEAPON_PETROLCAN" then
+
+    local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+    if weapon and weapon.name == 'WEAPON_PETROLCAN' then
         return jerrycan.refill(src, method, price)
     else
         return jerrycan.buy(src, method, price)

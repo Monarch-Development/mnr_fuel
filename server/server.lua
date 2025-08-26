@@ -110,11 +110,13 @@ RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
 		return
 	end
 
-	local item, durability = inventory.GetJerrycan(src)
-	if not item or item.name ~= "WEAPON_PETROLCAN" then
+	---@todo Test Inversion [BLOCK 1]
+	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+	if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
 		return
 	end
 
+	---@todo Test Inversion [BLOCK 2]
 	local vehState = Entity(vehicle)?.state
 	local fuelLevel = math.ceil(vehState.fuel)
 	local requiredFuel = 100 - fuelLevel
@@ -129,7 +131,7 @@ RegisterNetEvent("mnr_fuel:server:RefuelVehicle", function(netId)
 	end
 
 	local newDurability = math.floor(durability - requiredFuel)
-	inventory.UpdateJerrycan(src, item, newDurability)
+	exports.ox_inventory:SetMetadata(src, item.slot, {durability = newDurability, ammo = newDurability})
 
 	setFuel(netId, requiredFuel)
 	TriggerClientEvent("mnr_fuel:client:PlayRefuelAnim", src, {netId = netId, amount = requiredFuel}, false)
