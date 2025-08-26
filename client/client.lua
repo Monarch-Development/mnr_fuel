@@ -72,9 +72,12 @@ RegisterNetEvent("mnr_fuel:client:ReturnNozzle", function(data, pumpType)
 end)
 
 local function SecondaryMenu(purchase, vehicle, amount)
-	if not lib.callback.await("mnr_fuel:server:InStation") then return end
-	local totalCost = (purchase == "fuel") and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
-	local vehNetID = (purchase == "fuel") and NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
+	if not lib.callback.await("mnr_fuel:server:InStation") then
+		return
+	end
+
+	local totalCost = (purchase == 'fuel') and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
+	local vehNetID = (purchase == 'fuel') and NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
 	local cashMoney, bankMoney = lib.callback.await("mnr_fuel:server:GetPlayerMoney", false)
 
 	lib.registerContext({
@@ -124,27 +127,54 @@ local function SecondaryMenu(purchase, vehicle, amount)
 	lib.showContext("mnr_fuel:menu:confirm")
 end
 
-RegisterNetEvent("mnr_fuel:client:RefuelVehicle", function(data)
-	if not data.entity or state.refueling and not (state.holding == "fv_nozzle" or state.holding == "ev_nozzle") then return end
-	if not lib.callback.await("mnr_fuel:server:InStation") then return end
-
-	local isElectric = GetIsVehicleElectric(GetEntityModel(data.entity))
-	if state.holding == "ev_nozzle" and not isElectric then return client.Notify(locale("notify.not-ev"), "error") end
-	if state.holding == "fv_nozzle" and isElectric then return client.Notify(locale("notify.not-fv"), "error") end
-
-	local vehicleState = Entity(data.entity).state
-	local currentFuel = math.ceil(vehicleState.fuel or GetVehicleFuelLevel(data.entity))
-
-	local input = lib.inputDialog(locale("input.select-amount"), {
-		{type = "slider", label = locale("input.select-amount"), default = currentFuel, min = currentFuel, max = 100},
+local function inputDialog(fuel)
+	return lib.inputDialog(locale('input.select-amount'), {
+		{
+			type = 'slider',
+			label = locale('input.select-amount'),
+			default = fuel,
+			min = fuel,
+			max = 100,
+		}
 	})
-	if not input then return end
+end
 
-	local inputFuel = tonumber(input[1])
-	local fuelAmount = inputFuel - currentFuel
-	if not fuelAmount or fuelAmount <= 0 then client.Notify(locale("notify.vehicle-full"), "error") return end
+RegisterNetEvent('mnr_fuel:client:RefuelVehicle', function(data)
+	if not DoesEntityExist(data.entity) then
+		return
+	end
 
-	SecondaryMenu("fuel", data.entity, fuelAmount)
+	if state.refueling and not (state.holding == 'fv_nozzle' or state.holding == 'ev_nozzle') then
+		return
+	end
+
+	if not lib.callback.await('mnr_fuel:server:InStation') then
+		return
+	end
+
+	local electric = GetIsVehicleElectric(GetEntityModel(data.entity))
+	if state.holding == 'ev_nozzle' and not electric then
+		client.Notify(locale('notify.not-ev'), 'error')
+		return
+	elseif state.holding == 'fv_nozzle' and electric then
+		client.Notify(locale('notify.not-fv'), 'error')
+		return
+	end
+
+	local vehState = Entity(data.entity).state
+	local fuel = math.ceil(vehState.fuel or GetVehicleFuelLevel(data.entity))
+
+	local input = inputDialog(fuel)
+	if not input then
+		return
+	end
+
+	local amount = tonumber(input[1]) - fuel
+	if not amount or amount <= 0 then
+		return
+	end
+
+	SecondaryMenu('fuel', data.entity, amount)
 end)
 
 RegisterNetEvent("mnr_fuel:client:RefuelVehicleFromJerrycan", function(data)
@@ -220,14 +250,77 @@ AddEventHandler("onResourceStop", function(resourceName)
 
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
 
-	target.RemoveGlobalVehicle()
+	exports.ox_target:removeGlobalVehicle({'mnr_fuel:vehicle:option_1', 'mnr_fuel:vehicle:option_2'})
 end)
 
 ---@description INITIALIZATION
 state:init()
 
-target.AddGlobalVehicle()
+local function createTargetData(ev)
+	return {
+		{
+    		label = locale(ev and 'target.take-charger' or 'target.take-nozzle'),
+    		name = 'mnr_fuel:pump:option_1',
+    		icon = ev and 'fas fa-bolt' or 'fas fa-gas-pump',
+    		distance = 3.0,
+    		canInteract = function()
+    		    return not state.refueling and state.holding == 'null'
+    		end,
+    		onSelect = function(data)
+    		    TriggerEvent('mnr_fuel:client:TakeNozzle', data, ev and 'ev' or 'fv')
+    		end,
+		},
+		{
+    		label = locale(ev and 'target.return-charger' or 'target.return-nozzle'),
+    		name = 'mnr_fuel:pump:option_2',
+    		icon = 'fas fa-hand',
+    		distance = 3.0,
+    		canInteract = function()
+    		    return not state.refueling and (state.holding == 'fv_nozzle' or state.holding == 'ev_nozzle')
+    		end,
+    		onSelect = function(data)
+    		    TriggerEvent('mnr_fuel:client:ReturnNozzle', data, ev and 'ev' or 'fv')
+    		end,
+		},
+		{
+		    label = locale('target.buy-jerrycan'),
+		    name = 'mnr_fuel:pump:option_3',
+		    icon = 'fas fa-fire-flame-simple',
+		    distance = 3.0,
+		    canInteract = function()
+		        return not state.refueling and (state.holding ~= 'fv_nozzle' and state.holding ~= 'ev_nozzle')
+		    end,
+		    onSelect = function(data)
+		        TriggerEvent('mnr_fuel:client:BuyJerrycan', data)
+		    end,
+		},
+	}
+end
+
+exports.ox_target:addGlobalVehicle({
+    {
+        label = locale('target.refuel-nozzle'),
+        name = 'mnr_fuel:vehicle:option_1',
+        icon = 'fas fa-gas-pump',
+        distance = 1.5,
+        canInteract = function()
+            return not state.refueling and (state.holding == 'fv_nozzle' or state.holding == 'ev_nozzle')
+        end,
+        event = 'mnr_fuel:client:RefuelVehicle'
+    },
+    {
+        label = locale('target.refuel-jerrycan'),
+        name = 'mnr_fuel:vehicle:option_1',
+        icon = 'fas fa-gas-pump',
+        canInteract = function()
+            return not state.refueling and state.holding == 'jerrycan'
+        end,
+        event = 'mnr_fuel:client:RefuelVehicleFromJerrycan'
+    },
+})
 
 for model, data in pairs(config.pumps) do
-	target.AddModel(model, data.type == "ev")
+	local targetData = createTargetData(data.type == 'ev')
+
+	exports.ox_target:addModel(model, targetData)
 end

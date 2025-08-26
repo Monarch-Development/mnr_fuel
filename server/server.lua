@@ -1,13 +1,9 @@
----@description MODULES/DATA LOADING
-local config = lib.load("config.config")
-local zones = lib.load("config.zones")
-local jerrycan = require "server.jerrycan"
+local config = lib.load('config.config')
+local zones = lib.load('config.zones')
 
----@description INIT
 local InStation = {}
 GlobalState:set("fuelPrice", config.fuelPrice, true)
 
----@description ZONE ENTER/EXIT/INSIDE HANDLING
 local function inside(coords, name)
     local zone = zones[name]
     if not zone then
