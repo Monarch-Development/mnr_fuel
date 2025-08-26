@@ -1,6 +1,5 @@
-local config = lib.load("config.config")
-local utils = require "client.utils"
-local state = require "client.state"
+local config = lib.load('config.config')
+local utils = require 'client.utils'
 
 local refueling = false
 local holding = false
@@ -269,9 +268,6 @@ AddEventHandler("onResourceStop", function(resourceName)
 
 	exports.ox_target:removeGlobalVehicle({'mnr_fuel:vehicle:option_1', 'mnr_fuel:vehicle:option_2'})
 end)
-
----@description INITIALIZATION
-state:init()
 
 local function createTargetData(ev)
 	return {
