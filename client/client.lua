@@ -147,8 +147,9 @@ local function inputDialog(fuel)
 	})
 end
 
-RegisterNetEvent('mnr_fuel:client:RefuelVehicle', function(data)
-	if not DoesEntityExist(data.entity) then
+local function refuelVehicle(data, action)
+	local vehicle = data.entity
+	if not DoesEntityExist(vehicle) then
 		return
 	end
 
@@ -160,7 +161,7 @@ RegisterNetEvent('mnr_fuel:client:RefuelVehicle', function(data)
 		return
 	end
 
-	local electric = GetIsVehicleElectric(GetEntityModel(data.entity))
+	local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
 	if holding == 'ev_nozzle' and not electric then
 		client.Notify(locale('notify.not-ev'), 'error')
 		return
@@ -169,8 +170,12 @@ RegisterNetEvent('mnr_fuel:client:RefuelVehicle', function(data)
 		return
 	end
 
-	local vehState = Entity(data.entity).state
-	local fuel = math.ceil(vehState.fuel or GetVehicleFuelLevel(data.entity))
+	local vehState = Entity(vehicle).state
+	if not vehState.fuel then
+		utils.InitFuelState(vehicle)
+	end
+
+	local fuel = math.ceil(vehState.fuel)
 
 	local input = inputDialog(fuel)
 	if not input then
@@ -182,8 +187,8 @@ RegisterNetEvent('mnr_fuel:client:RefuelVehicle', function(data)
 		return
 	end
 
-	SecondaryMenu('fuel', data.entity, amount)
-end)
+	SecondaryMenu('fuel', vehicle, amount)
+end
 
 RegisterNetEvent('mnr_fuel:client:RefuelVehicleFromJerrycan', function(data)
 	if not data.entity or refueling and not holding == 'jerrycan' then
@@ -308,7 +313,9 @@ exports.ox_target:addGlobalVehicle({
         canInteract = function()
             return not refueling and (holding == 'fv_nozzle' or holding == 'ev_nozzle')
         end,
-        event = 'mnr_fuel:client:RefuelVehicle'
+		onSelect = function(data)
+			refuelVehicle(data, 'fuel')
+		end,
     },
     {
         label = locale('target.refuel-jerrycan'),
