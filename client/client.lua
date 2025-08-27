@@ -90,87 +90,36 @@ local function returnNozzle(data, pumpType)
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
 end
 
-local function SecondaryMenu(purchase, vehicle, amount)
-	if not lib.callback.await('mnr_fuel:server:InStation') then
-		return
-	end
+local function inputDialog(jerrycan, fuel, bankMoney, cashMoney)
+	local rows = {}
 
-	local totalCost = (purchase == 'fuel') and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
-	local vehNetID = (purchase == 'fuel') and NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
-	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-
-	lib.registerContext({
-		id = 'mnr_fuel:menu:payment',
-		title = locale('menu.payment-title'):format(totalCost),
+	rows[1] = {
+		type = 'number',
+		label = 'Price',
+		placeholder = jerrycan and config.jerrycanPrice or config.fuelPrice,
+		icon = 'dollar-sign',
+		disabled = true
+	},
+	rows[2] = { 
+		type = 'select',
+		label = 'Select Payment Method',
 		options = {
-			{
-				title = locale('menu.payment-bank'),
-				description = locale('menu.payment-bank-desc'):format(bankMoney),
-				icon = 'building-columns',
-				onSelect = function()
-					TriggerServerEvent('mnr_fuel:server:ElaborateAction', purchase, 'bank', totalCost, amount, vehNetID)
-				end,
-			},
-			{
-				title = locale('menu.payment-cash'),
-				description = locale('menu.payment-cash-desc'):format(cashMoney),
-				icon = 'money-bill',
-				onSelect = function()
-					TriggerServerEvent('mnr_fuel:server:ElaborateAction', purchase, 'cash', totalCost, amount, vehNetID)
-				end,
-			},
+			{ value = 'bank', label = ('Bank (%d$)'):format(bankMoney) },
+			{ value = 'cash', label = ('Cash (%d$)'):format(cashMoney) },
 		},
-	})
+	},
 
-	lib.registerContext({
-		id = 'mnr_fuel:menu:confirm',
-		title = locale('menu.confirm-title'):format(totalCost),
-		options = {
-			{
-				title = locale('menu.confirm-choice-title'),
-				menu = 'mnr_fuel:menu:payment',
-				icon = 'circle-check',
-				iconColor = '#4CAF50',
-			},
-			{
-				title = locale('menu.cancel-choice-title'),
-				icon = 'circle-xmark',
-				iconColor = '#FF0000',
-				onSelect = function()
-					lib.hideContext()
-				end,
-			},
-		},
-	})
-
-	lib.showContext('mnr_fuel:menu:confirm')
-end
-
-local function inputDialog(fuel, bankMoney, cashMoney)
-	return lib.inputDialog(locale('input.select-amount'), {
-		{
-			type = 'number',
-			label = 'Fuel Price ($/l)',
-			placeholder = config.fuelPrice,
-			icon = 'dollar-sign',
-			disabled = true,
-		},
-		{
+	if not jerrycan then
+		rows[3] = {
 			type = 'slider',
 			label = locale('input.select-amount'),
 			default = fuel,
 			min = fuel,
 			max = 100,
 		},
-		{ 
-			type = 'select',
-			label = 'Select Payment Method',
-			options = {
-				{ value = 'bank', label = ('Bank (%d$)'):format(bankMoney) },
-				{ value = 'cash', label = ('Cash (%d$)'):format(cashMoney) },
-			},
-		},
-	})
+	end
+
+	return lib.inputDialog(locale('input.select-amount'), rows)
 end
 
 local function refuelVehicle(data)
@@ -206,13 +155,13 @@ local function refuelVehicle(data)
     local fuel = math.ceil(vehState.fuel)
 
 	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-    local input = inputDialog(fuel, bankMoney, cashMoney)
+    local input = inputDialog(false, fuel, bankMoney, cashMoney)
     if not input then
 		return
 	end
 
-    local amount = tonumber(input[2]) - fuel
-	local method = input[3]
+	local method = input[2]
+    local amount = tonumber(input[3]) - fuel
     if not amount or amount <= 0 then
 		return
 	end
@@ -230,7 +179,14 @@ local function buyJerrycan(data)
 		return
 	end
 
-	SecondaryMenu('jerrycan')
+	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
+	local input = inputDialog(false, fuel, bankMoney, cashMoney)
+	if not input then
+		return
+	end
+
+	local method = input[2]
+	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'fuel', method)
 end
 
 RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
