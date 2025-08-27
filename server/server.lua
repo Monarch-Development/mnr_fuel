@@ -107,7 +107,7 @@ local function purchaseJerrycan(src, method, price)
 	end
 end
 
-RegisterNetEvent('mnr_fuel:server:ElaborateAction', function(purchase, method, total, amount, netId)
+RegisterNetEvent('mnr_fuel:server:ElaborateAction', function(purchase, method, amount, netId)
 	local src = source
 	if not inStation(src) then return end
 

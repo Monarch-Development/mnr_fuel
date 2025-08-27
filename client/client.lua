@@ -146,15 +146,30 @@ local function SecondaryMenu(purchase, vehicle, amount)
 	lib.showContext('mnr_fuel:menu:confirm')
 end
 
-local function inputDialog(fuel)
+local function inputDialog(fuel, bankMoney, cashMoney)
 	return lib.inputDialog(locale('input.select-amount'), {
+		{
+			type = 'number',
+			label = 'Fuel Price ($/l)',
+			placeholder = config.fuelPrice,
+			icon = 'dollar-sign',
+			disabled = true,
+		},
 		{
 			type = 'slider',
 			label = locale('input.select-amount'),
 			default = fuel,
 			min = fuel,
 			max = 100,
-		}
+		},
+		{ 
+			type = 'select',
+			label = 'Select Payment Method',
+			options = {
+				{ value = 'bank', label = ('Bank (%d$)'):format(bankMoney) },
+				{ value = 'cash', label = ('Cash (%d$)'):format(cashMoney) },
+			},
+		},
 	})
 end
 
@@ -190,13 +205,20 @@ local function refuelVehicle(data)
 
     local fuel = math.ceil(vehState.fuel)
 
-    local input = inputDialog(fuel)
-    if not input then return end
+	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
+    local input = inputDialog(fuel, bankMoney, cashMoney)
+    if not input then
+		return
+	end
 
-    local amount = tonumber(input[1]) - fuel
-    if not amount or amount <= 0 then return end
+    local amount = tonumber(input[2]) - fuel
+	local method = input[3]
+    if not amount or amount <= 0 then
+		return
+	end
 
-    SecondaryMenu('fuel', vehicle, amount)
+	local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
+	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'fuel', method, amount, netId)
 end
 
 local function buyJerrycan(data)
