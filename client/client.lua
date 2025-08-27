@@ -147,64 +147,46 @@ local function inputDialog(fuel)
 	})
 end
 
-local function refuelVehicle(data, action)
-	local vehicle = data.entity
-	if not DoesEntityExist(vehicle) then
-		return
-	end
+local function refuelVehicle(data)
+    if not data.entity or refueling then return end
 
-	if refueling and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then
-		return
-	end
+    local vehicle = data.entity
+    if not DoesEntityExist(vehicle) then return end
 
-	if not lib.callback.await('mnr_fuel:server:InStation') then
-		return
-	end
+    local vehState = Entity(vehicle).state
+    if not vehState.fuel then
+        utils.InitFuelState(vehicle)
+    end
 
-	local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
-	if holding == 'ev_nozzle' and not electric then
-		client.Notify(locale('notify.not-ev'), 'error')
-		return
-	elseif holding == 'fv_nozzle' and electric then
-		client.Notify(locale('notify.not-fv'), 'error')
-		return
-	end
+    if holding == 'jerrycan' then
+        local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
+        TriggerServerEvent('mnr_fuel:server:RefuelVehicle', netId)
+        return
+    end
 
-	local vehState = Entity(vehicle).state
-	if not vehState.fuel then
-		utils.InitFuelState(vehicle)
-	end
+    if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
-	local fuel = math.ceil(vehState.fuel)
+    if refueling and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then return end
 
-	local input = inputDialog(fuel)
-	if not input then
-		return
-	end
+    local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
+    if holding == 'ev_nozzle' and not electric then
+        client.Notify(locale('notify.not-ev'), 'error')
+        return
+    elseif holding == 'fv_nozzle' and electric then
+        client.Notify(locale('notify.not-fv'), 'error')
+        return
+    end
 
-	local amount = tonumber(input[1]) - fuel
-	if not amount or amount <= 0 then
-		return
-	end
+    local fuel = math.ceil(vehState.fuel)
 
-	SecondaryMenu('fuel', vehicle, amount)
+    local input = inputDialog(fuel)
+    if not input then return end
+
+    local amount = tonumber(input[1]) - fuel
+    if not amount or amount <= 0 then return end
+
+    SecondaryMenu('fuel', vehicle, amount)
 end
-
-RegisterNetEvent('mnr_fuel:client:RefuelVehicleFromJerrycan', function(data)
-	if not data.entity or refueling and not holding == 'jerrycan' then
-		return
-	end
-
-	local vehicle = data.entity
-	local vehState = Entity(vehicle).state
-	if not vehState.fuel then
-		utils.InitFuelState(vehicle)
-	end
-
-	local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
-
-	TriggerServerEvent('mnr_fuel:server:RefuelVehicle', netId)
-end)
 
 RegisterNetEvent('mnr_fuel:client:BuyJerrycan', function(data)
 	if not data.entity or refueling and not (holding ~= 'fv_nozzle' and holding ~= 'ev_nozzle') then
@@ -313,13 +295,7 @@ exports.ox_target:addGlobalVehicle({
         canInteract = function()
             return not refueling and holding ~= false
         end,
-		onSelect = function(data)
-			if holding == 'jerrycan' then
-                TriggerEvent('mnr_fuel:client:RefuelVehicleFromJerrycan', data)
-            elseif holding == 'fv_nozzle' or holding == 'ev_nozzle' then
-                refuelVehicle(data, 'fuel')
-            end
-		end,
+		onSelect = refuelVehicle,
     },
 })
 
