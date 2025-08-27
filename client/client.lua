@@ -5,14 +5,38 @@ local refueling = false
 local holding = false
 local FuelEntities = { nozzle = nil, rope = nil }
 
-local function takeNozzle(data, pumpType)
-	if not data.entity or refueling or holding then
-		return
-	end
+local function isHolding()
+    return holding and type(holding) == 'table'
+end
 
-	if not lib.callback.await('mnr_fuel:server:InStation') then
-		return
+local function isHoldingNozzle()
+    return isHolding() and holding.item == 'nozzle'
+end
+
+local function nozzleCat()
+    return isHoldingNozzle() and holding.cat or nil
+end
+
+local function isHoldingJerrycan()
+    return isHolding() and holding.item == 'jerrycan'
+end
+
+local function ropeLoop()
+	while isHoldingNozzle() do
+		local currentcoords = GetEntityCoords(cache.ped)
+		local dist = #(playerCoords - currentcoords)
+		if dist > 7.5 then
+			holding = false
+			utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
+		end
+		Wait(2500)
 	end
+end
+
+local function takeNozzle(data, pumpType)
+	if not DoesEntityExist(data.entity) then return end
+	if refueling or isHolding() then return end
+	if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
 	lib.requestAnimDict('anim@am_hold_up@male', 300)
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
@@ -35,7 +59,7 @@ local function takeNozzle(data, pumpType)
         Wait(0)
         RopeLoadTextures()
     end
-	FuelEntities.rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0 --[[ DON'T SET TO 0.0!!! GAME CRASH!]], 0.0, 1.0, false, false, false, 1.0, true)
+	FuelEntities.rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0, 0.0, 1.0, false, false, false, 1.0, true)
 	while not FuelEntities.rope do
 		Wait(0)
 	end
@@ -51,26 +75,13 @@ local function takeNozzle(data, pumpType)
 	local newPumpCoords = pumpCoords + rotatedPumpOffset
 	AttachEntitiesToRope(FuelEntities.rope, data.entity, FuelEntities.nozzle, newPumpCoords.x, newPumpCoords.y, newPumpCoords.z, nozzlePos.x, nozzlePos.y, nozzlePos.z, length, false, false, nil, nil)
 
-	local nozzle = ('%s_nozzle'):format(pumpType)
-	holding = nozzle
+	holding = { item = 'nozzle', cat = pumpType }
 
-	CreateThread(function()
-		while holding == nozzle do
-			local currentcoords = GetEntityCoords(cache.ped)
-			local dist = #(playerCoords - currentcoords)
-			if dist > 7.5 then
-				holding = false
-				utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
-			end
-			Wait(2500)
-		end
-	end)
+	CreateThread(ropeLoop)
 end
 
 local function returnNozzle(data, pumpType)
-	if refueling and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then
-		return
-	end
+	if refueling and not isHoldingNozzle() then return end
 	
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(pumpType), data.entity, 'mnr_fuel', true, 0)
@@ -158,7 +169,7 @@ local function refuelVehicle(data)
         utils.InitFuelState(vehicle)
     end
 
-    if holding == 'jerrycan' then
+    if isHoldingJerrycan() then
         local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
         TriggerServerEvent('mnr_fuel:server:RefuelVehicle', netId)
         return
@@ -166,13 +177,13 @@ local function refuelVehicle(data)
 
     if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
-    if refueling and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then return end
+    if refueling and not isHoldingNozzle() then return end
 
     local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
-    if holding == 'ev_nozzle' and not electric then
-        client.Notify(locale('notify.not-ev'), 'error')
+    if not electric and nozzleCat() ~= 'fv' then
+		client.Notify(locale('notify.not-ev'), 'error')
         return
-    elseif holding == 'fv_nozzle' and electric then
+    elseif electric and nozzleCat() ~= 'ev' then
         client.Notify(locale('notify.not-fv'), 'error')
         return
     end
@@ -201,8 +212,8 @@ local function buyJerrycan(data)
 end
 
 RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
-	if isPump and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then return end
-	if not isPump and not holding == 'jerrycan' then return end
+	if isPump and not isHoldingNozzle() then return end
+	if not isPump and not isHoldingJerrycan() then return end
 
 	local vehicle = NetToVeh(data.netId)
 
@@ -212,7 +223,7 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	refueling = true
 
 	local refuelTime = data.amount * 2000
-	local pumpType = holding == 'fv_nozzle' and 'fv' or holding == 'ev_nozzle' and 'ev'
+	local pumpType = nozzleCat()
 	local soundId = GetSoundId()
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(pumpType), FuelEntities.nozzle, 'mnr_fuel', true, 0)
@@ -241,7 +252,7 @@ lib.onCache('weapon', function(weapon)
     if weapon ~= `WEAPON_PETROLCAN` and holding ~= false then
         holding = false
     elseif weapon == `WEAPON_PETROLCAN` then
-        holding = 'jerrycan'
+        holding = { item = 'jerrycan' }
     end
 end)
 
@@ -253,7 +264,7 @@ local function createTargetData(ev)
     		icon = ev and 'fas fa-bolt' or 'fas fa-gas-pump',
     		distance = 3.0,
     		canInteract = function()
-    		    return not refueling and not holding
+    		    return not refueling and not isHoldingNozzle()
     		end,
     		onSelect = function(data)
     		    takeNozzle(data, ev and 'ev' or 'fv')
@@ -265,7 +276,7 @@ local function createTargetData(ev)
     		icon = 'fas fa-hand',
     		distance = 3.0,
     		canInteract = function()
-    		    return not refueling and (holding == 'fv_nozzle' or holding == 'ev_nozzle')
+    		    return not refueling and isHoldingNozzle()
     		end,
     		onSelect = function(data)
     		    returnNozzle(data, ev and 'ev' or 'fv')
@@ -277,7 +288,7 @@ local function createTargetData(ev)
 		    icon = 'fas fa-fire-flame-simple',
 		    distance = 3.0,
 		    canInteract = function()
-		        return not refueling and (holding ~= 'fv_nozzle' and holding ~= 'ev_nozzle')
+		        return not refueling and not isHoldingNozzle()
 		    end,
 		    onSelect = buyJerrycan,
 		},
