@@ -5,7 +5,7 @@ local refueling = false
 local holding = false
 local FuelEntities = { nozzle = nil, rope = nil }
 
-RegisterNetEvent('mnr_fuel:client:TakeNozzle', function(data, pumpType)
+local function takeNozzle(data, pumpType)
 	if not data.entity or refueling or holding then
 		return
 	end
@@ -65,9 +65,9 @@ RegisterNetEvent('mnr_fuel:client:TakeNozzle', function(data, pumpType)
 			Wait(2500)
 		end
 	end)
-end)
+end
 
-RegisterNetEvent('mnr_fuel:client:ReturnNozzle', function(data, pumpType)
+local function returnNozzle(data, pumpType)
 	if refueling and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then
 		return
 	end
@@ -77,7 +77,7 @@ RegisterNetEvent('mnr_fuel:client:ReturnNozzle', function(data, pumpType)
 	holding = false
 	Wait(250)
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
-end)
+end
 
 local function SecondaryMenu(purchase, vehicle, amount)
 	if not lib.callback.await('mnr_fuel:server:InStation') then
@@ -188,7 +188,7 @@ local function refuelVehicle(data)
     SecondaryMenu('fuel', vehicle, amount)
 end
 
-RegisterNetEvent('mnr_fuel:client:BuyJerrycan', function(data)
+local function buyJerrycan(data)
 	if not data.entity or refueling and not (holding ~= 'fv_nozzle' and holding ~= 'ev_nozzle') then
 		return
 	end
@@ -198,7 +198,7 @@ RegisterNetEvent('mnr_fuel:client:BuyJerrycan', function(data)
 	end
 
 	SecondaryMenu('jerrycan')
-end)
+end
 
 RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	if isPump and not (holding == 'fv_nozzle' or holding == 'ev_nozzle') then return end
@@ -256,7 +256,7 @@ local function createTargetData(ev)
     		    return not refueling and not holding
     		end,
     		onSelect = function(data)
-    		    TriggerEvent('mnr_fuel:client:TakeNozzle', data, ev and 'ev' or 'fv')
+    		    takeNozzle(data, ev and 'ev' or 'fv')
     		end,
 		},
 		{
@@ -268,7 +268,7 @@ local function createTargetData(ev)
     		    return not refueling and (holding == 'fv_nozzle' or holding == 'ev_nozzle')
     		end,
     		onSelect = function(data)
-    		    TriggerEvent('mnr_fuel:client:ReturnNozzle', data, ev and 'ev' or 'fv')
+    		    returnNozzle(data, ev and 'ev' or 'fv')
     		end,
 		},
 		{
@@ -279,9 +279,7 @@ local function createTargetData(ev)
 		    canInteract = function()
 		        return not refueling and (holding ~= 'fv_nozzle' and holding ~= 'ev_nozzle')
 		    end,
-		    onSelect = function(data)
-		        TriggerEvent('mnr_fuel:client:BuyJerrycan', data)
-		    end,
+		    onSelect = buyJerrycan,
 		},
 	}
 end
