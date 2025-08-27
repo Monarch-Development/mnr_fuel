@@ -4,8 +4,7 @@
         "name-ev": "Elektrikli Araç İstasyonu"
     },
     "target": {
-        "refuel-nozzle": "Nozülü Tak",
-        "refuel-jerrycan": "Yakıt Doldur (Jerrycan)",
+        "refuel": "Aracı yakıtla doldur",
         "take-nozzle": "Nozülü Al",
         "take-charger": "Şarj Cihazını Al",
         "return-nozzle": "Nozülü Geri Ver",

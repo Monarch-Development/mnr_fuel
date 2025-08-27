@@ -4,8 +4,7 @@
         "name-ev": "Stație EV"
     },
     "target": {
-        "refuel-nozzle": "Introduceți Duza",
-        "refuel-jerrycan": "Realimentare (Bidon)",
+        "refuel": "Alimentează vehiculul",
         "take-nozzle": "Ia Duza",
         "take-charger": "Ia Încărcătorul",
         "return-nozzle": "Returnează Duza",

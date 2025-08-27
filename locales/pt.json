@@ -4,8 +4,7 @@
         "name-ev": "Estação de EV"
     },
     "target": {
-        "refuel-nozzle": "Inserir Bico",
-        "refuel-jerrycan": "Abastecer (Galão)",
+        "refuel": "Abastecer veículo",
         "take-nozzle": "Pegar Bico",
         "take-charger": "Pegar Carregador",
         "return-nozzle": "Devolver Bico",

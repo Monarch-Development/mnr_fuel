@@ -4,8 +4,7 @@
         "name-ev": "EV Station"
     },
     "target": {
-        "refuel-nozzle": "Insert Nozzle",
-        "refuel-jerrycan": "Refuel (Jerrycan)",
+        "refuel": "Refuel Vehicle",
         "take-nozzle": "Grab Nozzle",
         "take-charger": "Grab Charger",
         "return-nozzle": "Return Nozzle",

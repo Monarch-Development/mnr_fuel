@@ -4,8 +4,7 @@
         "name-ev": "Stazione di Ricarica"
     },
     "target": {
-        "refuel-nozzle": "Inserisci Pompa",
-        "refuel-jerrycan": "Inserisci Tanica",
+        "refuel": "Rifornisci Veicolo",
         "take-nozzle": "Prendi Pompa",
         "take-charger": "Prendi Caricatore",
         "return-nozzle": "Rimetti Pompa",

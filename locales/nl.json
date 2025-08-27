@@ -4,8 +4,7 @@
         "name-ev": "Laadstation"
     },
     "target": {
-        "refuel-nozzle": "Plaats het mondstuk",
-        "refuel-jerrycan": "Tanken (Jerrycan)",
+        "refuel": "Voertuig voltanken",
         "take-nozzle": "Pak het mondstuk",
         "take-charger": "Pak de lader",
         "return-nozzle": "Mondstuk terugplaatsen",

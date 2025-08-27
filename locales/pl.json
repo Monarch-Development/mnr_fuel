@@ -4,8 +4,7 @@
         "name-ev": "Stacja Ładowania EV"
     },
     "target": {
-        "refuel-nozzle": "Włóż Pistolet",
-        "refuel-jerrycan": "Napełnij (Kanister)",
+        "refuel": "Zatankuj pojazd",
         "take-nozzle": "Weź Pistolet",
         "take-charger": "Weź Ładowarkę",
         "return-nozzle": "Odłóż Pistolet",

@@ -4,8 +4,7 @@
         "name-ev": "Station électrique"
     },
     "target": {
-        "refuel-nozzle": "Insérer le pistolet",
-        "refuel-jerrycan": "Faire le plein (jerrican)",
+        "refuel": "Ravitailler le véhicule",
         "take-nozzle": "Prendre le pistolet",
         "take-charger": "Prendre le chargeur",
         "return-nozzle": "Ranger le pistolet",

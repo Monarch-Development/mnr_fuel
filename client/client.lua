@@ -306,25 +306,20 @@ end
 
 exports.ox_target:addGlobalVehicle({
     {
-        label = locale('target.refuel-nozzle'),
-        name = 'mnr_fuel:vehicle:option_1',
+        label = locale('target.refuel'),
+        name = 'mnr_fuel:vehicle:refuel',
         icon = 'fas fa-gas-pump',
         distance = 1.5,
         canInteract = function()
-            return not refueling and (holding == 'fv_nozzle' or holding == 'ev_nozzle')
+            return not refueling and holding ~= false
         end,
 		onSelect = function(data)
-			refuelVehicle(data, 'fuel')
+			if holding == 'jerrycan' then
+                TriggerEvent('mnr_fuel:client:RefuelVehicleFromJerrycan', data)
+            elseif holding == 'fv_nozzle' or holding == 'ev_nozzle' then
+                refuelVehicle(data, 'fuel')
+            end
 		end,
-    },
-    {
-        label = locale('target.refuel-jerrycan'),
-        name = 'mnr_fuel:vehicle:option_1',
-        icon = 'fas fa-gas-pump',
-        canInteract = function()
-            return not refueling and holding == 'jerrycan'
-        end,
-        event = 'mnr_fuel:client:RefuelVehicleFromJerrycan'
     },
 })
 
@@ -340,5 +335,5 @@ AddEventHandler('onResourceStop', function(resourceName)
 
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
 
-	exports.ox_target:removeGlobalVehicle({'mnr_fuel:vehicle:option_1', 'mnr_fuel:vehicle:option_2'})
+	exports.ox_target:removeGlobalVehicle('mnr_fuel:vehicle:refuel')
 end)

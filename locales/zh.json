@@ -4,8 +4,7 @@
         "name-ev": "电动车充电站"
     },
     "target": {
-        "refuel-nozzle": "插入油枪",
-        "refuel-jerrycan": "加油（油壶）",
+        "refuel": "为车辆加油",
         "take-nozzle": "拿取油枪",
         "take-charger": "拿取充电器",
         "return-nozzle": "归还油枪",

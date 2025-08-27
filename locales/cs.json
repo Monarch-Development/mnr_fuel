@@ -4,8 +4,7 @@
         "name-ev": "Stanice EV"
     },
     "target": {
-        "refuel-nozzle": "Vložit pistoli",
-        "refuel-jerrycan": "Doplnit (kanystr)",
+        "refuel": "Natankovat vozidlo",
         "take-nozzle": "Vzít pistoli",
         "take-charger": "Vzít nabíječku",
         "return-nozzle": "Vrátit pistoli",

@@ -4,8 +4,7 @@
         "name-ev": "محطة شحن كهربائية"
     },
     "target": {
-        "refuel-nozzle": "أدخل الفوهة",
-        "refuel-jerrycan": "تزويد الوقود (جركن)",
+        "refuel": "تزويد المركبة بالوقود",
         "take-nozzle": "أمسك الفوهة",
         "take-charger": "أمسك الشاحن",
         "return-nozzle": "إرجاع الفوهة",

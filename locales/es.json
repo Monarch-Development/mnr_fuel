@@ -4,8 +4,7 @@
         "name-ev": "Estación EV"
     },
     "target": {
-        "refuel-nozzle": "Insertar boquilla",
-        "refuel-jerrycan": "Rellenar (Bidón)",
+        "refuel": "Repostar vehículo",
         "take-nozzle": "Coger boquilla",
         "take-charger": "Coger cargador",
         "return-nozzle": "Devolver boquilla",

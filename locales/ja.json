@@ -4,8 +4,7 @@
         "name-ev": "EVステーション"
     },
     "target": {
-        "refuel-nozzle": "ノズルを挿入",
-        "refuel-jerrycan": "給油（携行缶）",
+        "refuel": "車両に給油",
         "take-nozzle": "ノズルを取る",
         "take-charger": "充電器を取る",
         "return-nozzle": "ノズルを戻す",

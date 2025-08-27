@@ -4,8 +4,7 @@
         "name-ev": "Įkrovimo stotis"
     },
     "target": {
-        "refuel-nozzle": "Įdėkite pistoletą",
-        "refuel-jerrycan": "Pildyti (kanistras)",
+        "refuel": "Papildyti transporto priemonę kuru",
         "take-nozzle": "Paimti pistoletą",
         "take-charger": "Paimti įkroviklį",
         "return-nozzle": "Grąžinti pistoletą",

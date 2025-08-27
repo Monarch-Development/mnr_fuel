@@ -4,8 +4,7 @@
         "name-ev": "Stesen EV"
     },
     "target": {
-        "refuel-nozzle": "Masukkan muncung",
-        "refuel-jerrycan": "Isi minyak (Jerrycan)",
+        "refuel": "Isi minyak kenderaan",
         "take-nozzle": "Ambil muncung",
         "take-charger": "Ambil pengecas",
         "return-nozzle": "Pulangkan muncung",

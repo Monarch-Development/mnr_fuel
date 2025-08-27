@@ -4,8 +4,7 @@
         "name-ev": "Ladestation"
     },
     "target": {
-        "refuel-nozzle": "Indsæt tankpistol",
-        "refuel-jerrycan": "Tank op (dunk)",
+        "refuel": "Tank køretøj",
         "take-nozzle": "Tag tankpistol",
         "take-charger": "Tag oplader",
         "return-nozzle": "Returnér tankpistol",

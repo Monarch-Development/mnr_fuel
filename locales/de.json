@@ -4,8 +4,7 @@
         "name-ev": "Ladestation"
     },
     "target": {
-        "refuel-nozzle": "Zapfpistole einführen",
-        "refuel-jerrycan": "Auftanken (Kanister)",
+        "refuel": "Fahrzeug betanken",
         "take-nozzle": "Zapfpistole nehmen",
         "take-charger": "Ladegerät nehmen",
         "return-nozzle": "Zapfpistole zurückgeben",
