@@ -109,12 +109,14 @@ local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
 			{ value = 'bank', label = locale('input.bank', bankMoney) },
 			{ value = 'cash', label = locale('input.cash', cashMoney) },
 		},
+		required = true,
 	}
 
 	if not jerrycan then
 		rows[3] = {
 			type = 'slider',
 			label = locale('input.select_amount'),
+			required = true,
 			default = fuel,
 			min = fuel,
 			max = 100,
@@ -125,10 +127,8 @@ local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
 end
 
 local function refuelVehicle(data)
-    if not data.entity or refueling then return end
-
     local vehicle = data.entity
-    if not DoesEntityExist(vehicle) then return end
+    if not DoesEntityExist(vehicle) or refueling then return end
 
     local vehState = Entity(vehicle).state
     if not vehState.fuel then
@@ -156,11 +156,9 @@ local function refuelVehicle(data)
 
     local fuel = math.ceil(vehState.fuel)
 
-	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-    local input = inputDialog(false, bankMoney, cashMoney, fuel)
-    if not input then
-		return
-	end
+	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
+    local input = inputDialog(false, bank, cash, fuel)
+    if not input then return end
 
 	local method = input[2]
     local amount = tonumber(input[3]) - fuel
@@ -175,14 +173,11 @@ end
 local function buyJerrycan(data)
 	if not DoesEntityExist(data.entity) then return end
 	if refueling or isHoldingNozzle() then return end
-
 	if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
-	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-	local input = inputDialog(true, bankMoney, cashMoney)
-	if not input then
-		return
-	end
+	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
+	local input = inputDialog(true, bank, cash)
+	if not input then return end
 
 	local method = input[2]
 	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'jerrycan', method)
@@ -193,7 +188,6 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	if not isPump and not isHoldingJerrycan() then return end
 
 	local vehicle = NetToVeh(data.netId)
-
 	TaskTurnPedToFaceEntity(cache.ped, vehicle, 500)
 	Wait(500)
 
