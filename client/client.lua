@@ -171,13 +171,10 @@ local function refuelVehicle(data)
 end
 
 local function buyJerrycan(data)
-	if not data.entity or refueling and not (holding ~= 'fv_nozzle' and holding ~= 'ev_nozzle') then
-		return
-	end
+	if not DoesEntityExist(data.entity) then return end
+	if refueling or isHoldingNozzle() then return end
 
-	if not lib.callback.await('mnr_fuel:server:InStation') then
-		return
-	end
+	if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
 	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
 	local input = inputDialog(true, bankMoney, cashMoney)
