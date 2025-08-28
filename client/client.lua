@@ -34,7 +34,8 @@ local function ropeLoop()
 	end
 end
 
-local function takeNozzle(data, pumpType)
+---@param cat <string> Category of the pump/nozzle
+local function takeNozzle(data, cat)
 	if not DoesEntityExist(data.entity) then return end
 	if refueling or isHolding() then return end
 	if not lib.callback.await('mnr_fuel:server:InStation') then return end
@@ -47,13 +48,12 @@ local function takeNozzle(data, pumpType)
 	StopAnimTask(cache.ped, 'anim@am_hold_up@male', 'shoplift_high', 1.0)
 	RemoveAnimDict('anim@am_hold_up@male')
 
-	local pump = GetEntityModel(data.entity)
     local pumpCoords = GetEntityCoords(data.entity)
-	local nozzleModel = config.nozzleType[pumpType].hash
-	local handOffset = config.nozzleType[pumpType].offsets.hand
-	local lefthand = GetPedBoneIndex(cache.ped, 18905)
-	FuelEntities.nozzle = CreateObject(nozzleModel, 1.0, 1.0, 1.0, true, true, false)
-	AttachEntityToEntity(FuelEntities.nozzle, cache.ped, lefthand, handOffset[1], handOffset[2], handOffset[3], handOffset[4], handOffset[5], handOffset[6], false, true, false, true, 0, true)
+	local nozzle = config.nozzleType[cat].nozzle
+	local hand = config.nozzleType[cat].offsets.hand
+	local bone = GetPedBoneIndex(cache.ped, 18905)
+	FuelEntities.nozzle = CreateObject(nozzle, 1.0, 1.0, 1.0, true, true, false)
+	AttachEntityToEntity(FuelEntities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
 
     RopeLoadTextures()
     while not RopeAreTexturesLoaded() do
@@ -68,23 +68,26 @@ local function takeNozzle(data, pumpType)
 	Wait(100)
 
 	local nozzlePos = GetEntityCoords(FuelEntities.nozzle)
-	local nozzleOffset = config.nozzleType[pumpType].offsets.rope
+	local nozzleOffset = config.nozzleType[cat].offsets.rope
 	nozzlePos = GetOffsetFromEntityInWorldCoords(FuelEntities.nozzle, nozzleOffset.x, nozzleOffset.y, nozzleOffset.z)
-	local pumpHeading = GetEntityHeading(data.entity)
-	local rotatedPumpOffset = utils.RotateOffset(config.pumps[pump].offset, pumpHeading)
-	local newPumpCoords = pumpCoords + rotatedPumpOffset
-	AttachEntitiesToRope(FuelEntities.rope, data.entity, FuelEntities.nozzle, newPumpCoords.x, newPumpCoords.y, newPumpCoords.z, nozzlePos.x, nozzlePos.y, nozzlePos.z, length, false, false, nil, nil)
+	
+	local heading = GetEntityHeading(data.entity)
+	local hash = GetEntityModel(data.entity)
+	local rotatedPumpOffset = utils.RotateOffset(config.pumps[hash].offset, heading)
+	
+	local coords = pumpCoords + rotatedPumpOffset
+	AttachEntitiesToRope(FuelEntities.rope, data.entity, FuelEntities.nozzle, coords.x, coords.y, coords.z, nozzlePos.x, nozzlePos.y, nozzlePos.z, length, false, false, nil, nil)
 
-	holding = { item = 'nozzle', cat = pumpType }
+	holding = { item = 'nozzle', cat = cat }
 
 	CreateThread(ropeLoop)
 end
 
-local function returnNozzle(data, pumpType)
+local function returnNozzle(data, cat)
 	if refueling and not isHoldingNozzle() then return end
 
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
-	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(pumpType), data.entity, 'mnr_fuel', true, 0)
+	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
 	holding = false
 	Wait(250)
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
@@ -198,10 +201,10 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	refueling = true
 
 	local refuelTime = data.amount * 2000
-	local pumpType = nozzleCat()
+	local cat = nozzleCat()
 	local soundId = GetSoundId()
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
-	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(pumpType), FuelEntities.nozzle, 'mnr_fuel', true, 0)
+	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), FuelEntities.nozzle, 'mnr_fuel', true, 0)
 
 	if lib.progressCircle({
 		duration = refuelTime,
@@ -217,7 +220,7 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	}) then
 		StopSound(soundId)
 		ReleaseSoundId(soundId)
-		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(pumpType), FuelEntities.nozzle, 'mnr_fuel', true, 0)
+		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), FuelEntities.nozzle, 'mnr_fuel', true, 0)
 		refueling = false
 		client.Notify(locale('notify.refuel-success'), 'success')
 	end
