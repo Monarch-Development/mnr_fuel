@@ -22,6 +22,7 @@ local function isHoldingJerrycan()
 end
 
 local function ropeLoop()
+	local playerCoords = GetEntityCoords(cache.ped)
 	while isHoldingNozzle() do
 		local currentcoords = GetEntityCoords(cache.ped)
 		local dist = #(playerCoords - currentcoords)
@@ -29,7 +30,7 @@ local function ropeLoop()
 			holding = false
 			utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
 		end
-		Wait(2500)
+		Wait(1000)
 	end
 end
 
@@ -66,7 +67,6 @@ local function takeNozzle(data, pumpType)
 	ActivatePhysics(FuelEntities.rope)
 	Wait(100)
 
-	local playerCoords = GetEntityCoords(cache.ped)
 	local nozzlePos = GetEntityCoords(FuelEntities.nozzle)
 	local nozzleOffset = config.nozzleType[pumpType].offsets.rope
 	nozzlePos = GetOffsetFromEntityInWorldCoords(FuelEntities.nozzle, nozzleOffset.x, nozzleOffset.y, nozzleOffset.z)
@@ -82,7 +82,7 @@ end
 
 local function returnNozzle(data, pumpType)
 	if refueling and not isHoldingNozzle() then return end
-	
+
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(pumpType), data.entity, 'mnr_fuel', true, 0)
 	holding = false
@@ -90,24 +90,24 @@ local function returnNozzle(data, pumpType)
 	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
 end
 
-local function inputDialog(jerrycan, fuel, bankMoney, cashMoney)
+local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
 	local rows = {}
 
 	rows[1] = {
 		type = 'number',
 		label = 'Price',
-		placeholder = jerrycan and config.jerrycanPrice or config.fuelPrice,
+		default = jerrycan and config.jerrycanPrice or config.fuelPrice,
 		icon = 'dollar-sign',
 		disabled = true
-	},
-	rows[2] = { 
+	}
+	rows[2] = {
 		type = 'select',
 		label = 'Select Payment Method',
 		options = {
 			{ value = 'bank', label = ('Bank (%d$)'):format(bankMoney) },
 			{ value = 'cash', label = ('Cash (%d$)'):format(cashMoney) },
 		},
-	},
+	}
 
 	if not jerrycan then
 		rows[3] = {
@@ -116,7 +116,7 @@ local function inputDialog(jerrycan, fuel, bankMoney, cashMoney)
 			default = fuel,
 			min = fuel,
 			max = 100,
-		},
+		}
 	end
 
 	return lib.inputDialog(locale('input.select-amount'), rows)
@@ -155,7 +155,7 @@ local function refuelVehicle(data)
     local fuel = math.ceil(vehState.fuel)
 
 	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-    local input = inputDialog(false, fuel, bankMoney, cashMoney)
+    local input = inputDialog(false, bankMoney, cashMoney, fuel)
     if not input then
 		return
 	end
@@ -174,19 +174,19 @@ local function buyJerrycan(data)
 	if not data.entity or refueling and not (holding ~= 'fv_nozzle' and holding ~= 'ev_nozzle') then
 		return
 	end
-	
+
 	if not lib.callback.await('mnr_fuel:server:InStation') then
 		return
 	end
 
 	local cashMoney, bankMoney = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-	local input = inputDialog(false, fuel, bankMoney, cashMoney)
+	local input = inputDialog(true, bankMoney, cashMoney)
 	if not input then
 		return
 	end
 
 	local method = input[2]
-	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'fuel', method)
+	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'jerrycan', method)
 end
 
 RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
@@ -205,7 +205,7 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	local soundId = GetSoundId()
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(pumpType), FuelEntities.nozzle, 'mnr_fuel', true, 0)
-	
+
 	if lib.progressCircle({
 		duration = refuelTime,
 		label = locale('progress.refueling-vehicle'),
