@@ -98,31 +98,31 @@ local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
 
 	rows[1] = {
 		type = 'number',
-		label = 'Price',
+		label = locale('input.price'),
 		default = jerrycan and config.jerrycanPrice or config.fuelPrice,
 		icon = 'dollar-sign',
 		disabled = true
 	}
 	rows[2] = {
 		type = 'select',
-		label = 'Select Payment Method',
+		label = locale('input.payment_method'),
 		options = {
-			{ value = 'bank', label = ('Bank (%d$)'):format(bankMoney) },
-			{ value = 'cash', label = ('Cash (%d$)'):format(cashMoney) },
+			{ value = 'bank', label = locale('input.bank', bankMoney) },
+			{ value = 'cash', label = locale('input.cash', cashMoney) },
 		},
 	}
 
 	if not jerrycan then
 		rows[3] = {
 			type = 'slider',
-			label = locale('input.select-amount'),
+			label = locale('input.select_amount'),
 			default = fuel,
 			min = fuel,
 			max = 100,
 		}
 	end
 
-	return lib.inputDialog(locale('input.select-amount'), rows)
+	return lib.inputDialog(locale('input.title'), rows)
 end
 
 local function refuelVehicle(data)

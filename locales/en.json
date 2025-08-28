@@ -12,17 +12,12 @@
         "buy-jerrycan": "Buy/Refill Jerry Can"
     },
     "input": {
-        "select-amount": "Select Amount"
-    },
-    "menu": {
-        "confirm-title": "The total cost is: %d$ including taxes.",
-        "confirm-choice-title": "Confirm",
-        "cancel-choice-title": "Cancel",
-        "payment-title": "Choose Payment Method (%d$)",
-        "payment-bank": "Bank",
-        "payment-bank-desc": "You have %s$ in your bank account.",
-        "payment-cash": "Cash",
-        "payment-cash-desc": "You have %s$ in cash."
+        "title": "Purchase",
+        "price": "Price",
+        "payment_method": "Select Payment Method",
+        "bank": "Bank (%d$)",
+        "cash": "Cash (%d$)",
+        "select_amount": "Select Amount"
     },
     "progress": {
         "refueling-vehicle": "Refueling Vehicle..."
