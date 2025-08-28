@@ -59,8 +59,8 @@ local function takeNozzle(data, cat)
         RopeLoadTextures()
     end
 
-	local pumpCoords = GetEntityCoords(data.entity)
-	Entities.rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0, 0.0, 1.0, false, false, false, 1.0, true)
+	local pump = GetEntityCoords(data.entity)
+	Entities.rope = AddRope(pump.x, pump.y, pump.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0, 0.0, 1.0, false, false, false, 1.0, true)
 
 	while not Entities.rope do
 		Wait(0)
@@ -68,14 +68,14 @@ local function takeNozzle(data, cat)
 	ActivatePhysics(Entities.rope)
 	Wait(100)
 
-	local nozzleOffset = config.nozzleType[cat].offsets.rope
-	local nozzlePos = GetOffsetFromEntityInWorldCoords(Entities.nozzle, nozzleOffset.x, nozzleOffset.y, nozzleOffset.z)
+	local offset = config.nozzleType[cat].offsets.rope
+	local nozzle = GetOffsetFromEntityInWorldCoords(Entities.nozzle, offset.x, offset.y, offset.z)
 	
 	local heading = GetEntityHeading(data.entity)
 	local hash = GetEntityModel(data.entity)
 	local rotatedPumpOffset = utils.RotateOffset(config.pumps[hash].offset, heading)
-	local coords = pumpCoords + rotatedPumpOffset
-	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzlePos.x, nozzlePos.y, nozzlePos.z, length, false, false, nil, nil)
+	local coords = pump + rotatedPumpOffset
+	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzle.x, nozzle.y, nozzle.z, length, false, false, nil, nil)
 
 	holding = { item = 'nozzle', cat = cat }
 
