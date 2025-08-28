@@ -3,7 +3,7 @@ local utils = require 'client.utils'
 
 local refueling = false
 local holding = false
-local FuelEntities = { nozzle = nil, rope = nil }
+local Entities = { nozzle = nil, rope = nil }
 
 local function isHolding()
     return holding and type(holding) == 'table'
@@ -28,7 +28,7 @@ local function ropeLoop()
 		local dist = #(playerCoords - currentcoords)
 		if dist > 7.5 then
 			holding = false
-			utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
+			utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
 		end
 		Wait(1000)
 	end
@@ -48,35 +48,34 @@ local function takeNozzle(data, cat)
 	StopAnimTask(cache.ped, 'anim@am_hold_up@male', 'shoplift_high', 1.0)
 	RemoveAnimDict('anim@am_hold_up@male')
 
-    local pumpCoords = GetEntityCoords(data.entity)
-	local nozzle = config.nozzleType[cat].nozzle
 	local hand = config.nozzleType[cat].offsets.hand
 	local bone = GetPedBoneIndex(cache.ped, 18905)
-	FuelEntities.nozzle = CreateObject(nozzle, 1.0, 1.0, 1.0, true, true, false)
-	AttachEntityToEntity(FuelEntities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
+	Entities.nozzle = CreateObject(config.nozzleType[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
+	AttachEntityToEntity(Entities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
 
     RopeLoadTextures()
     while not RopeAreTexturesLoaded() do
         Wait(0)
         RopeLoadTextures()
     end
-	FuelEntities.rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0, 0.0, 1.0, false, false, false, 1.0, true)
-	while not FuelEntities.rope do
+
+	local pumpCoords = GetEntityCoords(data.entity)
+	Entities.rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0, 0.0, 1.0, false, false, false, 1.0, true)
+
+	while not Entities.rope do
 		Wait(0)
 	end
-	ActivatePhysics(FuelEntities.rope)
+	ActivatePhysics(Entities.rope)
 	Wait(100)
 
-	local nozzlePos = GetEntityCoords(FuelEntities.nozzle)
 	local nozzleOffset = config.nozzleType[cat].offsets.rope
-	nozzlePos = GetOffsetFromEntityInWorldCoords(FuelEntities.nozzle, nozzleOffset.x, nozzleOffset.y, nozzleOffset.z)
+	local nozzlePos = GetOffsetFromEntityInWorldCoords(Entities.nozzle, nozzleOffset.x, nozzleOffset.y, nozzleOffset.z)
 	
 	local heading = GetEntityHeading(data.entity)
 	local hash = GetEntityModel(data.entity)
 	local rotatedPumpOffset = utils.RotateOffset(config.pumps[hash].offset, heading)
-	
 	local coords = pumpCoords + rotatedPumpOffset
-	AttachEntitiesToRope(FuelEntities.rope, data.entity, FuelEntities.nozzle, coords.x, coords.y, coords.z, nozzlePos.x, nozzlePos.y, nozzlePos.z, length, false, false, nil, nil)
+	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzlePos.x, nozzlePos.y, nozzlePos.z, length, false, false, nil, nil)
 
 	holding = { item = 'nozzle', cat = cat }
 
@@ -90,7 +89,7 @@ local function returnNozzle(data, cat)
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
 	holding = false
 	Wait(250)
-	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
+	utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
 end
 
 local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
@@ -204,7 +203,7 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	local cat = nozzleCat()
 	local soundId = GetSoundId()
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
-	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), FuelEntities.nozzle, 'mnr_fuel', true, 0)
+	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
 
 	if lib.progressCircle({
 		duration = refuelTime,
@@ -220,7 +219,7 @@ RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
 	}) then
 		StopSound(soundId)
 		ReleaseSoundId(soundId)
-		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), FuelEntities.nozzle, 'mnr_fuel', true, 0)
+		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
 		refueling = false
 		client.Notify(locale('notify.refuel-success'), 'success')
 	end
@@ -296,7 +295,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 	local scriptName = cache.resource or GetCurrentResourceName()
 	if resourceName ~= scriptName then return end
 
-	utils.DeleteFuelEntities(FuelEntities.nozzle, FuelEntities.rope)
+	utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
 
 	exports.ox_target:removeGlobalVehicle('mnr_fuel:vehicle:refuel')
 end)
