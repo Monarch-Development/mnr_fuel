@@ -75,10 +75,23 @@ local function setFuel(netId, fuelAmount)
 	vehicleState:set('fuel', fuel, true)
 end
 
-local function purchaseJerrycan(src, method, price)
+RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
+	local src = source
+	if not inStation(src) then
+		return
+	end
+
+	local price = config.jerrycanPrice
+	local money = server.GetPlayerMoney(src, method)
+
+	if money < price then
+		server.Notify(src, locale('notify.not-enough-money'), 'error')
+		return
+	end
+	
 	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
 	if weapon and weapon.name == 'WEAPON_PETROLCAN' then
-    	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+		local weapon = exports.ox_inventory:GetCurrentWeapon(src)
 		if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
 		    return
 		end
@@ -94,9 +107,9 @@ local function purchaseJerrycan(src, method, price)
 
 		exports.ox_inventory:SetMetadata(src, weapon.slot, { durability = 100, ammo = 100 })
 	else
-    	if not exports.ox_inventory:CanCarryItem(src, 'WEAPON_PETROLCAN', 1, { weight = 4000 + 15000 }) then
-    		server.Notify(src, locale('notify.not-enough-space'), 'error')
-    		return
+		if not exports.ox_inventory:CanCarryItem(src, 'WEAPON_PETROLCAN', 1, { weight = 4000 + 15000 }) then
+			server.Notify(src, locale('notify.not-enough-space'), 'error')
+			return
 		end
 
 		if not server.PayMoney(src, method, price) then
@@ -105,23 +118,6 @@ local function purchaseJerrycan(src, method, price)
 
 		exports.ox_inventory:AddItem(src, 'WEAPON_PETROLCAN', 1, { durability = 100, ammo = 100 })
 	end
-end
-
-RegisterNetEvent('mnr_fuel:server:ElaborateAction', function(purchase, method, amount, netId)
-	local src = source
-	if not inStation(src) then
-		return
-	end
-
-	local price = config.jerrycanPrice
-	local playerMoney = server.GetPlayerMoney(src, method)
-
-	if playerMoney < price then
-		server.Notify(src, locale('notify.not-enough-money'), 'error')
-		return
-	end
-	
-	purchaseJerrycan(src, method, price)
 end)
 
 RegisterNetEvent('mnr_fuel:server:RefuelVehicleStation', function(data)

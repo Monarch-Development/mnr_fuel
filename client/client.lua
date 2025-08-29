@@ -234,16 +234,27 @@ lib.onCache('weapon', function(weapon)
 end)
 
 local function buyJerrycan(data)
-	if not DoesEntityExist(data.entity) then return end
-	if refueling or isHoldingNozzle() then return end
-	if not lib.callback.await('mnr_fuel:server:InStation') then return end
+	if not DoesEntityExist(data.entity) then
+		return
+	end
+
+	if refueling or isHoldingNozzle() then
+		return
+	end
+
+	if not lib.callback.await('mnr_fuel:server:InStation') then
+		return
+	end
 
 	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
 	local input = inputDialog(true, cash, bank)
-	if not input then return end
+	
+	if not input then
+		return
+	end
 
 	local method = input[2]
-	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'jerrycan', method)
+	TriggerServerEvent('mnr_fuel:server:JerrycanPurchase', method)
 end
 
 local function createTargetData(ev)
