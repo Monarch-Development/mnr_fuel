@@ -1,7 +1,7 @@
 {
     "blips": {
-        "name-fuel": "Gas Station",
-        "name-ev": "EV Station"
+        "name_fuel": "Gas Station",
+        "name_ev": "EV Station"
     },
     "target": {
         "refuel": "Refuel Vehicle",
