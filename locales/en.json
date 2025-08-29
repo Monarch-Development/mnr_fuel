@@ -5,11 +5,11 @@
     },
     "target": {
         "refuel": "Refuel Vehicle",
-        "take-nozzle": "Grab Nozzle",
-        "take-charger": "Grab Charger",
-        "return-nozzle": "Return Nozzle",
-        "return-charger": "Return Charger",
-        "buy-jerrycan": "Buy/Refill Jerry Can"
+        "take_nozzle": "Grab Nozzle",
+        "take_charger": "Grab Charger",
+        "return_nozzle": "Return Nozzle",
+        "return_charger": "Return Charger",
+        "buy_jerrycan": "Buy/Refill Jerry Can"
     },
     "input": {
         "title": "Purchase",
@@ -20,15 +20,15 @@
         "select_amount": "Select Amount"
     },
     "progress": {
-        "refueling-vehicle": "Refueling Vehicle..."
+        "refueling_vehicle": "Refueling Vehicle..."
     },
     "notify": {
-        "not-ev": "The vehicle isn't electric",
-        "not-fv": "The vehicle doesn't use fuel",
-        "not-enough-money": "You don't have enough money",
-        "not-enough-space": "You don't have enough space",
-        "jerrycan-not-empty": "The jerrycan isn't empty",
-        "vehicle-full": "The vehicle is already full",
-        "refuel-success": "You refueled the vehicle successfully"
+        "not_ev": "The vehicle isn't electric",
+        "not_fv": "The vehicle doesn't use fuel",
+        "not_enough_money": "You don't have enough money",
+        "not_enough_space": "You don't have enough space",
+        "jerrycan_not_empty": "The jerrycan isn't empty",
+        "vehicle_full": "The vehicle is already full",
+        "refuel_success": "You refueled the vehicle successfully"
     }
 }

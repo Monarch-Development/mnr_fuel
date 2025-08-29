@@ -76,7 +76,7 @@ local function stationRefuel(src, vehicle, data)
 	local money = server.GetPlayerMoney(src, data.method)
 
 	if money < price then
-		server.Notify(src, locale('notify.not-enough-money'), 'error')
+		server.Notify(src, locale('notify.not_enough_money'), 'error')
 		return
 	end
 
@@ -93,7 +93,7 @@ local function jerrycanRefuel(src, vehicle)
 	local fuelLevel = math.ceil(vehState.fuel)
 	local requiredFuel = 100 - fuelLevel
 	if requiredFuel <= 0 then
-		server.Notify(src, locale('notify.vehicle-full'), 'error')
+		server.Notify(src, locale('notify.vehicle_full'), 'error')
 		return
 	end
 
@@ -137,7 +137,7 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 	local money = server.GetPlayerMoney(src, method)
 
 	if money < price then
-		server.Notify(src, locale('notify.not-enough-money'), 'error')
+		server.Notify(src, locale('notify.not_enough_money'), 'error')
 		return
 	end
 	
@@ -149,7 +149,7 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 		end
 
 		if weapon.metadata.durability > 0 then
-		    server.Notify(src, locale('notify.jerrycan-not-empty'), 'error')
+		    server.Notify(src, locale('notify.jerrycan_not_empty'), 'error')
 		    return
 		end
 
@@ -160,7 +160,7 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 		exports.ox_inventory:SetMetadata(src, weapon.slot, { durability = 100, ammo = 100 })
 	else
 		if not exports.ox_inventory:CanCarryItem(src, 'WEAPON_PETROLCAN', 1, { weight = 4000 + 15000 }) then
-			server.Notify(src, locale('notify.not-enough-space'), 'error')
+			server.Notify(src, locale('notify.not_enough_space'), 'error')
 			return
 		end
 

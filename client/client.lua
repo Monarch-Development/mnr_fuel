@@ -145,7 +145,7 @@ local function playAnim(data)
 		ReleaseSoundId(soundId)
 		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
 		refueling = false
-		client.Notify(locale('notify.refuel-success'), 'success')
+		client.Notify(locale('notify.refuel_success'), 'success')
 	end
 
 	local animDict = data.action == 'fuel' and 'timetable@gardener@filling_can' or data.action == 'jerrycan' and 'weapon@w_sp_jerrycan'
@@ -155,7 +155,7 @@ local function playAnim(data)
 
 	if lib.progressCircle({
 		duration = (data.amount or 30) * config.refuelTime,
-		label = locale('progress.refueling-vehicle'),
+		label = locale('progress.refueling_vehicle'),
 		position = 'bottom',
 		useWhileDead = false,
 		canCancel = true,
@@ -190,10 +190,10 @@ local function refuelVehicle(data)
 
     local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
     if not electric and nozzleCat() ~= 'fv' then
-		client.Notify(locale('notify.not-ev'), 'error')
+		client.Notify(locale('notify.not_ev'), 'error')
         return
     elseif electric and nozzleCat() ~= 'ev' then
-        client.Notify(locale('notify.not-fv'), 'error')
+        client.Notify(locale('notify.not_fv'), 'error')
         return
     end
 
@@ -247,7 +247,7 @@ end
 local function createTargetData(ev)
 	return {
 		{
-    		label = locale(ev and 'target.take-charger' or 'target.take-nozzle'),
+    		label = locale(ev and 'target.take_charger' or 'target.take_nozzle'),
     		name = 'mnr_fuel:pump:option_1',
     		icon = ev and 'fas fa-bolt' or 'fas fa-gas-pump',
     		distance = 3.0,
@@ -259,7 +259,7 @@ local function createTargetData(ev)
     		end,
 		},
 		{
-    		label = locale(ev and 'target.return-charger' or 'target.return-nozzle'),
+    		label = locale(ev and 'target.return_charger' or 'target.return_nozzle'),
     		name = 'mnr_fuel:pump:option_2',
     		icon = 'fas fa-hand',
     		distance = 3.0,
@@ -271,7 +271,7 @@ local function createTargetData(ev)
     		end,
 		},
 		{
-		    label = locale('target.buy-jerrycan'),
+		    label = locale('target.buy_jerrycan'),
 		    name = 'mnr_fuel:pump:option_3',
 		    icon = 'fas fa-fire-flame-simple',
 		    distance = 3.0,
