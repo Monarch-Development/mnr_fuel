@@ -2,7 +2,13 @@ local config = lib.load('config.config')
 local zones = lib.load('config.zones')
 
 local InStation = {}
-GlobalState:set('fuelPrice', config.fuelPrice, true)
+
+lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
+	local src = source
+	local cash, bank = server.GetPlayerMoney(src)
+
+	return cash, bank
+end)
 
 local function inside(coords, name)
     local zone = zones[name]
@@ -52,28 +58,73 @@ end
 
 lib.callback.register('mnr_fuel:server:InStation', inStation)
 
----@description DATA FOR CLIENT REQUESTS
-lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
-	local src = source
-	local cashMoney, bankMoney = server.GetPlayerMoney(src)
+local function setFuel(vehicle, amount)
+	local vehState = Entity(vehicle)?.state
+	local fuelLevel = vehState.fuel
 
-	return cashMoney, bankMoney
-end)
+	local fuel = math.min(fuelLevel + amount, 100)
 
----@description REFUEL HANDLING
-local function setFuel(netId, fuelAmount)
-	local vehicle = NetworkGetEntityFromNetworkId(netId)
-	if not vehicle or vehicle == 0 or GetEntityType(vehicle) ~= 2 then
+	vehState:set('fuel', fuel, true)
+end
+
+local function stationRefuel(src, vehicle, data)
+	if not inStation(src) then
 		return
 	end
 
-	local vehicleState = Entity(vehicle)?.state
-	local fuelLevel = vehicleState.fuel
+	local price = math.ceil(data.amount * config.fuelPrice)
+	local money = server.GetPlayerMoney(src, data.method)
 
-	local fuel = math.min(fuelLevel + fuelAmount, 100)
+	if playerMoney < price then
+		server.Notify(src, locale('notify.not-enough-money'), 'error')
+		return
+	end
 
-	vehicleState:set('fuel', fuel, true)
+	if not server.PayMoney(src, data.method, price) then
+		return
+	end
+
+	local fuel = math.floor(data.amount)
+	setFuel(vehicle, fuel)
 end
+
+local function jerrycanRefuel(src, vehicle)
+	local vehState = Entity(vehicle)?.state
+	local fuelLevel = math.ceil(vehState.fuel)
+	local requiredFuel = 100 - fuelLevel
+	if requiredFuel <= 0 then
+		server.Notify(src, locale('notify.vehicle-full'), 'error')
+		return
+	end
+
+	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
+	if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
+		return
+	end
+
+	if weapon.metadata.durability <= 0 then
+		return
+	end
+
+	local newDurability = math.floor(weapon.metadata.durability - requiredFuel)
+	exports.ox_inventory:SetMetadata(src, item.slot, { durability = newDurability, ammo = newDurability })
+	setFuel(vehicle, requiredFuel)
+end
+
+RegisterNetEvent('mnr_fuel:server:RefuelVehicle', function(action, netId, data)
+	local src = source
+
+	local vehicle = NetworkGetEntityFromNetworkId(netId)
+	if not DoesEntityExist(vehicle) or GetEntityType(vehicle) ~= 2 then
+		return
+	end
+
+	if action == 'fuel' then
+		stationRefuel(src, vehicle, data)
+	elseif action == 'jerrycan' then
+		jerrycanRefuel(src, vehicle)
+	end
+end)
 
 RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 	local src = source
@@ -118,56 +169,4 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 
 		exports.ox_inventory:AddItem(src, 'WEAPON_PETROLCAN', 1, { durability = 100, ammo = 100 })
 	end
-end)
-
-RegisterNetEvent('mnr_fuel:server:RefuelVehicleStation', function(data)
-	local src = source
-	if not inStation(src) then
-		return
-	end
-
-	local price = math.ceil(data.amount * GlobalState.fuelPrice)
-	local playerMoney = server.GetPlayerMoney(src, data.method)
-
-	if playerMoney < price then
-		server.Notify(src, locale('notify.not-enough-money'), 'error')
-		return
-	end
-
-	if not server.PayMoney(src, data.method, price) then return end
-
-	local fuelAmount = math.floor(data.amount)
-	setFuel(data.netId, fuelAmount)
-end)
-
-RegisterNetEvent('mnr_fuel:server:RefuelVehicleJerrycan', function(netId)
-	local src = source
-
-	local vehicle = NetworkGetEntityFromNetworkId(netId)
-	if not vehicle or vehicle == 0 or GetEntityType(vehicle) ~= 2 then
-		return
-	end
-
-	local vehState = Entity(vehicle)?.state
-	local fuelLevel = math.ceil(vehState.fuel)
-	local requiredFuel = 100 - fuelLevel
-	if requiredFuel <= 0 then
-		server.Notify(src, locale('notify.vehicle-full'), 'error')
-		return
-	end
-
-	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
-	if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
-		return
-	end
-
-	if weapon.metadata.durability <= 0 then
-		return
-	end
-
-	local newDurability = math.floor(weapon.metadata.durability - requiredFuel)
-	exports.ox_inventory:SetMetadata(src, item.slot, {durability = newDurability, ammo = newDurability})
-
-	setFuel(netId, requiredFuel)
-	TriggerClientEvent('mnr_fuel:client:PlayRefuelAnim', src, {netId = netId, amount = requiredFuel}, false)
 end)

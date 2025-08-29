@@ -200,28 +200,15 @@ local function playAnim(data)
 		label = locale('progress.refueling-vehicle'),
 		position = 'bottom',
 		useWhileDead = false,
-		canCancel = false,
+		canCancel = true,
 		anim = { dict = animDict, clip = animClip },
 		disable = { move = true, car = true, combat = true },
 	}) then
 		stopAnim()
-		
-		if data.action == 'fuel' then
-			TriggerServerEvent('mnr_fuel:server:RefuelVehicleStation', { method = data.method, amount = data.amount, netId = netId })
-		end
-		
-		if data.action == 'jerrycan' then
-			TriggerServerEvent('mnr_fuel:server:RefuelVehicleJerrycan', netId)
-		end
+		TriggerServerEvent('mnr_fuel:server:RefuelVehicle', data.action, netId, { amount = data.amount, method = data.method })
 	else
 		stopAnim()
-		if data.action == 'fuel' then
-			TriggerServerEvent('mnr_fuel:server:RefuelVehicleStation', { method = data.method, amount = data.amount, netId = netId })
-		end
-		
-		if data.action == 'jerrycan' then
-			TriggerServerEvent('mnr_fuel:server:RefuelVehicleJerrycan', netId)
-		end
+		TriggerServerEvent('mnr_fuel:server:RefuelVehicle', data.action, netId, { amount = data.amount, method = data.method })
 	end
 end
 
