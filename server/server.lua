@@ -75,7 +75,7 @@ local function stationRefuel(src, vehicle, data)
 	local price = math.ceil(data.amount * config.fuelPrice)
 	local money = server.GetPlayerMoney(src, data.method)
 
-	if playerMoney < price then
+	if money < price then
 		server.Notify(src, locale('notify.not-enough-money'), 'error')
 		return
 	end
