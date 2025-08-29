@@ -106,8 +106,9 @@ local function jerrycanRefuel(src, vehicle)
 		return
 	end
 
-	local newDurability = math.floor(weapon.metadata.durability - requiredFuel)
-	exports.ox_inventory:SetMetadata(src, item.slot, { durability = newDurability, ammo = newDurability })
+	local value = math.floor(weapon.metadata.durability - requiredFuel)
+	exports.ox_inventory:SetMetadata(src, weapon.slot, { durability = value, ammo = value })
+
 	setFuel(vehicle, requiredFuel)
 end
 
