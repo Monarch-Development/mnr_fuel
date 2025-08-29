@@ -1,6 +1,7 @@
 return {
     fuelPrice = 2,
     jerrycanPrice = 500,
+    refuelTime = 2000,              --- Time in ms required for each liter of fuel during refuel animation
     nozzleType = {
         ['fv'] = { nozzle = `prop_cs_fuel_nozle`,
             offsets = {

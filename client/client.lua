@@ -92,7 +92,7 @@ local function returnNozzle(data, cat)
 	utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
 end
 
-local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
+local function inputDialog(jerrycan, cash, bank, fuel)
 	local rows = {}
 
 	rows[1] = {
@@ -106,8 +106,8 @@ local function inputDialog(jerrycan, bankMoney, cashMoney, fuel)
 		type = 'select',
 		label = locale('input.payment_method'),
 		options = {
-			{ value = 'bank', label = locale('input.bank', bankMoney) },
-			{ value = 'cash', label = locale('input.cash', cashMoney) },
+			{ value = 'bank', label = locale('input.bank', bank) },
+			{ value = 'cash', label = locale('input.cash', cash) },
 		},
 		required = true,
 	}
@@ -135,11 +135,10 @@ local function refuelVehicle(data)
         utils.InitFuelState(vehicle)
     end
 
-    if isHoldingJerrycan() then
-        local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
-        TriggerServerEvent('mnr_fuel:server:RefuelVehicle', netId)
-        return
-    end
+	if isHoldingJerrycan() then
+		playAnim({ action = 'jerrycan', vehicle = vehicle, amount = amount })
+		return
+	end
 
     if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
@@ -157,7 +156,7 @@ local function refuelVehicle(data)
     local fuel = math.ceil(vehState.fuel)
 
 	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-    local input = inputDialog(false, bank, cash, fuel)
+    local input = inputDialog(false, cash, bank, fuel)
     if not input then return end
 
 	local method = input[2]
@@ -166,58 +165,65 @@ local function refuelVehicle(data)
 		return
 	end
 
-	local netId = NetworkGetEntityIsNetworked(vehicle) and VehToNet(vehicle)
-	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'fuel', method, amount, netId)
+	playAnim({ action = 'fuel', vehicle = vehicle, method = method, amount = amount })
 end
 
-local function buyJerrycan(data)
-	if not DoesEntityExist(data.entity) then return end
-	if refueling or isHoldingNozzle() then return end
-	if not lib.callback.await('mnr_fuel:server:InStation') then return end
+local function playAnim(data)
+	if data.action == 'fuel' and not isHoldingNozzle() then return end
+	if data.action == 'jerrycan' and not isHoldingJerrycan() then return end
 
-	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
-	local input = inputDialog(true, bank, cash)
-	if not input then return end
-
-	local method = input[2]
-	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'jerrycan', method)
-end
-
-RegisterNetEvent('mnr_fuel:client:PlayRefuelAnim', function(data, isPump)
-	if isPump and not isHoldingNozzle() then return end
-	if not isPump and not isHoldingJerrycan() then return end
-
-	local vehicle = NetToVeh(data.netId)
-	TaskTurnPedToFaceEntity(cache.ped, vehicle, 500)
+	TaskTurnPedToFaceEntity(cache.ped, data.vehicle, 500)
 	Wait(500)
 
 	refueling = true
 
-	local refuelTime = data.amount * 2000
 	local cat = nozzleCat()
 	local soundId = GetSoundId()
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
 
-	if lib.progressCircle({
-		duration = refuelTime,
-		label = locale('progress.refueling-vehicle'),
-		position = 'bottom',
-		useWhileDead = false,
-		canCancel = false,
-		anim = {
-			dict = isPump and 'timetable@gardener@filling_can' or 'weapon@w_sp_jerrycan',
-			clip = isPump and 'gar_ig_5_filling_can' or 'fire',
-		},
-		disable = {move = true, car = true, combat = true},
-	}) then
+	local function stopAnim()
 		StopSound(soundId)
 		ReleaseSoundId(soundId)
 		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
 		refueling = false
 		client.Notify(locale('notify.refuel-success'), 'success')
 	end
-end)
+
+	local animDict = data.action == 'fuel' and 'timetable@gardener@filling_can' or data.action == 'jerrycan' and 'weapon@w_sp_jerrycan'
+	local animClip = data.action == 'fuel' and 'gar_ig_5_filling_can' or data.action == 'jerrycan' and 'fire'
+
+	local netId = NetworkGetEntityIsNetworked(data.vehicle) and VehToNet(data.vehicle)
+
+	if lib.progressCircle({
+		duration = data.amount * config.refuelTime,
+		label = locale('progress.refueling-vehicle'),
+		position = 'bottom',
+		useWhileDead = false,
+		canCancel = false,
+		anim = { dict = animDict, clip = animClip },
+		disable = { move = true, car = true, combat = true },
+	}) then
+		stopAnim()
+		
+		if data.action == 'fuel' then
+			TriggerServerEvent('mnr_fuel:server:RefuelVehicleStation', { method = data.method, amount = data.amount, netId = netId })
+		end
+		
+		if data.action == 'jerrycan' then
+			TriggerServerEvent('mnr_fuel:server:RefuelVehicleJerrycan', netId)
+		end
+	else
+		stopAnim()
+		if data.action == 'fuel' then
+			TriggerServerEvent('mnr_fuel:server:RefuelVehicleStation', { method = data.method, amount = data.amount, netId = netId })
+		end
+		
+		if data.action == 'jerrycan' then
+			TriggerServerEvent('mnr_fuel:server:RefuelVehicleJerrycan', netId)
+		end
+	end
+end
 
 lib.onCache('weapon', function(weapon)
     if weapon ~= `WEAPON_PETROLCAN` and holding ~= false then
@@ -226,6 +232,19 @@ lib.onCache('weapon', function(weapon)
         holding = { item = 'jerrycan' }
     end
 end)
+
+local function buyJerrycan(data)
+	if not DoesEntityExist(data.entity) then return end
+	if refueling or isHoldingNozzle() then return end
+	if not lib.callback.await('mnr_fuel:server:InStation') then return end
+
+	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
+	local input = inputDialog(true, cash, bank)
+	if not input then return end
+
+	local method = input[2]
+	TriggerServerEvent('mnr_fuel:server:ElaborateAction', 'jerrycan', method)
+end
 
 local function createTargetData(ev)
 	return {

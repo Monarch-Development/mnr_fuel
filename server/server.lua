@@ -109,28 +109,42 @@ end
 
 RegisterNetEvent('mnr_fuel:server:ElaborateAction', function(purchase, method, amount, netId)
 	local src = source
-	if not inStation(src) then return end
+	if not inStation(src) then
+		return
+	end
 
-	local price = purchase == 'fuel' and math.ceil(amount * GlobalState.fuelPrice) or config.jerrycanPrice
+	local price = config.jerrycanPrice
 	local playerMoney = server.GetPlayerMoney(src, method)
 
 	if playerMoney < price then
-		return server.Notify(src, locale('notify.not-enough-money'), 'error')
+		server.Notify(src, locale('notify.not-enough-money'), 'error')
+		return
 	end
-
-	if purchase == 'fuel' then
-		if not server.PayMoney(src, method, price) then return end
-
-		local fuelAmount = math.floor(amount)
-		setFuel(netId, fuelAmount)
-
-		TriggerClientEvent('mnr_fuel:client:PlayRefuelAnim', src, {netId = netId, amount = fuelAmount}, true)
-	elseif purchase == 'jerrycan' then
-		purchaseJerrycan(src, method, price)
-	end
+	
+	purchaseJerrycan(src, method, price)
 end)
 
-RegisterNetEvent('mnr_fuel:server:RefuelVehicle', function(netId)
+RegisterNetEvent('mnr_fuel:server:RefuelVehicleStation', function(data)
+	local src = source
+	if not inStation(src) then
+		return
+	end
+
+	local price = math.ceil(data.amount * GlobalState.fuelPrice)
+	local playerMoney = server.GetPlayerMoney(src, data.method)
+
+	if playerMoney < price then
+		server.Notify(src, locale('notify.not-enough-money'), 'error')
+		return
+	end
+
+	if not server.PayMoney(src, data.method, price) then return end
+
+	local fuelAmount = math.floor(data.amount)
+	setFuel(data.netId, fuelAmount)
+end)
+
+RegisterNetEvent('mnr_fuel:server:RefuelVehicleJerrycan', function(netId)
 	local src = source
 
 	local vehicle = NetworkGetEntityFromNetworkId(netId)
