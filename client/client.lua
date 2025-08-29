@@ -126,6 +126,50 @@ local function inputDialog(jerrycan, cash, bank, fuel)
 	return lib.inputDialog(locale('input.title'), rows)
 end
 
+local function playAnim(data)
+	if data.action == 'fuel' and not isHoldingNozzle() then return end
+	if data.action == 'jerrycan' and not isHoldingJerrycan() then return end
+
+	TaskTurnPedToFaceEntity(cache.ped, data.vehicle, 500)
+	Wait(500)
+
+	refueling = true
+
+	local cat = nozzleCat()
+	local soundId = GetSoundId()
+	lib.requestAudioBank('audiodirectory/mnr_fuel')
+	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
+
+	local function stopAnim()
+		StopSound(soundId)
+		ReleaseSoundId(soundId)
+		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
+		refueling = false
+		client.Notify(locale('notify.refuel-success'), 'success')
+	end
+
+	local animDict = data.action == 'fuel' and 'timetable@gardener@filling_can' or data.action == 'jerrycan' and 'weapon@w_sp_jerrycan'
+	local animClip = data.action == 'fuel' and 'gar_ig_5_filling_can' or data.action == 'jerrycan' and 'fire'
+
+	local netId = NetworkGetEntityIsNetworked(data.vehicle) and VehToNet(data.vehicle)
+
+	if lib.progressCircle({
+		duration = (data.amount or 30) * config.refuelTime,
+		label = locale('progress.refueling-vehicle'),
+		position = 'bottom',
+		useWhileDead = false,
+		canCancel = true,
+		anim = { dict = animDict, clip = animClip },
+		disable = { move = true, car = true, combat = true },
+	}) then
+		stopAnim()
+		TriggerServerEvent('mnr_fuel:server:RefuelVehicle', data.action, netId, { amount = data.amount, method = data.method })
+	else
+		stopAnim()
+		TriggerServerEvent('mnr_fuel:server:RefuelVehicle', data.action, netId, { amount = data.amount, method = data.method })
+	end
+end
+
 local function refuelVehicle(data)
     local vehicle = data.entity
     if not DoesEntityExist(vehicle) or refueling then return end
@@ -166,50 +210,6 @@ local function refuelVehicle(data)
 	end
 
 	playAnim({ action = 'fuel', vehicle = vehicle, method = method, amount = amount })
-end
-
-local function playAnim(data)
-	if data.action == 'fuel' and not isHoldingNozzle() then return end
-	if data.action == 'jerrycan' and not isHoldingJerrycan() then return end
-
-	TaskTurnPedToFaceEntity(cache.ped, data.vehicle, 500)
-	Wait(500)
-
-	refueling = true
-
-	local cat = nozzleCat()
-	local soundId = GetSoundId()
-	lib.requestAudioBank('audiodirectory/mnr_fuel')
-	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
-
-	local function stopAnim()
-		StopSound(soundId)
-		ReleaseSoundId(soundId)
-		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
-		refueling = false
-		client.Notify(locale('notify.refuel-success'), 'success')
-	end
-
-	local animDict = data.action == 'fuel' and 'timetable@gardener@filling_can' or data.action == 'jerrycan' and 'weapon@w_sp_jerrycan'
-	local animClip = data.action == 'fuel' and 'gar_ig_5_filling_can' or data.action == 'jerrycan' and 'fire'
-
-	local netId = NetworkGetEntityIsNetworked(data.vehicle) and VehToNet(data.vehicle)
-
-	if lib.progressCircle({
-		duration = data.amount * config.refuelTime,
-		label = locale('progress.refueling-vehicle'),
-		position = 'bottom',
-		useWhileDead = false,
-		canCancel = true,
-		anim = { dict = animDict, clip = animClip },
-		disable = { move = true, car = true, combat = true },
-	}) then
-		stopAnim()
-		TriggerServerEvent('mnr_fuel:server:RefuelVehicle', data.action, netId, { amount = data.amount, method = data.method })
-	else
-		stopAnim()
-		TriggerServerEvent('mnr_fuel:server:RefuelVehicle', data.action, netId, { amount = data.amount, method = data.method })
-	end
 end
 
 lib.onCache('weapon', function(weapon)
