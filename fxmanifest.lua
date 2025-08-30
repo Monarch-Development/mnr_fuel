@@ -3,12 +3,18 @@ game 'gta5'
 lua54 'yes'
 
 name 'mnr_fuel'
-description 'Fuel System for FiveM'
+description 'Fuel system resource'
 author 'IlMelons'
-version '1.2.0'
+version '1.3.0'
 repository 'https://www.github.com/Monarch-Development/mnr_fuel'
 
 ox_lib 'locale'
+
+files {
+    'data/mnr_fuel_sounds.dat54.rel',
+    'audiodirectory/mnr_fuel.awc',
+    'locales/*.json',
+}
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -23,12 +29,6 @@ client_scripts {
 server_scripts {
     'bridge/server/**/*.lua',
     'server/*.lua',
-}
-
-files {
-    'data/mnr_fuel_sounds.dat54.rel',
-    'audiodirectory/mnr_fuel.awc',
-    'locales/*.json',
 }
 
 data_file 'AUDIO_WAVEPACK'  'audiodirectory'
