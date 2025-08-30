@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Stație de Carburanți",
-        "name-ev": "Stație EV"
+        "name_fv": "Stație PEȚ",
+        "name_ev": "Stație de Încărcare"
     },
     "target": {
-        "refuel": "Alimentează vehiculul",
-        "take-nozzle": "Ia Duza",
-        "take-charger": "Ia Încărcătorul",
-        "return-nozzle": "Returnează Duza",
-        "return-charger": "Returnează Încărcătorul",
-        "buy-jerrycan": "Cumpără/Completează Bidon"
+        "refuel": "Alimentează Vehiculul",
+        "take_nozzle": "Ia Pistolul",
+        "take_charger": "Ia Încărcătorul",
+        "return_nozzle": "Returnează Pistolul",
+        "return_charger": "Returnează Încărcătorul",
+        "buy_jerrycan": "Cumpără/Umple Bidon"
     },
     "input": {
-        "select-amount": "Selectați Cantitatea"
-    },
-    "menu": {
-        "confirm-title": "Costul total este: %d$ inclusiv taxe.",
-        "confirm-choice-title": "Confirmă",
-        "cancel-choice-title": "Anulează",
-        "payment-title": "Alege Metoda de Plată (%d$)",
-        "payment-bank": "Banca",
-        "payment-bank-desc": "Ai %s$ în contul bancar.",
-        "payment-cash": "Numerar",
-        "payment-cash-desc": "Ai %s$ în numerar."
+        "title": "Achiziție",
+        "price": "Preț",
+        "payment_method": "Selectează Metoda de Plată",
+        "bank": "Bancă (%d$)",
+        "cash": "Numerar (%d$)",
+        "select_amount": "Selectează Cantitatea"
     },
     "progress": {
-        "refueling-vehicle": "Realimentare vehicul..."
+        "refueling_vehicle": "Alimentare vehicul..."
     },
     "notify": {
-        "not-ev": "Vehiculul nu este electric",
-        "not-fv": "Vehiculul nu folosește combustibil",
-        "not-enough-money": "Nu ai suficienți bani",
-        "not-enough-space": "Nu ai suficient spațiu",
-        "jerrycan-not-empty": "Bidonul nu este gol",
-        "vehicle-full": "Vehiculul este deja plin",
-        "refuel-success": "Ai realimentat vehiculul cu succes"
+        "not_ev": "Vehiculul nu este electric",
+        "not_fv": "Vehiculul nu folosește combustibil",
+        "not_enough_money": "Nu ai suficienți bani",
+        "not_enough_space": "Nu ai suficient spațiu",
+        "jerrycan_not_empty": "Bidonul nu este gol",
+        "vehicle_full": "Vehiculul este deja plin",
+        "refuel_success": "Ai alimentat vehiculul cu succes"
     }
 }

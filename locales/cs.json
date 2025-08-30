@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Čerpací stanice",
-        "name-ev": "Stanice EV"
+        "name_fv": "Čerpací stanice",
+        "name_ev": "Nabíjecí stanice"
     },
     "target": {
         "refuel": "Natankovat vozidlo",
-        "take-nozzle": "Vzít pistoli",
-        "take-charger": "Vzít nabíječku",
-        "return-nozzle": "Vrátit pistoli",
-        "return-charger": "Vrátit nabíječku",
-        "buy-jerrycan": "Koupit/Doplnit kanystr"
+        "take_nozzle": "Vzít hadici",
+        "take_charger": "Vzít nabíječku",
+        "return_nozzle": "Vrátit hadici",
+        "return_charger": "Vrátit nabíječku",
+        "buy_jerrycan": "Koupit/Doplnit kanystr"
     },
     "input": {
-        "select-amount": "Vyberte částku"
-    },
-    "menu": {
-        "confirm-title": "Celková cena je: %d$ včetně daní.",
-        "confirm-choice-title": "Potvrdit",
-        "cancel-choice-title": "Zrušit",
-        "payment-title": "Vyberte způsob platby (%d$)",
-        "payment-bank": "Banka",
-        "payment-bank-desc": "Na účtu máte %s$.",
-        "payment-cash": "Hotovost",
-        "payment-cash-desc": "Máte %s$ v hotovosti."
+        "title": "Nákup",
+        "price": "Cena",
+        "payment_method": "Vyberte způsob platby",
+        "bank": "Banka (%d$)",
+        "cash": "Hotově (%d$)",
+        "select_amount": "Vyberte množství"
     },
     "progress": {
-        "refueling-vehicle": "Tankování vozidla..."
+        "refueling_vehicle": "Probíhá tankování..."
     },
     "notify": {
-        "not-ev": "Vozidlo není elektrické",
-        "not-fv": "Vozidlo nepoužívá palivo",
-        "not-enough-money": "Nemáte dostatek peněz",
-        "not-enough-space": "Nemáte dostatek místa",
-        "jerrycan-not-empty": "Kanystr není prázdný",
-        "vehicle-full": "Vozidlo je již plné",
-        "refuel-success": "Vozidlo bylo úspěšně natankováno"
+        "not_ev": "Vozidlo není elektrické",
+        "not_fv": "Vozidlo nepoužívá palivo",
+        "not_enough_money": "Nemáte dostatek peněz",
+        "not_enough_space": "Není dostatek místa",
+        "jerrycan_not_empty": "Kanystr není prázdný",
+        "vehicle_full": "Vozidlo je již plné",
+        "refuel_success": "Vozidlo bylo úspěšně natankováno"
     }
 }

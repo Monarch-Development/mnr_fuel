@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Posto de Gasolina",
-        "name-ev": "Estação de EV"
+        "name_fv": "Posto de Gasolina",
+        "name_ev": "Estação de Recarga"
     },
     "target": {
-        "refuel": "Abastecer veículo",
-        "take-nozzle": "Pegar Bico",
-        "take-charger": "Pegar Carregador",
-        "return-nozzle": "Devolver Bico",
-        "return-charger": "Devolver Carregador",
-        "buy-jerrycan": "Comprar/Reabastecer Galão"
+        "refuel": "Abastecer Veículo",
+        "take_nozzle": "Pegar Bico",
+        "take_charger": "Pegar Carregador",
+        "return_nozzle": "Devolver Bico",
+        "return_charger": "Devolver Carregador",
+        "buy_jerrycan": "Comprar/Refil de Galão"
     },
     "input": {
-        "select-amount": "Selecionar Quantidade"
-    },
-    "menu": {
-        "confirm-title": "O custo total é: %d$ incluindo impostos.",
-        "confirm-choice-title": "Confirmar",
-        "cancel-choice-title": "Cancelar",
-        "payment-title": "Escolha o método de pagamento (%d$)",
-        "payment-bank": "Banco",
-        "payment-bank-desc": "Você tem %s$ na sua conta bancária.",
-        "payment-cash": "Dinheiro",
-        "payment-cash-desc": "Você tem %s$ em dinheiro."
+        "title": "Compra",
+        "price": "Preço",
+        "payment_method": "Selecionar Método de Pagamento",
+        "bank": "Banco (%d$)",
+        "cash": "Dinheiro (%d$)",
+        "select_amount": "Selecionar Quantidade"
     },
     "progress": {
-        "refueling-vehicle": "Abastecendo veículo..."
+        "refueling_vehicle": "Abastecendo veículo..."
     },
     "notify": {
-        "not-ev": "O veículo não é elétrico",
-        "not-fv": "O veículo não usa combustível",
-        "not-enough-money": "Você não tem dinheiro suficiente",
-        "not-enough-space": "Você não tem espaço suficiente",
-        "jerrycan-not-empty": "O galão não está vazio",
-        "vehicle-full": "O veículo já está cheio",
-        "refuel-success": "Você abasteceu o veículo com sucesso"
+        "not_ev": "O veículo não é elétrico",
+        "not_fv": "O veículo não usa combustível",
+        "not_enough_money": "Você não tem dinheiro suficiente",
+        "not_enough_space": "Não há espaço suficiente",
+        "jerrycan_not_empty": "O galão não está vazio",
+        "vehicle_full": "O veículo já está cheio",
+        "refuel_success": "Você abasteceu o veículo com sucesso"
     }
 }

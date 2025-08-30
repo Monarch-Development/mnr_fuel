@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Stesen Minyak",
-        "name-ev": "Stesen EV"
+        "name_fv": "Stesen Minyak",
+        "name_ev": "Stesen Pengecasan"
     },
     "target": {
-        "refuel": "Isi minyak kenderaan",
-        "take-nozzle": "Ambil muncung",
-        "take-charger": "Ambil pengecas",
-        "return-nozzle": "Pulangkan muncung",
-        "return-charger": "Pulangkan pengecas",
-        "buy-jerrycan": "Beli/Isikan Jerrycan"
+        "refuel": "Isi Minyak Kenderaan",
+        "take_nozzle": "Ambil Pemegang Pam",
+        "take_charger": "Ambil Pengecas",
+        "return_nozzle": "Kembalikan Pemegang Pam",
+        "return_charger": "Kembalikan Pengecas",
+        "buy_jerrycan": "Beli/Isi Semula Kanister"
     },
     "input": {
-        "select-amount": "Pilih jumlah"
-    },
-    "menu": {
-        "confirm-title": "Jumlah keseluruhan ialah: %d$ termasuk cukai.",
-        "confirm-choice-title": "Sahkan",
-        "cancel-choice-title": "Batal",
-        "payment-title": "Pilih Kaedah Pembayaran (%d$)",
-        "payment-bank": "Bank",
-        "payment-bank-desc": "Anda mempunyai %s$ dalam akaun bank anda.",
-        "payment-cash": "Tunai",
-        "payment-cash-desc": "Anda mempunyai %s$ dalam bentuk tunai."
+        "title": "Pembelian",
+        "price": "Harga",
+        "payment_method": "Pilih Kaedah Pembayaran",
+        "bank": "Bank (%d$)",
+        "cash": "Tunai (%d$)",
+        "select_amount": "Pilih Jumlah"
     },
     "progress": {
-        "refueling-vehicle": "Sedang mengisi minyak kenderaan..."
+        "refueling_vehicle": "Sedang mengisi kenderaan..."
     },
     "notify": {
-        "not-ev": "Kenderaan ini bukan elektrik",
-        "not-fv": "Kenderaan ini tidak menggunakan bahan api",
-        "not-enough-money": "Anda tidak mempunyai wang yang mencukupi",
-        "not-enough-space": "Anda tidak mempunyai ruang yang mencukupi",
-        "jerrycan-not-empty": "Jerrycan tidak kosong",
-        "vehicle-full": "Kenderaan sudah penuh",
-        "refuel-success": "Anda berjaya mengisi minyak kenderaan"
+        "not_ev": "Kenderaan ini bukan elektrik",
+        "not_fv": "Kenderaan ini tidak menggunakan bahan api",
+        "not_enough_money": "Anda tidak mempunyai wang yang mencukupi",
+        "not_enough_space": "Tiada ruang yang mencukupi",
+        "jerrycan_not_empty": "Kanister belum kosong",
+        "vehicle_full": "Kenderaan telah penuh",
+        "refuel_success": "Kenderaan berjaya diisi minyak"
     }
 }

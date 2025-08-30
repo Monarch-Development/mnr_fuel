@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "محطة وقود",
-        "name-ev": "محطة شحن كهربائية"
+        "name_fv": "محطة وقود",
+        "name_ev": "محطة شحن كهربائي"
     },
     "target": {
-        "refuel": "تزويد المركبة بالوقود",
-        "take-nozzle": "أمسك الفوهة",
-        "take-charger": "أمسك الشاحن",
-        "return-nozzle": "إرجاع الفوهة",
-        "return-charger": "إرجاع الشاحن",
-        "buy-jerrycan": "شراء/تعبئة الجركن"
+        "refuel": "تعبئة الوقود",
+        "take_nozzle": "أخذ المضخة",
+        "take_charger": "أخذ الشاحن",
+        "return_nozzle": "إرجاع المضخة",
+        "return_charger": "إرجاع الشاحن",
+        "buy_jerrycan": "شراء/إعادة تعبئة جالون"
     },
     "input": {
-        "select-amount": "اختر الكمية"
-    },
-    "menu": {
-        "confirm-title": "التكلفة الإجمالية هي: %d$ شامل الضرائب.",
-        "confirm-choice-title": "تأكيد",
-        "cancel-choice-title": "إلغاء",
-        "payment-title": "اختر طريقة الدفع (%d$)",
-        "payment-bank": "البنك",
-        "payment-bank-desc": "لديك %s$ في حسابك البنكي.",
-        "payment-cash": "نقداً",
-        "payment-cash-desc": "لديك %s$ نقداً."
+        "title": "شراء",
+        "price": "السعر",
+        "payment_method": "اختر طريقة الدفع",
+        "bank": "البنك (%d$)",
+        "cash": "نقداً (%d$)",
+        "select_amount": "اختر الكمية"
     },
     "progress": {
-        "refueling-vehicle": "جارٍ تعبئة الوقود..."
+        "refueling_vehicle": "جاري تعبئة الوقود..."
     },
     "notify": {
-        "not-ev": "السيارة ليست كهربائية",
-        "not-fv": "السيارة لا تستخدم وقودًا",
-        "not-enough-money": "ليس لديك ما يكفي من المال",
-        "not-enough-space": "ليس لديك مساحة كافية",
-        "jerrycan-not-empty": "الجركن غير فارغ",
-        "vehicle-full": "السيارة ممتلئة بالفعل",
-        "refuel-success": "تمت تعبئة الوقود بنجاح"
+        "not_ev": "المركبة ليست كهربائية",
+        "not_fv": "المركبة لا تستخدم الوقود",
+        "not_enough_money": "ليس لديك مال كافٍ",
+        "not_enough_space": "لا توجد مساحة كافية",
+        "jerrycan_not_empty": "الجالون غير فارغ",
+        "vehicle_full": "المركبة ممتلئة بالفعل",
+        "refuel_success": "تمت تعبئة الوقود بنجاح"
     }
 }

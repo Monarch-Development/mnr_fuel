@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Tankstation",
-        "name-ev": "Ladestation"
+        "name_fv": "Tankstation",
+        "name_ev": "Ladestation"
     },
     "target": {
         "refuel": "Tank køretøj",
-        "take-nozzle": "Tag tankpistol",
-        "take-charger": "Tag oplader",
-        "return-nozzle": "Returnér tankpistol",
-        "return-charger": "Returnér oplader",
-        "buy-jerrycan": "Køb/genopfyld dunk"
+        "take_nozzle": "Tag slangen",
+        "take_charger": "Tag opladeren",
+        "return_nozzle": "Aflever slangen",
+        "return_charger": "Aflever opladeren",
+        "buy_jerrycan": "Køb/Genopfyld dunk"
     },
     "input": {
-        "select-amount": "Vælg mængde"
-    },
-    "menu": {
-        "confirm-title": "Den samlede pris er: %d$ inkl. moms.",
-        "confirm-choice-title": "Bekræft",
-        "cancel-choice-title": "Annuller",
-        "payment-title": "Vælg betalingsmetode (%d$)",
-        "payment-bank": "Bank",
-        "payment-bank-desc": "Du har %s$ på din bankkonto.",
-        "payment-cash": "Kontant",
-        "payment-cash-desc": "Du har %s$ i kontanter."
+        "title": "Køb",
+        "price": "Pris",
+        "payment_method": "Vælg betalingsmetode",
+        "bank": "Bank (%d$)",
+        "cash": "Kontant (%d$)",
+        "select_amount": "Vælg mængde"
     },
     "progress": {
-        "refueling-vehicle": "Tanker køretøj..."
+        "refueling_vehicle": "Tanker køretøj..."
     },
     "notify": {
-        "not-ev": "Køretøjet er ikke elektrisk",
-        "not-fv": "Køretøjet bruger ikke brændstof",
-        "not-enough-money": "Du har ikke nok penge",
-        "not-enough-space": "Du har ikke nok plads",
-        "jerrycan-not-empty": "Dunken er ikke tom",
-        "vehicle-full": "Køretøjet er allerede fyldt op",
-        "refuel-success": "Du har tanket køretøjet med succes"
+        "not_ev": "Køretøjet er ikke elektrisk",
+        "not_fv": "Køretøjet bruger ikke brændstof",
+        "not_enough_money": "Du har ikke nok penge",
+        "not_enough_space": "Der er ikke nok plads",
+        "jerrycan_not_empty": "Dunken er ikke tom",
+        "vehicle_full": "Køretøjet er allerede fuldt",
+        "refuel_success": "Køretøjet blev tanket med succes"
     }
 }

@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Degalinė",
-        "name-ev": "Įkrovimo stotis"
+        "name_fv": "Degalinė",
+        "name_ev": "Įkrovimo stotelė"
     },
     "target": {
-        "refuel": "Papildyti transporto priemonę kuru",
-        "take-nozzle": "Paimti pistoletą",
-        "take-charger": "Paimti įkroviklį",
-        "return-nozzle": "Grąžinti pistoletą",
-        "return-charger": "Grąžinti įkroviklį",
-        "buy-jerrycan": "Pirkti / Pripildyti kanistrą"
+        "refuel": "Užsipildyti transporto priemonę",
+        "take_nozzle": "Paimti žarną",
+        "take_charger": "Paimti įkroviklį",
+        "return_nozzle": "Grąžinti žarną",
+        "return_charger": "Grąžinti įkroviklį",
+        "buy_jerrycan": "Pirkti/Pripildyti kanistrą"
     },
     "input": {
-        "select-amount": "Pasirinkite kiekį"
-    },
-    "menu": {
-        "confirm-title": "Bendra kaina: %d$ su mokesčiais.",
-        "confirm-choice-title": "Patvirtinti",
-        "cancel-choice-title": "Atšaukti",
-        "payment-title": "Pasirinkite mokėjimo būdą (%d$)",
-        "payment-bank": "Bankas",
-        "payment-bank-desc": "Jūsų banko sąskaitoje yra %s$.",
-        "payment-cash": "Grynieji",
-        "payment-cash-desc": "Turite %s$ grynaisiais."
+        "title": "Pirkimas",
+        "price": "Kaina",
+        "payment_method": "Pasirinkite mokėjimo būdą",
+        "bank": "Bankas (%d$)",
+        "cash": "Grynais (%d$)",
+        "select_amount": "Pasirinkite kiekį"
     },
     "progress": {
-        "refueling-vehicle": "Pildomas kuras..."
+        "refueling_vehicle": "Užsipildoma transporto priemonė..."
     },
     "notify": {
-        "not-ev": "Transporto priemonė nėra elektrinė",
-        "not-fv": "Transporto priemonė nenaudoja kuro",
-        "not-enough-money": "Jums nepakanka pinigų",
-        "not-enough-space": "Nepakanka vietos",
-        "jerrycan-not-empty": "Kanistras nėra tuščias",
-        "vehicle-full": "Transporto priemonė jau pilna",
-        "refuel-success": "Transporto priemonė sėkmingai pripildyta"
+        "not_ev": "Transporto priemonė nėra elektrinė",
+        "not_fv": "Transporto priemonė nenaudoja kuro",
+        "not_enough_money": "Neturite pakankamai pinigų",
+        "not_enough_space": "Nėra pakankamai vietos",
+        "jerrycan_not_empty": "Kanistras nėra tuščias",
+        "vehicle_full": "Transporto priemonė jau pilna",
+        "refuel_success": "Transporto priemonė sėkmingai užsipildė"
     }
 }

@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "加油站",
-        "name-ev": "电动车充电站"
+        "name_fv": "加油站",
+        "name_ev": "充电站"
     },
     "target": {
         "refuel": "为车辆加油",
-        "take-nozzle": "拿取油枪",
-        "take-charger": "拿取充电器",
-        "return-nozzle": "归还油枪",
-        "return-charger": "归还充电器",
-        "buy-jerrycan": "购买/补充油壶"
+        "take_nozzle": "拿取加油枪",
+        "take_charger": "拿取充电器",
+        "return_nozzle": "归还加油枪",
+        "return_charger": "归还充电器",
+        "buy_jerrycan": "购买/补充油桶"
     },
     "input": {
-        "select-amount": "选择数量"
-    },
-    "menu": {
-        "confirm-title": "总费用为：%d$（含税）。",
-        "confirm-choice-title": "确认",
-        "cancel-choice-title": "取消",
-        "payment-title": "选择支付方式（%d$）",
-        "payment-bank": "银行",
-        "payment-bank-desc": "您的银行账户有 %s$。",
-        "payment-cash": "现金",
-        "payment-cash-desc": "您有 %s$ 现金。"
+        "title": "购买",
+        "price": "价格",
+        "payment_method": "选择付款方式",
+        "bank": "银行 (%d$)",
+        "cash": "现金 (%d$)",
+        "select_amount": "选择数量"
     },
     "progress": {
-        "refueling-vehicle": "正在给车辆加油..."
+        "refueling_vehicle": "正在为车辆加油..."
     },
     "notify": {
-        "not-ev": "该车辆不是电动车",
-        "not-fv": "该车辆不使用燃料",
-        "not-enough-money": "您的资金不足",
-        "not-enough-space": "您的空间不足",
-        "jerrycan-not-empty": "油壶不是空的",
-        "vehicle-full": "车辆已经加满油",
-        "refuel-success": "您已成功给车辆加油"
+        "not_ev": "该车辆不是电动车",
+        "not_fv": "该车辆不使用燃料",
+        "not_enough_money": "你的钱不够",
+        "not_enough_space": "空间不足",
+        "jerrycan_not_empty": "油桶未空",
+        "vehicle_full": "车辆已满",
+        "refuel_success": "你已成功为车辆加油"
     }
 }

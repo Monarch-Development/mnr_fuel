@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Gasolinera",
-        "name-ev": "Estación EV"
+        "name_fv": "Gasolinera",
+        "name_ev": "Estación de carga"
     },
     "target": {
         "refuel": "Repostar vehículo",
-        "take-nozzle": "Coger boquilla",
-        "take-charger": "Coger cargador",
-        "return-nozzle": "Devolver boquilla",
-        "return-charger": "Devolver cargador",
-        "buy-jerrycan": "Comprar/Rellenar bidón"
+        "take_nozzle": "Coger la manguera",
+        "take_charger": "Coger el cargador",
+        "return_nozzle": "Devolver la manguera",
+        "return_charger": "Devolver el cargador",
+        "buy_jerrycan": "Comprar/Rellenar bidón"
     },
     "input": {
-        "select-amount": "Seleccionar cantidad"
-    },
-    "menu": {
-        "confirm-title": "El coste total es: %d€, impuestos incluidos.",
-        "confirm-choice-title": "Confirmar",
-        "cancel-choice-title": "Cancelar",
-        "payment-title": "Elige método de pago (%d€)",
-        "payment-bank": "Banco",
-        "payment-bank-desc": "Tienes %s€ en tu cuenta bancaria.",
-        "payment-cash": "Efectivo",
-        "payment-cash-desc": "Tienes %s€ en efectivo."
+        "title": "Compra",
+        "price": "Precio",
+        "payment_method": "Seleccionar método de pago",
+        "bank": "Banco (%d$)",
+        "cash": "Efectivo (%d$)",
+        "select_amount": "Seleccionar cantidad"
     },
     "progress": {
-        "refueling-vehicle": "Repostando vehículo..."
+        "refueling_vehicle": "Repostando vehículo..."
     },
     "notify": {
-        "not-ev": "El vehículo no es eléctrico",
-        "not-fv": "El vehículo no utiliza combustible",
-        "not-enough-money": "No tienes suficiente dinero",
-        "not-enough-space": "No tienes suficiente espacio",
-        "jerrycan-not-empty": "El bidón no está vacío",
-        "vehicle-full": "El vehículo ya está lleno",
-        "refuel-success": "Has repostado el vehículo correctamente"
+        "not_ev": "El vehículo no es eléctrico",
+        "not_fv": "El vehículo no usa combustible",
+        "not_enough_money": "No tienes suficiente dinero",
+        "not_enough_space": "No tienes suficiente espacio",
+        "jerrycan_not_empty": "El bidón no está vacío",
+        "vehicle_full": "El vehículo ya está lleno",
+        "refuel_success": "Has repostado el vehículo con éxito"
     }
 }

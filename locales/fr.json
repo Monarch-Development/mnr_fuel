@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Station-service",
-        "name-ev": "Station électrique"
+        "name_fv": "Station-service",
+        "name_ev": "Station de recharge"
     },
     "target": {
-        "refuel": "Ravitailler le véhicule",
-        "take-nozzle": "Prendre le pistolet",
-        "take-charger": "Prendre le chargeur",
-        "return-nozzle": "Ranger le pistolet",
-        "return-charger": "Ranger le chargeur",
-        "buy-jerrycan": "Acheter/Recharger un jerrican"
+        "refuel": "Faire le plein",
+        "take_nozzle": "Prendre le pistolet",
+        "take_charger": "Prendre le chargeur",
+        "return_nozzle": "Rendre le pistolet",
+        "return_charger": "Rendre le chargeur",
+        "buy_jerrycan": "Acheter/Remplir un jerrican"
     },
     "input": {
-        "select-amount": "Sélectionner la quantité"
-    },
-    "menu": {
-        "confirm-title": "Le coût total est de : %d$ taxes comprises.",
-        "confirm-choice-title": "Confirmer",
-        "cancel-choice-title": "Annuler",
-        "payment-title": "Choisissez un mode de paiement (%d$)",
-        "payment-bank": "Banque",
-        "payment-bank-desc": "Vous avez %s$ sur votre compte bancaire.",
-        "payment-cash": "Espèces",
-        "payment-cash-desc": "Vous avez %s$ en espèces."
+        "title": "Achat",
+        "price": "Prix",
+        "payment_method": "Sélectionner un mode de paiement",
+        "bank": "Banque (%d$)",
+        "cash": "Espèces (%d$)",
+        "select_amount": "Sélectionner la quantité"
     },
     "progress": {
-        "refueling-vehicle": "Ravitaillement du véhicule..."
+        "refueling_vehicle": "Remplissage du véhicule..."
     },
     "notify": {
-        "not-ev": "Le véhicule n'est pas électrique",
-        "not-fv": "Le véhicule n'utilise pas de carburant",
-        "not-enough-money": "Vous n'avez pas assez d'argent",
-        "not-enough-space": "Vous n'avez pas assez de place",
-        "jerrycan-not-empty": "Le jerrican n'est pas vide",
-        "vehicle-full": "Le véhicule est déjà plein",
-        "refuel-success": "Vous avez ravitaillé le véhicule avec succès"
+        "not_ev": "Le véhicule n’est pas électrique",
+        "not_fv": "Le véhicule n’utilise pas de carburant",
+        "not_enough_money": "Vous n’avez pas assez d’argent",
+        "not_enough_space": "Vous n’avez pas assez de place",
+        "jerrycan_not_empty": "Le jerrican n’est pas vide",
+        "vehicle_full": "Le véhicule est déjà plein",
+        "refuel_success": "Vous avez fait le plein avec succès"
     }
 }

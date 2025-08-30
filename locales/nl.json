@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Tankstation",
-        "name-ev": "Laadstation"
+        "name_fv": "Tankstation",
+        "name_ev": "Oplaadstation"
     },
     "target": {
-        "refuel": "Voertuig voltanken",
-        "take-nozzle": "Pak het mondstuk",
-        "take-charger": "Pak de lader",
-        "return-nozzle": "Mondstuk terugplaatsen",
-        "return-charger": "Lader terugplaatsen",
-        "buy-jerrycan": "Jerrycan kopen/bijvullen"
+        "refuel": "Voertuig tanken",
+        "take_nozzle": "Neem de pomp",
+        "take_charger": "Neem de lader",
+        "return_nozzle": "Breng de pomp terug",
+        "return_charger": "Breng de lader terug",
+        "buy_jerrycan": "Koop/Vul jerrycan bij"
     },
     "input": {
-        "select-amount": "Selecteer hoeveelheid"
-    },
-    "menu": {
-        "confirm-title": "De totale kosten zijn: %d$, inclusief belastingen.",
-        "confirm-choice-title": "Bevestigen",
-        "cancel-choice-title": "Annuleren",
-        "payment-title": "Kies een betaalmethode (%d$)",
-        "payment-bank": "Bank",
-        "payment-bank-desc": "Je hebt %s$ op je bankrekening.",
-        "payment-cash": "Contant",
-        "payment-cash-desc": "Je hebt %s$ contant geld."
+        "title": "Aankoop",
+        "price": "Prijs",
+        "payment_method": "Kies betaalmethode",
+        "bank": "Bank (%d$)",
+        "cash": "Contant (%d$)",
+        "select_amount": "Kies hoeveelheid"
     },
     "progress": {
-        "refueling-vehicle": "Voertuig wordt getankt..."
+        "refueling_vehicle": "Voertuig wordt getankt..."
     },
     "notify": {
-        "not-ev": "Het voertuig is niet elektrisch",
-        "not-fv": "Het voertuig gebruikt geen brandstof",
-        "not-enough-money": "Je hebt niet genoeg geld",
-        "not-enough-space": "Je hebt niet genoeg ruimte",
-        "jerrycan-not-empty": "De jerrycan is niet leeg",
-        "vehicle-full": "Het voertuig is al vol",
-        "refuel-success": "Het voertuig is succesvol getankt"
+        "not_ev": "Het voertuig is niet elektrisch",
+        "not_fv": "Het voertuig gebruikt geen brandstof",
+        "not_enough_money": "Je hebt niet genoeg geld",
+        "not_enough_space": "Er is niet genoeg ruimte",
+        "jerrycan_not_empty": "De jerrycan is niet leeg",
+        "vehicle_full": "Het voertuig is al vol",
+        "refuel_success": "Het voertuig is succesvol getankt"
     }
 }

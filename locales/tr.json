@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Benzin İstasyonu",
-        "name-ev": "Elektrikli Araç İstasyonu"
+        "name_fv": "Benzinlik",
+        "name_ev": "Şarj İstasyonu"
     },
     "target": {
-        "refuel": "Aracı yakıtla doldur",
-        "take-nozzle": "Nozülü Al",
-        "take-charger": "Şarj Cihazını Al",
-        "return-nozzle": "Nozülü Geri Ver",
-        "return-charger": "Şarj Cihazını Geri Ver",
-        "buy-jerrycan": "Jerrycan Satın Al/Doldur"
+        "refuel": "Aracı Doldur",
+        "take_nozzle": "Pompayı Al",
+        "take_charger": "Şarj Cihazını Al",
+        "return_nozzle": "Pompayı Geri Ver",
+        "return_charger": "Şarj Cihazını Geri Ver",
+        "buy_jerrycan": "Jerrican Satın Al/Doldur"
     },
     "input": {
-        "select-amount": "Miktar Seç"
-    },
-    "menu": {
-        "confirm-title": "Toplam tutar: %d$ (vergiler dahil).",
-        "confirm-choice-title": "Onayla",
-        "cancel-choice-title": "İptal",
-        "payment-title": "Ödeme Yöntemi Seç (%d$)",
-        "payment-bank": "Banka",
-        "payment-bank-desc": "Banka hesabınızda %s$ var.",
-        "payment-cash": "Nakit",
-        "payment-cash-desc": "Yanınızda %s$ nakit var."
+        "title": "Satın Alma",
+        "price": "Fiyat",
+        "payment_method": "Ödeme Yöntemi Seç",
+        "bank": "Banka (%d$)",
+        "cash": "Nakit (%d$)",
+        "select_amount": "Miktar Seç"
     },
     "progress": {
-        "refueling-vehicle": "Araç yakıt dolduruluyor..."
+        "refueling_vehicle": "Araç dolduruluyor..."
     },
     "notify": {
-        "not-ev": "Araç elektrikli değil",
-        "not-fv": "Araç yakıt kullanmıyor",
-        "not-enough-money": "Yeterli paranız yok",
-        "not-enough-space": "Yeterli alanınız yok",
-        "jerrycan-not-empty": "Jerrycan boş değil",
-        "vehicle-full": "Araç zaten dolu",
-        "refuel-success": "Aracınızı başarıyla doldurdunuz"
+        "not_ev": "Araç elektrikli değil",
+        "not_fv": "Araç yakıt kullanmıyor",
+        "not_enough_money": "Yeterli paran yok",
+        "not_enough_space": "Yeterli alan yok",
+        "jerrycan_not_empty": "Jerrican boş değil",
+        "vehicle_full": "Araç zaten dolu",
+        "refuel_success": "Araç başarıyla dolduruldu"
     }
 }

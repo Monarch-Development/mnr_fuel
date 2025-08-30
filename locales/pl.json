@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Stacja Benzynowa",
-        "name-ev": "Stacja Ładowania EV"
+        "name_fv": "Stacja paliw",
+        "name_ev": "Stacja ładowania"
     },
     "target": {
-        "refuel": "Zatankuj pojazd",
-        "take-nozzle": "Weź Pistolet",
-        "take-charger": "Weź Ładowarkę",
-        "return-nozzle": "Odłóż Pistolet",
-        "return-charger": "Odłóż Ładowarkę",
-        "buy-jerrycan": "Kup/Uzupełnij Kanister"
+        "refuel": "Tankuj pojazd",
+        "take_nozzle": "Weź dystrybutor",
+        "take_charger": "Weź ładowarkę",
+        "return_nozzle": "Oddaj dystrybutor",
+        "return_charger": "Oddaj ładowarkę",
+        "buy_jerrycan": "Kup/Doładuj kanister"
     },
     "input": {
-        "select-amount": "Wybierz Ilość"
-    },
-    "menu": {
-        "confirm-title": "Całkowity koszt to: %d$ z podatkiem.",
-        "confirm-choice-title": "Potwierdź",
-        "cancel-choice-title": "Anuluj",
-        "payment-title": "Wybierz Metodę Płatności (%d$)",
-        "payment-bank": "Bank",
-        "payment-bank-desc": "Masz %s$ na koncie bankowym.",
-        "payment-cash": "Gotówka",
-        "payment-cash-desc": "Masz %s$ w gotówce."
+        "title": "Zakup",
+        "price": "Cena",
+        "payment_method": "Wybierz metodę płatności",
+        "bank": "Bank (%d$)",
+        "cash": "Gotówka (%d$)",
+        "select_amount": "Wybierz ilość"
     },
     "progress": {
-        "refueling-vehicle": "Tankowanie pojazdu..."
+        "refueling_vehicle": "Tankowanie pojazdu..."
     },
     "notify": {
-        "not-ev": "Pojazd nie jest elektryczny",
-        "not-fv": "Pojazd nie używa paliwa",
-        "not-enough-money": "Nie masz wystarczająco pieniędzy",
-        "not-enough-space": "Nie masz wystarczająco miejsca",
-        "jerrycan-not-empty": "Kanister nie jest pusty",
-        "vehicle-full": "Pojazd jest już zatankowany",
-        "refuel-success": "Pojazd został pomyślnie zatankowany"
+        "not_ev": "Pojazd nie jest elektryczny",
+        "not_fv": "Pojazd nie używa paliwa",
+        "not_enough_money": "Nie masz wystarczająco pieniędzy",
+        "not_enough_space": "Brak wystarczająco miejsca",
+        "jerrycan_not_empty": "Kanister nie jest pusty",
+        "vehicle_full": "Pojazd jest już pełny",
+        "refuel_success": "Pomyślnie zatankowano pojazd"
     }
 }
