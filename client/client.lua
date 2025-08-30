@@ -7,20 +7,12 @@ local holding = false
 local Entities = { nozzle = nil, rope = nil }
 
 ---@description HELPERS (INTERACTION)
-local function isHolding()
-    return holding and type(holding) == 'table'
-end
-
-local function isHoldingNozzle()
-    return isHolding() and holding.item == 'nozzle'
+local function holdingItem(item)
+    return type(holding) == 'table' and holding.item == item
 end
 
 local function nozzleCat()
-    return isHoldingNozzle() and holding.cat or nil
-end
-
-local function isHoldingJerrycan()
-    return isHolding() and holding.item == 'jerrycan'
+    return holdingItem('nozzle') and holding.cat or nil
 end
 
 local function rotateOffset(offset, heading)
@@ -43,7 +35,7 @@ end
 ---@description SECURE ROPE UNLOAD LOOP (INTERACTION)
 local function ropeLoop()
 	local playerCoords = GetEntityCoords(cache.ped)
-	while isHoldingNozzle() do
+	while holdingItem('nozzle') do
 		local currentcoords = GetEntityCoords(cache.ped)
 		local dist = #(playerCoords - currentcoords)
 		if dist > 7.5 then
@@ -57,7 +49,7 @@ end
 ---@description TARGET FUNCTIONS (INTERACTION)
 local function takeNozzle(data, cat)
 	if not DoesEntityExist(data.entity) then return end
-	if refueling or isHolding() then return end
+	if refueling or holdingItem('nozzle') or holdingItem('jerrycan') then return end
 	if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
 	lib.requestAnimDict('anim@am_hold_up@male', 300)
@@ -103,7 +95,7 @@ local function takeNozzle(data, cat)
 end
 
 local function returnNozzle(data, cat)
-	if refueling and not isHoldingNozzle() then return end
+	if refueling and not holdingItem('nozzle') then return end
 
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
@@ -148,8 +140,8 @@ local function inputDialog(jerrycan, cash, bank, fuel)
 end
 
 local function playAnim(data)
-	if data.action == 'fuel' and not isHoldingNozzle() then return end
-	if data.action == 'jerrycan' and not isHoldingJerrycan() then return end
+	if data.action == 'fuel' and not holdingItem('nozzle') then return end
+	if data.action == 'jerrycan' and not holdingItem('jerrycan') then return end
 
 	TaskTurnPedToFaceEntity(cache.ped, data.vehicle, 500)
 	Wait(500)
@@ -200,23 +192,20 @@ local function refuelVehicle(data)
         utils.InitFuelState(vehicle)
     end
 
-	if isHoldingJerrycan() then
+	if holdingItem('jerrycan') then
 		playAnim({ action = 'jerrycan', vehicle = vehicle, amount = amount })
 		return
 	end
 
     if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
-    if refueling and not isHoldingNozzle() then return end
+    if refueling and not holdingItem('nozzle') then return end
 
     local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
-    if not electric and nozzleCat() ~= 'fv' then
-		client.Notify(locale('notify.not_ev'), 'error')
-        return
-    elseif electric and nozzleCat() ~= 'ev' then
-        client.Notify(locale('notify.not_fv'), 'error')
-        return
-    end
+	if (electric and nozzleCat() ~= 'ev') or (not electric and nozzleCat() ~= 'fv') then
+		client.Notify(electric and locale('notify.not_fv') or locale('notify.not_ev'), 'error')
+		return
+	end
 
     local fuel = math.ceil(vehState.fuel)
 
@@ -246,7 +235,7 @@ local function buyJerrycan(data)
 		return
 	end
 
-	if refueling or isHoldingNozzle() then
+	if refueling or holdingItem('nozzle') then
 		return
 	end
 
@@ -273,7 +262,7 @@ local function createTargetData(ev)
     		icon = ev and 'fas fa-bolt' or 'fas fa-gas-pump',
     		distance = 3.0,
     		canInteract = function()
-    		    return not refueling and not isHoldingNozzle()
+    		    return not refueling and not holdingItem('nozzle')
     		end,
     		onSelect = function(data)
     		    takeNozzle(data, ev and 'ev' or 'fv')
@@ -285,7 +274,7 @@ local function createTargetData(ev)
     		icon = 'fas fa-hand',
     		distance = 3.0,
     		canInteract = function()
-    		    return not refueling and isHoldingNozzle()
+    		    return not refueling and holdingItem('nozzle')
     		end,
     		onSelect = function(data)
     		    returnNozzle(data, ev and 'ev' or 'fv')
@@ -297,7 +286,7 @@ local function createTargetData(ev)
 		    icon = 'fas fa-fire-flame-simple',
 		    distance = 3.0,
 		    canInteract = function()
-		        return not refueling and not isHoldingNozzle()
+		        return not refueling and not holdingItem('nozzle')
 		    end,
 		    onSelect = buyJerrycan,
 		},
