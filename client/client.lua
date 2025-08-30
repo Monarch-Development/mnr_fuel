@@ -1,10 +1,12 @@
 local config = lib.load('config.config')
 local utils = require 'client.utils'
 
+---@description ENTITIES (INTERACTION)
 local refueling = false
 local holding = false
 local Entities = { nozzle = nil, rope = nil }
 
+---@description HELPERS (INTERACTION)
 local function isHolding()
     return holding and type(holding) == 'table'
 end
@@ -21,6 +23,24 @@ local function isHoldingJerrycan()
     return isHolding() and holding.item == 'jerrycan'
 end
 
+local function rotateOffset(offset, heading)
+    local rad = math.rad(heading)
+    local cosH = math.cos(rad)
+    local sinH = math.sin(rad)
+
+    local newX = offset.x * cosH - offset.y * sinH
+    local newY = offset.x * sinH + offset.y * cosH
+
+    return vec3(newX, newY, offset.z)
+end
+
+local function deleteEntities(nozzle, rope)
+    DeleteObject(nozzle)
+    RopeUnloadTextures()
+    DeleteRope(rope)
+end
+
+---@description SECURE ROPE UNLOAD LOOP (INTERACTION)
 local function ropeLoop()
 	local playerCoords = GetEntityCoords(cache.ped)
 	while isHoldingNozzle() do
@@ -28,13 +48,13 @@ local function ropeLoop()
 		local dist = #(playerCoords - currentcoords)
 		if dist > 7.5 then
 			holding = false
-			utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
+			deleteEntities(Entities.nozzle, Entities.rope)
 		end
 		Wait(1000)
 	end
 end
 
----@param cat <string> Category of the pump/nozzle
+---@description TARGET FUNCTIONS (INTERACTION)
 local function takeNozzle(data, cat)
 	if not DoesEntityExist(data.entity) then return end
 	if refueling or isHolding() then return end
@@ -73,7 +93,7 @@ local function takeNozzle(data, cat)
 	
 	local heading = GetEntityHeading(data.entity)
 	local hash = GetEntityModel(data.entity)
-	local rotatedPumpOffset = utils.RotateOffset(config.pumps[hash].offset, heading)
+	local rotatedPumpOffset = rotateOffset(config.pumps[hash].offset, heading)
 	local coords = pump + rotatedPumpOffset
 	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzle.x, nozzle.y, nozzle.z, length, false, false, nil, nil)
 
@@ -89,7 +109,7 @@ local function returnNozzle(data, cat)
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
 	holding = false
 	Wait(250)
-	utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
+	deleteEntities(Entities.nozzle, Entities.rope)
 end
 
 local function inputDialog(jerrycan, cash, bank, fuel)
@@ -306,7 +326,7 @@ AddEventHandler('onResourceStop', function(resourceName)
 	local scriptName = cache.resource or GetCurrentResourceName()
 	if resourceName ~= scriptName then return end
 
-	utils.DeleteFuelEntities(Entities.nozzle, Entities.rope)
+	deleteEntities(Entities.nozzle, Entities.rope)
 
 	exports.ox_target:removeGlobalVehicle('mnr_fuel:vehicle:refuel')
 end)
