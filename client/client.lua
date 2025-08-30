@@ -113,27 +113,28 @@ local function returnNozzle(data, cat)
 end
 
 local function inputDialog(jerrycan, cash, bank, fuel)
-	local rows = {}
-
-	rows[1] = {
-		type = 'number',
-		label = locale('input.price'),
-		default = jerrycan and config.jerrycanPrice or config.fuelPrice,
-		icon = 'dollar-sign',
-		disabled = true
-	}
-	rows[2] = {
-		type = 'select',
-		label = locale('input.payment_method'),
-		options = {
-			{ value = 'bank', label = locale('input.bank', bank) },
-			{ value = 'cash', label = locale('input.cash', cash) },
+	local rows = {
+		{
+			type = 'number',
+			label = locale('input.price'),
+			default = jerrycan and config.jerrycanPrice or config.fuelPrice,
+			icon = 'dollar-sign',
+			disabled = true
 		},
-		required = true,
+		{
+			type = 'select',
+			label = locale('input.payment_method'),
+			options = {
+				{ value = 'bank', label = locale('input.bank', bank) },
+				{ value = 'cash', label = locale('input.cash', cash) },
+			},
+			required = true,
+			default = 'bank',
+		},
 	}
 
 	if not jerrycan then
-		rows[3] = {
+		rows[#rows + 1] = {
 			type = 'slider',
 			label = locale('input.select_amount'),
 			required = true,
