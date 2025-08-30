@@ -14,18 +14,19 @@ end
 function server.GetPlayerMoney(source, account)
     local src = source
     local xPlayer = ESX.GetPlayerFromId(src)
-    local cashMoney = nil
-    local bankMoney = nil
+    local cash = nil
+    local bank = nil
     for _, data in pairs(xPlayer.accounts) do
         if data.name == account then
             return data.money
         elseif data.name == 'money' then
-            cashMoney = data.money
+            cash = data.money
         elseif data.name == 'bank' then
-            bankMoney = data.money
+            bank = data.money
         end
     end
-    return cashMoney, bankMoney
+
+    return cash, bank
 end
 
 function server.PayMoney(source, paymentMethod, amount)

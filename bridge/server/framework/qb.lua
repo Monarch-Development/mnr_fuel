@@ -15,15 +15,15 @@ function server.GetPlayerMoney(source, account)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
-    local cashMoney = Player.Functions.GetMoney('cash')
-    local bankMoney = Player.Functions.GetMoney('bank')
+    local cash = Player.Functions.GetMoney('cash')
+    local bank = Player.Functions.GetMoney('bank')
 
     if account == 'bank' then
-        return bankMoney
+        return bank
     elseif account == 'cash' then
-        return cashMoney
+        return cash
     else
-        return cashMoney, bankMoney
+        return cash, bank
     end
 end
 

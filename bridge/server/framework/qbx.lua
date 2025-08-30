@@ -16,15 +16,15 @@ end
 function server.GetPlayerMoney(source, account)
     local src = source
     local player = exports.qbx_core:GetPlayer(src)
-    local cashMoney = player.PlayerData.money['cash']
-    local bankMoney = player.PlayerData.money['bank']
+    local cash = player.PlayerData.money['cash']
+    local bank = player.PlayerData.money['bank']
 
     if account == 'bank' then
-        return bankMoney
+        return bank
     elseif account == 'cash' then
-        return cashMoney
+        return cash
     else
-        return cashMoney, bankMoney
+        return cash, bank
     end
 end
 
