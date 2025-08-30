@@ -1,39 +1,34 @@
 {
     "blips": {
-        "name-fuel": "Stazione di Rifornimento",
-        "name-ev": "Stazione di Ricarica"
+        "name_fv": "Stazione di Rifornimento",
+        "name_ev": "Stazione di Ricarica"
     },
     "target": {
         "refuel": "Rifornisci Veicolo",
-        "take-nozzle": "Prendi Pompa",
-        "take-charger": "Prendi Caricatore",
-        "return-nozzle": "Rimetti Pompa",
-        "return-charger": "Rimetti Caricatore",
-        "buy-jerrycan": "Compra/Riempi Tanica"
+        "take_nozzle": "Prendi Pompa",
+        "take_charger": "Prendi Caricatore",
+        "return_nozzle": "Rimetti Pompa",
+        "return_charger": "Rimetti Caricatore",
+        "buy_jerrycan": "Compra/Riempi Tanica"
     },
     "input": {
-        "select-amount": "Seleziona Quantità"
-    },
-    "menu": {
-        "confirm-title": "Il costo totale è: %d$ tasse incluse",
-        "confirm-choice-title": "Conferma",
-        "cancel-choice-title": "Annulla",
-        "payment-title": "Scegli Metodo di Pagamento (%d$)",
-        "payment-bank": "Banca",
-        "payment-bank-desc": "Hai %s$ nel tuo conto in banca",
-        "payment-cash": "Contanti",
-        "payment-cash-desc": "Hai %s$ in contanti"
+        "title": "Acquista",
+        "price": "Prezzo",
+        "payment_method": "Seleziona Metodo di Pagamento",
+        "bank": "Banca (%d$)",
+        "cash": "Contanti (%d$)",
+        "select_amount": "Seleziona Quantità"
     },
     "progress": {
-        "refueling-vehicle": "Rifornendo Veicolo..."
+        "refueling_vehicle": "Rifornendo Veicolo..."
     },
     "notify": {
-        "not-ev": "Il veicolo non è elettrico",
-        "not-fv": "Il veicolo non usa carburante",
-        "not-enough-money": "Non hai abbastanza soldi",
-        "not-enough-space": "Non hai abbastanza spazio",
-        "jerrycan-not-empty": "La tanica non è vuota",
-        "vehicle-full": "Il veicolo è già pieno",
-        "refuel-success": "Hai rifornito il veicolo con successo"
+        "not_ev": "Il veicolo non è elettrico",
+        "not_fv": "Il veicolo non usa carburante",
+        "not_enough_money": "Non hai abbastanza soldi",
+        "not_enough_space": "Non hai abbastanza spazio",
+        "jerrycan_not_empty": "La tanica non è vuota",
+        "vehicle_full": "Il veicolo è già pieno",
+        "refuel_success": "Hai rifornito con successo il veicolo"
     }
 }
