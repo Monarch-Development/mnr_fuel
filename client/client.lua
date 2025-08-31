@@ -87,7 +87,7 @@ local function takeNozzle(data, cat)
 	local hash = GetEntityModel(data.entity)
 	local rotatedPumpOffset = rotateOffset(config.pumps[hash].offset, heading)
 	local coords = pump + rotatedPumpOffset
-	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzle.x, nozzle.y, nozzle.z, length, false, false, nil, nil)
+	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzle.x, nozzle.y, nozzle.z, length, false, false)
 
 	holding = { item = 'nozzle', cat = cat }
 
