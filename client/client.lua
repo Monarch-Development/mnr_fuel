@@ -47,6 +47,19 @@ local function ropeLoop()
 	end
 end
 
+AddStateBagChangeHandler('linkedTo', nil, function(bagName, key, value) 
+    local entity = GetEntityFromStateBagName(bagName)
+    if not DoesEntityExist(entity) then
+		return
+	end
+
+	local hash = GetEntityModel(value.pump)
+	local cat = pumps[hash].nozzles[value.index].cat
+	local offset = pumps[hash].nozzles[value.index].offset
+
+	AttachEntitiesToRope(rope, value.pump, entity, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
+end)
+
 ---@description TARGET FUNCTIONS (INTERACTION)
 local function takeNozzle(data, cat)
 	if not DoesEntityExist(data.entity) then return end
