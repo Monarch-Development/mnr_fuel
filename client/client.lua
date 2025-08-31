@@ -3,7 +3,7 @@ local utils = require 'client.utils'
 
 ---@description ENTITIES (INTERACTION)
 local refueling = false
-local holding = false
+local holding = { item = nil, cat = nil }
 local Entities = { nozzle = nil, rope = nil }
 
 ---@description HELPERS (INTERACTION)
@@ -39,7 +39,7 @@ local function ropeLoop()
 		local currentcoords = GetEntityCoords(cache.ped)
 		local dist = #(playerCoords - currentcoords)
 		if dist > 7.5 then
-			holding = false
+			holding = { item = nil, cat = nil }
 			deleteEntities(Entities.nozzle, Entities.rope)
 		end
 		Wait(1000)
@@ -99,7 +99,7 @@ local function returnNozzle(data, cat)
 
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
-	holding = false
+	holding = { item = nil, cat = nil }
 	Wait(250)
 	deleteEntities(Entities.nozzle, Entities.rope)
 end
@@ -221,7 +221,7 @@ end
 
 lib.onCache('weapon', function(weapon)
     if weapon ~= `WEAPON_PETROLCAN` and holding ~= false then
-        holding = false
+        holding = { item = nil, cat = nil }
     elseif weapon == `WEAPON_PETROLCAN` then
         holding = { item = 'jerrycan' }
     end
