@@ -1,4 +1,5 @@
 local config = lib.load('config.config')
+local nozzles = require 'config.nozzles'
 local utils = require 'client.utils'
 
 ---@description ENTITIES (INTERACTION)
@@ -60,9 +61,9 @@ local function takeNozzle(data, cat)
 	StopAnimTask(cache.ped, 'anim@am_hold_up@male', 'shoplift_high', 1.0)
 	RemoveAnimDict('anim@am_hold_up@male')
 
-	local hand = config.nozzleType[cat].offsets.hand
+	local hand = nozzles[cat].offsets.hand
 	local bone = GetPedBoneIndex(cache.ped, 18905)
-	Entities.nozzle = CreateObject(config.nozzleType[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
+	Entities.nozzle = CreateObject(nozzles[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
 	AttachEntityToEntity(Entities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
 
     RopeLoadTextures()
@@ -72,22 +73,20 @@ local function takeNozzle(data, cat)
     end
 
 	local pump = GetEntityCoords(data.entity)
-	Entities.rope = AddRope(pump.x, pump.y, pump.z, 0.0, 0.0, 0.0, 3.0, config.ropeType['fv'], 8.0, 0.0, 1.0, false, false, false, 1.0, true)
-
+	Entities.rope = AddRope(pump.x, pump.y, pump.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
 	while not Entities.rope do
 		Wait(0)
 	end
 	ActivatePhysics(Entities.rope)
 	Wait(100)
 
-	local offset = config.nozzleType[cat].offsets.rope
-	local nozzle = GetOffsetFromEntityInWorldCoords(Entities.nozzle, offset.x, offset.y, offset.z)
-	
+	local offset = nozzles[cat].offsets.rope
+	local nozzleCoords = GetOffsetFromEntityInWorldCoords(Entities.nozzle, offset.x, offset.y, offset.z)
 	local heading = GetEntityHeading(data.entity)
 	local hash = GetEntityModel(data.entity)
 	local rotatedPumpOffset = rotateOffset(config.pumps[hash].offset, heading)
 	local coords = pump + rotatedPumpOffset
-	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzle.x, nozzle.y, nozzle.z, length, false, false)
+	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nozzles[cat].boneName)
 
 	holding = { item = 'nozzle', cat = cat }
 
