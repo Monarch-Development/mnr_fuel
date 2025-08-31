@@ -47,17 +47,37 @@ local function ropeLoop()
 	end
 end
 
-AddStateBagChangeHandler('linkedTo', nil, function(bagName, key, value) 
+AddStateBagChangeHandler('linked', nil, function(bagName, key, value) 
     local entity = GetEntityFromStateBagName(bagName)
     if not DoesEntityExist(entity) then
 		return
 	end
 
-	local hash = GetEntityModel(value.pump)
-	local cat = pumps[hash].nozzles[value.index].cat
-	local offset = pumps[hash].nozzles[value.index].offset
+	RopeLoadTextures()
+	while not RopeAreTexturesLoaded() do
+	    Wait(0)
+	    RopeLoadTextures()
+	end
 
-	AttachEntitiesToRope(rope, value.pump, entity, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
+	local pumpCoords = GetEntityCoords(value.pump)
+	Pumps[value.pump].rope = AddRope(pump.x, pump.y, pump.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
+	
+	while not Pumps[value.pump].rope then
+		Wait(10)
+	end
+
+	ActivatePhysics(Pumps[value.pump].rope)
+
+	local hash = GetEntityModel(value.pump)
+	local pump = pumps[hash].nozzles[value.index]
+
+	local offset = nozzles[pump.cat].offsets.rope
+	local nozzleCoords = GetOffsetFromEntityInWorldCoords(entity, offset.x, offset.y, offset.z)
+	local heading = GetEntityHeading(value.pump)
+	local rotatedPumpOffset = rotateOffset(pump.offset, heading)
+	local coords = pump + rotatedPumpOffset
+
+	AttachEntitiesToRope(Pumps[value.pump].rope, value.pump, entity, pumpCoords.x, pumpCoords.y, pumpCoords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
 end)
 
 ---@description TARGET FUNCTIONS (INTERACTION)
@@ -78,6 +98,8 @@ local function takeNozzle(data, cat)
 	local bone = GetPedBoneIndex(cache.ped, 18905)
 	Entities.nozzle = CreateObject(nozzles[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
 	AttachEntityToEntity(Entities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
+
+	--------- TO SEPARATE -------
 
     RopeLoadTextures()
     while not RopeAreTexturesLoaded() do
@@ -100,6 +122,8 @@ local function takeNozzle(data, cat)
 	local rotatedPumpOffset = rotateOffset(config.pumps[hash].offset, heading)
 	local coords = pump + rotatedPumpOffset
 	AttachEntitiesToRope(Entities.rope, data.entity, Entities.nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nozzles[cat].boneName)
+
+	--------- TO SEPARATE -------
 
 	holding = { item = 'nozzle', cat = cat }
 
