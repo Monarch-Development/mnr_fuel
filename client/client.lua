@@ -198,7 +198,6 @@ local function refuelVehicle(data)
 	end
 
     if not lib.callback.await('mnr_fuel:server:InStation') then return end
-
     if refueling and not holdingItem('nozzle') then return end
 
     local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
@@ -215,9 +214,7 @@ local function refuelVehicle(data)
 
 	local method = input[2]
     local amount = tonumber(input[3]) - fuel
-    if not amount or amount <= 0 then
-		return
-	end
+    if not amount or amount <= 0 then return end
 
 	playAnim({ action = 'fuel', vehicle = vehicle, method = method, amount = amount })
 end
@@ -231,24 +228,13 @@ lib.onCache('weapon', function(weapon)
 end)
 
 local function buyJerrycan(data)
-	if not DoesEntityExist(data.entity) then
-		return
-	end
-
-	if refueling or holdingItem('nozzle') then
-		return
-	end
-
-	if not lib.callback.await('mnr_fuel:server:InStation') then
-		return
-	end
+	if not DoesEntityExist(data.entity) then return end
+	if refueling or holdingItem('nozzle') then return end
+	if not lib.callback.await('mnr_fuel:server:InStation') then return end
 
 	local cash, bank = lib.callback.await('mnr_fuel:server:GetPlayerMoney', false)
 	local input = inputDialog(true, cash, bank)
-	
-	if not input then
-		return
-	end
+	if not input then return end
 
 	local method = input[2]
 	TriggerServerEvent('mnr_fuel:server:JerrycanPurchase', method)
