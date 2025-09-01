@@ -39,9 +39,9 @@ AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
     local entity = GetEntityFromStateBagName(bagName)
     if not DoesEntityExist(entity) then return end
 
-    if RopesRegistry[entity] and DoesRopeExist(RopesRegistry[entity]) then
+    if value == nil and RopesRegistry[entity] and DoesRopeExist(RopesRegistry[entity]) then
+		DeleteRope(RopesRegistry[entity])
 		RopeUnloadTextures()
-        DeleteRope(RopesRegistry[entity])
         RopesRegistry[entity] = nil
 		return
     end
@@ -128,7 +128,7 @@ local function returnNozzle(data, cat)
 
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
-	
+
 	Entity(data.entity).state:set('used', nil, true)
 	holding = { item = nil, cat = nil }
 	deleteEntities(Entities.nozzle)
