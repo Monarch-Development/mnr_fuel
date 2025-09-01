@@ -1,5 +1,6 @@
 local config = lib.load('config.config')
 local nozzles = require 'config.nozzles'
+local pumps = require 'config.pumps'
 local utils = require 'client.utils'
 
 ---@description ENTITIES (INTERACTION)
@@ -47,11 +48,9 @@ local function ropeLoop()
 	end
 end
 
-AddStateBagChangeHandler('linked', nil, function(bagName, key, value) 
+AddStateBagChangeHandler('used', nil, function(bagName, key, value) 
     local entity = GetEntityFromStateBagName(bagName)
-    if not DoesEntityExist(entity) then
-		return
-	end
+    if not DoesEntityExist(entity) then return end
 
 	RopeLoadTextures()
 	while not RopeAreTexturesLoaded() do
@@ -59,25 +58,27 @@ AddStateBagChangeHandler('linked', nil, function(bagName, key, value)
 	    RopeLoadTextures()
 	end
 
-	local pumpCoords = GetEntityCoords(value.pump)
-	Pumps[value.pump].rope = AddRope(pump.x, pump.y, pump.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
+	local pumpCoords = GetEntityCoords(entity)
+	RopesRegistry[entity] = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
 	
-	while not Pumps[value.pump].rope then
+	while not RopesRegistry[entity] then
 		Wait(10)
 	end
 
-	ActivatePhysics(Pumps[value.pump].rope)
+	ActivatePhysics(RopesRegistry[entity])
 
-	local hash = GetEntityModel(value.pump)
-	local pump = pumps[hash].nozzles[value.index]
+	local hash = GetEntityModel(entity)
+	local cat = pumps[hash].cat
+	local pumpOffset = pumps[hash].offset
+	local nozzle = NetToObj(value)
 
-	local offset = nozzles[pump.cat].offsets.rope
-	local nozzleCoords = GetOffsetFromEntityInWorldCoords(entity, offset.x, offset.y, offset.z)
-	local heading = GetEntityHeading(value.pump)
+	local offset = nozzles[cat].offsets.rope
+	local nozzleCoords = GetOffsetFromEntityInWorldCoords(value, offset.x, offset.y, offset.z)
+	local heading = GetEntityHeading(entity)
 	local rotatedPumpOffset = rotateOffset(pump.offset, heading)
 	local coords = pump + rotatedPumpOffset
 
-	AttachEntitiesToRope(Pumps[value.pump].rope, value.pump, entity, pumpCoords.x, pumpCoords.y, pumpCoords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
+	AttachEntitiesToRope(RopesRegistry[entity], entity, nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
 end)
 
 ---@description TARGET FUNCTIONS (INTERACTION)
