@@ -7,6 +7,7 @@ local utils = require 'client.utils'
 local refueling = false
 local holding = { item = nil, cat = nil }
 local Entities = { nozzle = nil }
+local RopesRegistry = {}
 
 ---@description HELPERS (INTERACTION)
 local function holdingItem(item)
@@ -46,14 +47,18 @@ local function ropeLoop()
 	end
 end
 
-AddStateBagChangeHandler('used', nil, function(bagName, key, value) 
+AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
+	if not replicated then return end
+
     local entity = GetEntityFromStateBagName(bagName)
     if not DoesEntityExist(entity) then return end
 
-	if not value and RopesRegistry[entity] then
-		DeleteRope(RopesRegistry[entity])
+    if RopesRegistry[entity] and DoesRopeExist(RopesRegistry[entity]) then
+		RopeUnloadTextures()
+        DeleteRope(RopesRegistry[entity])
+        RopesRegistry[entity] = nil
 		return
-	end
+    end
 
 	RopeLoadTextures()
 	while not RopeAreTexturesLoaded() do
@@ -62,26 +67,26 @@ AddStateBagChangeHandler('used', nil, function(bagName, key, value)
 	end
 
 	local pumpCoords = GetEntityCoords(entity)
-	RopesRegistry[entity] = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
-	
-	while not RopesRegistry[entity] then
-		Wait(10)
+	local rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
+	RopesRegistry[entity] = rope
+
+	while not rope do
+		Wait(0)
 	end
 
-	ActivatePhysics(RopesRegistry[entity])
+	ActivatePhysics(rope)
 
 	local hash = GetEntityModel(entity)
 	local cat = pumps[hash].cat
 	local pumpOffset = pumps[hash].offset
-	local nozzle = NetToObj(value)
-
+	local nozzle = NetworkGetEntityFromNetworkId(value)
 	local offset = nozzles[cat].offsets.rope
-	local nozzleCoords = GetOffsetFromEntityInWorldCoords(value, offset.x, offset.y, offset.z)
+	local nozzleCoords = GetOffsetFromEntityInWorldCoords(nozzle, offset.x, offset.y, offset.z)
 	local heading = GetEntityHeading(entity)
-	local rotatedPumpOffset = rotateOffset(pump.offset, heading)
-	local coords = pump + rotatedPumpOffset
+	local rotatedPumpOffset = rotateOffset(pumpOffset, heading)
+	local coords = pumpCoords + rotatedPumpOffset
 
-	AttachEntitiesToRope(RopesRegistry[entity], entity, nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
+	AttachEntitiesToRope(rope, entity, nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
 end)
 
 ---@description TARGET FUNCTIONS (INTERACTION)
@@ -103,13 +108,16 @@ local function takeNozzle(data, cat)
 	local hand = nozzles[cat].offsets.hand
 	local bone = GetPedBoneIndex(cache.ped, 18905)
 	Entities.nozzle = CreateObject(nozzles[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
+	NetworkRegisterEntityAsNetworked(Entities.nozzle)
+
 	AttachEntityToEntity(Entities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
 
 	if NetworkGetEntityIsLocal(data.entity) then
 		NetworkRegisterEntityAsNetworked(data.entity)
 	end
 
-	Entity(data.entity).state:set('used', ObjToNet(Entities.nozzle), true)
+	local nozzle = NetworkGetEntityIsNetworked(Entities.nozzle) and NetworkGetNetworkIdFromEntity(Entities.nozzle)
+	Entity(data.entity).state:set('used', nozzle, true)
 
 	holding = { item = 'nozzle', cat = cat }
 
