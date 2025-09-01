@@ -33,20 +33,6 @@ local function deleteEntities(nozzle)
     DeleteObject(nozzle)
 end
 
----@description SECURE ROPE UNLOAD LOOP (INTERACTION)
-local function ropeLoop()
-	local playerCoords = GetEntityCoords(cache.ped)
-	while holdingItem('nozzle') do
-		local currentcoords = GetEntityCoords(cache.ped)
-		local dist = #(playerCoords - currentcoords)
-		if dist > 7.5 then
-			holding = { item = nil, cat = nil }
-			deleteEntities(Entities.nozzle)
-		end
-		Wait(1000)
-	end
-end
-
 AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
 	if not replicated then return end
 
@@ -86,7 +72,7 @@ AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
 	local rotatedPumpOffset = rotateOffset(pumpOffset, heading)
 	local coords = pumpCoords + rotatedPumpOffset
 
-	AttachEntitiesToRope(rope, entity, nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, length, false, false, nil, nil)
+	AttachEntitiesToRope(rope, entity, nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, 8.0, false, false, nil, nil)
 end)
 
 ---@description TARGET FUNCTIONS (INTERACTION)
@@ -121,7 +107,20 @@ local function takeNozzle(data, cat)
 
 	holding = { item = 'nozzle', cat = cat }
 
-	CreateThread(ropeLoop)
+	CreateThread(function()
+		local playerCoords = GetEntityCoords(cache.ped)
+		while holdingItem('nozzle') do
+			local currentcoords = GetEntityCoords(cache.ped)
+			local distance = #(playerCoords - currentcoords)
+			if distance > 7.5 then
+				Entity(data.entity).state:set('used', nil, true)
+				holding = { item = nil, cat = nil }
+				deleteEntities(Entities.nozzle)
+				NetworkUnregisterNetworkedEntity(data.entity)
+			end
+			Wait(1000)
+		end
+	end)
 end
 
 local function returnNozzle(data, cat)
@@ -131,10 +130,9 @@ local function returnNozzle(data, cat)
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
 	
 	Entity(data.entity).state:set('used', nil, true)
-	
 	holding = { item = nil, cat = nil }
-	Wait(250)
 	deleteEntities(Entities.nozzle)
+	NetworkUnregisterNetworkedEntity(data.entity)
 end
 
 local function inputDialog(jerrycan, cash, bank, fuel)
