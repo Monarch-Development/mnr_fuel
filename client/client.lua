@@ -3,13 +3,11 @@ local nozzles = require 'config.nozzles'
 local pumps = require 'config.pumps'
 local utils = require 'client.utils'
 
----@description ENTITIES (INTERACTION)
 local refueling = false
 local holding = { item = nil, cat = nil }
 local Entities = { nozzle = nil }
 local RopesRegistry = {}
 
----@description HELPERS (INTERACTION)
 local function holdingItem(item)
     return type(holding) == 'table' and holding.item == item
 end
@@ -78,7 +76,6 @@ AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
 	AttachEntitiesToRope(rope, entity, nozzle, coords.x, coords.y, coords.z, nozzleCoords.x, nozzleCoords.y, nozzleCoords.z, 8.0, false, false, nil, nil)
 end)
 
----@description TARGET FUNCTIONS (INTERACTION)
 local function takeNozzle(data, cat)
 	if not DoesEntityExist(data.entity) then return end
 	if refueling or holdingItem('nozzle') or holdingItem('jerrycan') then return end
