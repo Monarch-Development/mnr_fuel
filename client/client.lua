@@ -3,10 +3,10 @@ local nozzles = require 'config.nozzles'
 local pumps = require 'config.pumps'
 local utils = require 'client.utils'
 
+local RopesRegistry = {}
+local NozzleRegistry = 0
 local refueling = false
 local holding = nil
-local Entities = { nozzle = nil }
-local RopesRegistry = {}
 
 local function holdingItem(item)
     return holding ~= nil and holding.item == item
@@ -93,16 +93,16 @@ local function takeNozzle(data, cat)
 
 	local hand = nozzles[cat].offsets.hand
 	local bone = GetPedBoneIndex(cache.ped, 18905)
-	Entities.nozzle = CreateObject(nozzles[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
-	NetworkRegisterEntityAsNetworked(Entities.nozzle)
+	NozzleRegistry = CreateObject(nozzles[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
+	NetworkRegisterEntityAsNetworked(NozzleRegistry)
 
-	AttachEntityToEntity(Entities.nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
+	AttachEntityToEntity(NozzleRegistry, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
 
 	if NetworkGetEntityIsLocal(data.entity) then
 		NetworkRegisterEntityAsNetworked(data.entity)
 	end
 
-	local nozzle = NetworkGetEntityIsNetworked(Entities.nozzle) and NetworkGetNetworkIdFromEntity(Entities.nozzle)
+	local nozzle = NetworkGetEntityIsNetworked(NozzleRegistry) and NetworkGetNetworkIdFromEntity(NozzleRegistry)
 	Entity(data.entity).state:set('used', nozzle, true)
 
 	holding = { item = 'nozzle', cat = cat }
@@ -115,7 +115,7 @@ local function takeNozzle(data, cat)
 			if distance > 7.5 then
 				Entity(data.entity).state:set('used', nil, true)
 				holding = nil
-				deleteEntities(Entities.nozzle)
+				deleteEntities(NozzleRegistry)
 				NetworkUnregisterNetworkedEntity(data.entity)
 			end
 			Wait(1000)
@@ -131,7 +131,7 @@ local function returnNozzle(data, cat)
 
 	Entity(data.entity).state:set('used', nil, true)
 	holding = nil
-	deleteEntities(Entities.nozzle)
+	deleteEntities(NozzleRegistry)
 	NetworkUnregisterNetworkedEntity(data.entity)
 end
 
@@ -182,12 +182,12 @@ local function playAnim(data)
 	local cat = nozzleCat()
 	local soundId = GetSoundId()
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
-	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
+	PlaySoundFromEntity(soundId, ('mnr_%s_start'):format(cat), NozzleRegistry, 'mnr_fuel', true, 0)
 
 	local function stopAnim()
 		StopSound(soundId)
 		ReleaseSoundId(soundId)
-		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), Entities.nozzle, 'mnr_fuel', true, 0)
+		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), NozzleRegistry, 'mnr_fuel', true, 0)
 		refueling = false
 		client.Notify(locale('notify.refuel_success'), 'success')
 	end
@@ -333,7 +333,7 @@ AddEventHandler('onResourceStop', function(resourceName)
     local scriptName = cache.resource or GetCurrentResourceName()
     if resourceName ~= scriptName then return end
 
-    deleteEntities(Entities.nozzle)
+    deleteEntities(NozzleRegistry)
 
     for ent, rope in pairs(RopesRegistry) do
         if rope and DoesRopeExist(rope) then
