@@ -12,25 +12,26 @@ function server.Notify(source, msg, type)
 end
 
 function server.GetPlayerMoney(source, account)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
+    local Player = QBCore.Functions.GetPlayer(source)
 
     local cash = Player.Functions.GetMoney('cash')
     local bank = Player.Functions.GetMoney('bank')
 
-    if account == 'bank' then
-        return bank
-    elseif account == 'cash' then
-        return cash
-    else
+    if not account then
         return cash, bank
+    end
+
+    if account == 'cash' then
+        return cash
+    elseif account == 'bank' then
+        return bank
     end
 end
 
-function server.PayMoney(source, paymentMethod, amount)
-    local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    local paymentSuccess = Player.Functions.RemoveMoney(paymentMethod, amount)
+function server.PayMoney(source, method, amount)
+    local Player = QBCore.Functions.GetPlayer(source)
+
+    local paymentSuccess = Player.Functions.RemoveMoney(method, amount)
 
     return paymentSuccess
 end

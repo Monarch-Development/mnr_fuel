@@ -14,24 +14,22 @@ function server.Notify(source, msg, type)
 end
 
 function server.GetPlayerMoney(source, account)
-    local src = source
-    local player = exports.qbx_core:GetPlayer(src)
-    local cash = player.PlayerData.money['cash']
-    local bank = player.PlayerData.money['bank']
+    local cash = exports.qbx_core:GetMoney(source, 'cash')
+    local bank = exports.qbx_core:GetMoney(source, 'bank')
 
-    if account == 'bank' then
-        return bank
-    elseif account == 'cash' then
-        return cash
-    else
+    if not account then
         return cash, bank
+    end
+
+    if account == 'cash' then
+        return cash
+    elseif account == 'bank' then
+        return bank
     end
 end
 
-function server.PayMoney(source, paymentMethod, amount)
-    local src = source
-    local player = exports.qbx_core:GetPlayer(src)
-    local paymentSuccess = player.Functions.RemoveMoney(paymentMethod, amount)
+function server.PayMoney(source, method, amount)
+    local success = exports.qbx_core:RemoveMoney(source, method, amount)
 
-    return paymentSuccess
+    return success
 end

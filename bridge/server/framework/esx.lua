@@ -12,30 +12,30 @@ function server.Notify(source, msg, type)
 end
 
 function server.GetPlayerMoney(source, account)
-    local src = source
-    local xPlayer = ESX.GetPlayerFromId(src)
-    local cash = nil
-    local bank = nil
-    for _, data in pairs(xPlayer.accounts) do
-        if data.name == account then
-            return data.money
-        elseif data.name == 'money' then
-            cash = data.money
-        elseif data.name == 'bank' then
-            bank = data.money
-        end
+    local xPlayer = ESX.Player(source) or ESX.GetPlayerFromId(src)
+    
+    local cash = xPlayer.getAccount('money').money
+    local bank = xPlayer.getAccount('bank').money
+    
+    if not account then
+        return cash, bank
     end
 
-    return cash, bank
+    if account == 'cash' then
+        return cash
+    elseif account == 'bank' then
+        return bank
+    end
 end
 
-function server.PayMoney(source, paymentMethod, amount)
-    local src = source
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if paymentMethod == 'cash' then
-        paymentMethod = 'money'
+function server.PayMoney(source, method, amount)
+    local xPlayer = ESX.Player(source) or ESX.GetPlayerFromId(source)
+    
+    if method == 'cash' then
+        method == 'money'
     end
-    xPlayer.removeAccountMoney(paymentMethod, amount)
+
+    xPlayer.removeAccountMoney(method, amount)
 
     return true
 end
