@@ -46,10 +46,12 @@ AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
 		return
     end
 
-	repeat
-    	RopeLoadTextures()
-		Wait(10)
-	until RopeAreTexturesLoaded()
+	if not RopeAreTexturesLoaded() then
+		RopeLoadTextures()
+		while not RopeAreTexturesLoaded() do
+			Wait(0)
+		end
+	end
 
 	local pumpCoords = GetEntityCoords(entity)
 	local rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
