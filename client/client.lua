@@ -4,12 +4,12 @@ local pumps = require 'config.pumps'
 local utils = require 'client.utils'
 
 local refueling = false
-local holding = { item = nil, cat = nil }
+local holding = nil
 local Entities = { nozzle = nil }
 local RopesRegistry = {}
 
 local function holdingItem(item)
-    return type(holding) == 'table' and holding.item == item
+    return holding ~= nil and holding.item == item
 end
 
 local function nozzleCat()
@@ -114,7 +114,7 @@ local function takeNozzle(data, cat)
 			local distance = #(playerCoords - currentcoords)
 			if distance > 7.5 then
 				Entity(data.entity).state:set('used', nil, true)
-				holding = { item = nil, cat = nil }
+				holding = nil
 				deleteEntities(Entities.nozzle)
 				NetworkUnregisterNetworkedEntity(data.entity)
 			end
@@ -130,7 +130,7 @@ local function returnNozzle(data, cat)
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
 
 	Entity(data.entity).state:set('used', nil, true)
-	holding = { item = nil, cat = nil }
+	holding = nil
 	deleteEntities(Entities.nozzle)
 	NetworkUnregisterNetworkedEntity(data.entity)
 end
@@ -251,8 +251,8 @@ local function refuelVehicle(data)
 end
 
 lib.onCache('weapon', function(weapon)
-    if weapon ~= `WEAPON_PETROLCAN` and holding ~= false then
-        holding = { item = nil, cat = nil }
+    if weapon ~= `WEAPON_PETROLCAN` and holding ~= nil then
+        holding = nil
     elseif weapon == `WEAPON_PETROLCAN` then
         holding = { item = 'jerrycan' }
     end
@@ -317,7 +317,7 @@ exports.ox_target:addGlobalVehicle({
         icon = 'fas fa-gas-pump',
         distance = 1.5,
         canInteract = function()
-            return not refueling and holding ~= false
+            return not refueling and holding ~= nil
         end,
 		onSelect = refuelVehicle,
     },
