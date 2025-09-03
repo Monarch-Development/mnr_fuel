@@ -108,10 +108,10 @@ local function takeNozzle(data, cat)
 	holding = { item = 'nozzle', cat = cat }
 
 	CreateThread(function()
-		local playerCoords = GetEntityCoords(cache.ped)
+		local pumpCoords = GetEntityCoords(data.entity)
 		while holdingItem('nozzle') do
-			local currentcoords = GetEntityCoords(cache.ped)
-			local distance = #(playerCoords - currentcoords)
+			local playerCoords = GetEntityCoords(cache.ped)
+			local distance = #(pumpCoords - playerCoords)
 			if distance > 7.5 then
 				Entity(data.entity).state:set('used', nil, true)
 				holding = nil
@@ -330,10 +330,18 @@ for model, data in pairs(config.pumps) do
 end
 
 AddEventHandler('onResourceStop', function(resourceName)
-	local scriptName = cache.resource or GetCurrentResourceName()
-	if resourceName ~= scriptName then return end
+    local scriptName = cache.resource or GetCurrentResourceName()
+    if resourceName ~= scriptName then return end
 
-	deleteEntities(Entities.nozzle)
+    deleteEntities(Entities.nozzle)
 
-	exports.ox_target:removeGlobalVehicle('mnr_fuel:vehicle:refuel')
+    for ent, rope in pairs(RopesRegistry) do
+        if rope and DoesRopeExist(rope) then
+            DeleteRope(rope)
+        end
+        RopesRegistry[ent] = nil
+    end
+    RopeUnloadTextures()
+
+    exports.ox_target:removeGlobalVehicle('mnr_fuel:vehicle:refuel')
 end)
