@@ -323,9 +323,8 @@ exports.ox_target:addGlobalVehicle({
     },
 })
 
-for model, data in pairs(config.pumps) do
-	local targetData = createTargetData(data.type == 'ev')
-
+for model, data in pairs(pumps) do
+	local targetData = createTargetData(data.cat == 'ev')
 	exports.ox_target:addModel(model, targetData)
 end
 
