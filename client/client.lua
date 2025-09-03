@@ -53,6 +53,8 @@ AddStateBagChangeHandler('used', nil, function(bagName, _, value, _, replicated)
 		end
 	end
 
+	Wait(100)
+
 	local pumpCoords = GetEntityCoords(entity)
 	local rope = AddRope(pumpCoords.x, pumpCoords.y, pumpCoords.z, 0.0, 0.0, 0.0, 3.0, 1, 8.0, 0.0, 1.0, false, false, false, 1.0, true)
 
