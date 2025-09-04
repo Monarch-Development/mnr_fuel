@@ -12,7 +12,7 @@ function server.Notify(source, msg, type)
 end
 
 function server.GetPlayerMoney(source, account)
-    local xPlayer = ESX.Player(source) or ESX.GetPlayerFromId(src)
+    local xPlayer = ESX.GetPlayerFromId(source)
     
     local cash = xPlayer.getAccount('money').money
     local bank = xPlayer.getAccount('bank').money
@@ -29,10 +29,10 @@ function server.GetPlayerMoney(source, account)
 end
 
 function server.PayMoney(source, method, amount)
-    local xPlayer = ESX.Player(source) or ESX.GetPlayerFromId(source)
+    local xPlayer = ESX.GetPlayerFromId(source)
     
     if method == 'cash' then
-        method == 'money'
+        method = 'money'
     end
 
     xPlayer.removeAccountMoney(method, amount)
