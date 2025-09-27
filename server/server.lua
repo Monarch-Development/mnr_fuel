@@ -1,9 +1,10 @@
 local config = lib.load('config.config')
----@description Nozzle Model Loader Placeholder (Fix strict mode entity lockdown)
 local nozzles = require 'config.nozzles'
 local zones = lib.load('config.zones')
 
 local InStation = {}
+local NozzlesRegistry = {}
+local PumpsRegistry = {}
 
 lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
 	local src = source
@@ -174,7 +175,6 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 	end
 end)
 
----@description Entity Request Placeholder (Fix Strict mode Entity Lockdown)
 lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, netId)
 	local playerId = source
 	if not inStation(playerId) then return end
@@ -184,7 +184,53 @@ lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, net
     local entity = CreateObject(nozzles[cat].nozzle, coords.x, coords.y, coords.z - 2.0, true, false, false)
     local nozzleNetId = NetworkGetNetworkIdFromEntity(entity)
 
+	NozzlesRegistry[playerId] = nozzleNetId
+	PumpsRegistry[playerId] = netId
+
 	Entity(pump)state:set('used', nozzleNetId, true)
 
     return nozzleNetId
+end)
+
+RegisterNetEvent('mnr_fuel:server:RequestDeletion', function()
+	local playerId = source
+	if inStation(playerId) then return end
+
+	if not NozzlesRegistry[playerId] or not PumpsRegistry[playerId] then return end
+
+	local pump = NetworkGetEntityFromNetworkId(PumpsRegistry[playerId])
+	local nozzle = NetworkGetEntityFromNetworkId(NozzlesRegistry[playerId])
+
+	Entity(pump).state:set('used', nil, true)
+	DeleteEntity(nozzle)
+
+	PumpsRegistry[playerId] = nil
+	NozzlesRegistry[playerId] = nil
+end)
+
+AddEventHandler('playerDropped', function()
+	local playerId = source
+	if not NozzlesRegistry[playerId] or not PumpsRegistry[playerId] then return end
+
+	local pump = NetworkGetEntityFromNetworkId(PumpsRegistry[playerId])
+	local nozzle = NetworkGetEntityFromNetworkId(NozzlesRegistry[playerId])
+
+	Entity(pump).state:set('used', nil, true)
+	DeleteEntity(nozzle)
+
+	NozzlesRegistry[playerId] = nil
+end)
+
+AddEventHandler('onResourceStop', function(name)
+	if name ~= GetCurrentResourceName() then return end
+
+	for _, pumpNetId in pairs(PumpsRegistry) do
+		local pump = NetworkGetEntityFromNetworkId(pumpNetId)
+		Entity(pump).state:set('used', nil, true)
+	end
+
+	for _, nozzleNetId in pairs(NozzlesRegistry) do
+		local nozzle = NetworkGetEntityFromNetworkId(nozzleNetId)
+		DeleteEntity(nozzle)
+	end
 end)
