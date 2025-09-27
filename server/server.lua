@@ -182,6 +182,7 @@ lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, net
 	local pump = NetworkGetEntityFromNetworkId(netId)
 	local coords = GetEntityCoords(pump)
     local entity = CreateObject(nozzles[cat].nozzle, coords.x, coords.y, coords.z - 2.0, true, false, false)
+	Wait(200) 			-- mandatory for entity creation
     local nozzleNetId = NetworkGetNetworkIdFromEntity(entity)
 
 	NozzlesRegistry[playerId] = nozzleNetId
