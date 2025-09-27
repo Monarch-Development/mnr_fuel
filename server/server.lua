@@ -188,7 +188,7 @@ lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, net
 	NozzlesRegistry[playerId] = nozzleNetId
 	PumpsRegistry[playerId] = netId
 
-	Entity(pump)state:set('used', nozzleNetId, true)
+	Entity(pump).state:set('used', nozzleNetId, true)
 
     return nozzleNetId
 end)

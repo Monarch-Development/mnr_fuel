@@ -78,8 +78,9 @@ local function takeNozzle(data, cat)
 	if not DoesEntityExist(data.entity) then return end
 	if refueling or holdingItem('nozzle') or holdingItem('jerrycan') then return end
 	if not lib.callback.await('mnr_fuel:server:InStation') then return end
-
 	if Entity(data.entity).state.used then return end
+
+	usedPump = data.entity
 
 	---@description Networking Pump Prop
 	if not NetworkGetEntityIsNetworked(data.entity) then
@@ -121,7 +122,7 @@ local function takeNozzle(data, cat)
 end
 
 local function returnNozzle(data, cat)
-	if refueling and data.entity ~= usedPump and not holdingItem('nozzle') then return end
+	if refueling and not holdingItem('nozzle') then return end
 
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
@@ -129,6 +130,7 @@ local function returnNozzle(data, cat)
 	TriggerServerEvent('mnr_fuel:server:RequestDeletion')
 	Wait(1000)
 	NetworkUnregisterNetworkedEntity(data.entity)
+	usedPump = 0
 end
 
 local function inputDialog(jerrycan, cash, bank, fuel)
