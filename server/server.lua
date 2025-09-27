@@ -1,4 +1,6 @@
 local config = lib.load('config.config')
+---@description Nozzle Model Loader Placeholder (Fix strict mode entity lockdown)
+local nozzles = require 'config.nozzles'
 local zones = lib.load('config.zones')
 
 local InStation = {}
@@ -170,4 +172,12 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 
 		exports.ox_inventory:AddItem(src, 'WEAPON_PETROLCAN', 1, { durability = 100, ammo = 100 })
 	end
+end)
+
+---@description Entity Request Placeholder (Fix Strict mode Entity Lockdown)
+lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, coords)
+    local entity = CreateObject(nozzles[cat].nozzle, coords.x, coords.y, coords.z - 2.0, true, false, false)
+    local netId = NetworkGetNetworkIdFromEntity(entity)
+
+    return netId
 end)
