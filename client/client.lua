@@ -83,6 +83,11 @@ local function takeNozzle(data, cat)
 
 	if Entity(data.entity).state.used then return end
 
+	---@description Networking Pump Prop
+	if not NetworkGetEntityIsNetworked(data.entity) then
+		NetworkRegisterEntityAsNetworked(data.entity)
+	end
+
 	lib.requestAnimDict('anim@am_hold_up@male', 300)
 	lib.requestAudioBank('audiodirectory/mnr_fuel')
 	PlaySoundFromEntity(-1, 'mnr_take_fv_nozzle', data.entity, 'mnr_fuel', true, 0)
@@ -93,17 +98,11 @@ local function takeNozzle(data, cat)
 
 	local hand = nozzles[cat].offsets.hand
 	local bone = GetPedBoneIndex(cache.ped, 18905)
-	NozzleRegistry = CreateObject(nozzles[cat].nozzle, 1.0, 1.0, 1.0, true, true, false)
-	NetworkRegisterEntityAsNetworked(NozzleRegistry)
+	local pumpNetId = NetworkGetEntityIsNetworked(data.entity) and NetworkGetNetworkIdFromEntity(data.entity)
+	local nozzleNetId = lib.callback.await('mnr_fuel:server:RequestNozzle', false, cat, pumpNetId) 
+	local nozzle = NetworkGetEntityFromNetworkId(nozzleNetId)
 
-	AttachEntityToEntity(NozzleRegistry, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
-
-	if NetworkGetEntityIsLocal(data.entity) then
-		NetworkRegisterEntityAsNetworked(data.entity)
-	end
-
-	local nozzle = NetworkGetEntityIsNetworked(NozzleRegistry) and NetworkGetNetworkIdFromEntity(NozzleRegistry)
-	Entity(data.entity).state:set('used', nozzle, true)
+	AttachEntityToEntity(nozzle, cache.ped, bone, hand[1], hand[2], hand[3], hand[4], hand[5], hand[6], false, true, false, true, 0, true)
 
 	holding = { item = 'nozzle', cat = cat }
 
@@ -115,7 +114,7 @@ local function takeNozzle(data, cat)
 			if distance > 7.5 then
 				Entity(data.entity).state:set('used', nil, true)
 				holding = nil
-				deleteEntities(NozzleRegistry)
+				deleteEntities(nozzle)
 				NetworkUnregisterNetworkedEntity(data.entity)
 			end
 			Wait(1000)

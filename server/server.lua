@@ -175,9 +175,16 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 end)
 
 ---@description Entity Request Placeholder (Fix Strict mode Entity Lockdown)
-lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, coords)
-    local entity = CreateObject(nozzles[cat].nozzle, coords.x, coords.y, coords.z - 2.0, true, false, false)
-    local netId = NetworkGetNetworkIdFromEntity(entity)
+lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, netId)
+	local playerId = source
+	if not inStation(playerId) then return end
 
-    return netId
+	local pump = NetworkGetEntityFromNetworkId(netId)
+	local coords = GetEntityCoords(pump)
+    local entity = CreateObject(nozzles[cat].nozzle, coords.x, coords.y, coords.z - 2.0, true, false, false)
+    local nozzleNetId = NetworkGetNetworkIdFromEntity(entity)
+
+	Entity(pump)state:set('used', nozzleNetId, true)
+
+    return nozzleNetId
 end)
