@@ -2,6 +2,8 @@ local config = lib.load('config.config')
 local nozzles = require 'config.nozzles'
 local zones = lib.load('config.zones')
 
+local utils = require 'server.utils'
+
 local InStation = {}
 local NozzlesRegistry = {}
 local PumpsRegistry = {}
@@ -13,47 +15,36 @@ lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
 	return cash, bank
 end)
 
-local function inside(coords, name)
-    local zone = zones[name]
-    if not zone then
-        return false
-    end
-
-    local relative = coords - zone.coords
-    local heading = zone.rotation or 0.0
-
-    local rad = math.rad(-heading)
-    local cosH = math.cos(rad)
-    local sinH = math.sin(rad)
-
-    local localX = relative.x * cosH - relative.y * sinH
-    local localY = relative.x * sinH + relative.y * cosH
-    local localZ = relative.z
-
-    local halfSize = zone.size / 2
-
-    return math.abs(localX) <= halfSize.x and math.abs(localY) <= halfSize.y and math.abs(localZ) <= halfSize.z
-end
-
+---@description Event to check and register when a player enters or exits a fuel station zone
 RegisterNetEvent('mnr_fuel:server:RegisterEntry', function(name)
 	local src = source
-
-	if not type(name) == 'string' or not zones[name] then return end
-
-	if InStation[src] == name then
-		InStation[src] = nil
+	local zone = zones[name]
+	if not type(name) == 'string' or not zone then
 		return
 	end
 
 	local playerPed = GetPlayerPed(src)
 	local playerCoords = GetEntityCoords(playerPed)
-	local isInside = inside(playerCoords, name)
+	local inside = utils.InsideZone(playerCoords, zone.coords, zone.rotation, zone.size)
+	
+	if not inside and InStation[src] == name then
+		InStation[src] = nil
+		return
+	end
 
-	if not isInside then return end
+	if inside and InStation[src] == nil then
+		InStation[src] = name
+		return
+	end
 
-    InStation[src] = name
+	if not inside and InStation[src] == nil then
+		---@description if here, or is an error or bro is using an executor
+		print(('^3[WARNING] mnr_fuel: suspicious event trigger, player [%s] trying to register in zone [%s]^0'):format(src, name))
+		return
+	end
 end)
 
+---@description Helper function that checks the register to avoid calculation function execution every check
 local function inStation(source)
 	local src = source
 	return InStation[src] ~= nil
