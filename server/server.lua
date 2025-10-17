@@ -8,18 +8,11 @@ local InStation = {}
 local NozzlesRegistry = {}
 local PumpsRegistry = {}
 
-lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
-	local src = source
-	local cash, bank = server.GetPlayerMoney(src)
-
-	return cash, bank
-end)
-
 ---@description Event to check and register when a player enters or exits a fuel station zone
 RegisterNetEvent('mnr_fuel:server:RegisterEntry', function(name)
 	local src = source
 	local zone = zones[name]
-	if not type(name) == 'string' or not zone then
+	if type(name) ~= 'string' or not zone then
 		return
 	end
 
@@ -51,6 +44,13 @@ local function inStation(source)
 end
 
 lib.callback.register('mnr_fuel:server:InStation', inStation)
+
+lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
+	local src = source
+	local cash, bank = server.GetPlayerMoney(src)
+
+	return cash, bank
+end)
 
 local function setFuel(vehicle, amount)
 	local vehState = Entity(vehicle)?.state
@@ -186,7 +186,7 @@ end)
 
 RegisterNetEvent('mnr_fuel:server:RequestDeletion', function()
 	local playerId = source
-	if inStation(playerId) then return end
+	if not inStation(playerId) then return end
 
 	if not NozzlesRegistry[playerId] or not PumpsRegistry[playerId] then return end
 
