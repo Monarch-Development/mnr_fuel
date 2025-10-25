@@ -5,7 +5,7 @@ lua54 'yes'
 name 'mnr_fuel'
 description 'Fuel system resource'
 author 'IlMelons'
-version '1.3.0'
+version '1.2.5'
 repository 'https://www.github.com/Monarch-Development/mnr_fuel'
 
 ox_lib 'locale'
@@ -14,6 +14,8 @@ files {
     'data/mnr_fuel_sounds.dat54.rel',
     'audiodirectory/mnr_fuel.awc',
     'locales/*.json',
+    'client/modules/*.lua',
+    'server/modules/*.lua',
 }
 
 shared_scripts {
