@@ -1,14 +1,14 @@
 -- code by (https://github.com/overextended/ox_fuel)
 -- with a little but unwanted simplification (https://github.com/overextended/ox_fuel/pull/110)
 
-local utils = require 'client.utils'
+local utils = require 'client.modules.utils'
 
 SetFuelConsumptionState(true)
 SetFuelConsumptionRateMultiplier(10.0)
 
 local function setFuel(vehState, vehicle, amount, replicate)
     if not DoesEntityExist(vehicle) then return end
-	
+
 	SetVehicleFuelLevel(vehicle, amount)
 	vehState:set('fuel', amount, replicate)
 end
