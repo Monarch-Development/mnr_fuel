@@ -13,7 +13,7 @@ local Rope = 0
 
 lib.requestAudioBank('audiodirectory/mnr_fuel')
 
-local function takeNozzle(data, cat)
+AddEventHandler('mnr_fuel:client:TakeNozzle', function(data, cat)
 	if not DoesEntityExist(data.entity) then return end
 	if state.refueling or state:holdingItem('nozzle') or state:holdingItem('jerrycan') then return end
 	if not lib.callback.await('mnr_fuel:server:InStation') then return end
@@ -78,14 +78,15 @@ local function takeNozzle(data, cat)
 				RopeUnloadTextures()
 				Rope = 0
 
+				state:set('pump', 0)
 				state:set('holding', nil)
 			end
 			Wait(1000)
 		end
 	end)
-end
+end)
 
-local function returnNozzle(data, cat)
+AddEventHandler('mnr_fuel:client:ReturnNozzle', function(data, cat)
 	if state.refueling and not state:holdingItem('nozzle') then return end
 
 	PlaySoundFromEntity(-1, ('mnr_return_%s_nozzle'):format(cat), data.entity, 'mnr_fuel', true, 0)
@@ -98,8 +99,9 @@ local function returnNozzle(data, cat)
 	RopeUnloadTextures()
 	Rope = 0
 
+	state:set('pump', 0)
 	state:set('holding', nil)
-end
+end)
 
 local function inputDialog(jerrycan, cash, bank, fuel)
 	local rows = {
@@ -180,7 +182,7 @@ local function playAnim(data)
 	end
 end
 
-local function refuelVehicle(data)
+AddEventHandler('mnr_fuel:client:RefuelVehicle', function(data)
     local vehicle = data.entity
     if not DoesEntityExist(vehicle) or state.refueling then return end
 
@@ -214,9 +216,9 @@ local function refuelVehicle(data)
     if not amount or amount <= 0 then return end
 
 	playAnim({ action = 'fuel', vehicle = vehicle, method = method, amount = amount })
-end
+end)
 
-local function buyJerrycan(data)
+AddEventHandler('mnr_fuel:client:BuyJerrican', function(data)
 	if not DoesEntityExist(data.entity) then return end
 	if state.refueling or state:holdingItem('nozzle') then return end
 	if not lib.callback.await('mnr_fuel:server:InStation') then return end
@@ -227,7 +229,7 @@ local function buyJerrycan(data)
 
 	local method = input[2]
 	TriggerServerEvent('mnr_fuel:server:JerrycanPurchase', method)
-end
+end)
 
 ---@description DYNAMIC FEATURES
 lib.onCache('weapon', function(weapon)
@@ -240,63 +242,6 @@ end)
 
 ---@description INITIALIZATION
 state:init()
-
-exports.ox_target:addGlobalVehicle({
-    {
-        label = locale('target.refuel'),
-        name = 'mnr_fuel:vehicle:refuel',
-        icon = 'fas fa-gas-pump',
-        distance = 1.5,
-        canInteract = function()
-            return not state.refueling and state.holding ~= nil
-        end,
-		onSelect = refuelVehicle,
-    },
-})
-
-local function createTargetData(ev)
-	return {
-		{
-    		label = locale(ev and 'target.take_charger' or 'target.take_nozzle'),
-    		name = 'mnr_fuel:pump:option_1',
-    		icon = ev and 'fas fa-bolt' or 'fas fa-gas-pump',
-    		distance = 3.0,
-    		canInteract = function()
-    		    return not state.refueling and not state:holdingItem('nozzle')
-    		end,
-    		onSelect = function(data)
-    		    takeNozzle(data, ev and 'ev' or 'fv')
-    		end,
-		},
-		{
-    		label = locale(ev and 'target.return_charger' or 'target.return_nozzle'),
-    		name = 'mnr_fuel:pump:option_2',
-    		icon = 'fas fa-hand',
-    		distance = 3.0,
-    		canInteract = function(entity)
-    		    return not state.refueling and state:holdingItem('nozzle')
-    		end,
-    		onSelect = function(data)
-    		    returnNozzle(data, ev and 'ev' or 'fv')
-    		end,
-		},
-		{
-		    label = locale('target.buy_jerrycan'),
-		    name = 'mnr_fuel:pump:option_3',
-		    icon = 'fas fa-fire-flame-simple',
-		    distance = 3.0,
-		    canInteract = function()
-		        return not state.refueling and not state:holdingItem('nozzle')
-		    end,
-		    onSelect = buyJerrycan,
-		},
-	}
-end
-
-for model, data in pairs(pumps) do
-	local targetData = createTargetData(data.cat == 'ev')
-	exports.ox_target:addModel(model, targetData)
-end
 
 AddEventHandler('onResourceStop', function(name)
     if name ~= cache.resource then return end
