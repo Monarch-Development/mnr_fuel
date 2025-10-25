@@ -2,9 +2,9 @@
 
 if GetResourceState('qbx_core') ~= 'started' then return end
 
-client = {}
+framework = {}
 
-function client.Notify(msg, type)
+function framework.Notify(msg, type)
     lib.notify({
         description = msg,
         position = 'top',

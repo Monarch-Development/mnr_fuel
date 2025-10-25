@@ -4,8 +4,8 @@ if GetResourceState('es_extended') ~= 'started' then return end
 
 local ESX = exports['es_extended']:getSharedObject()
 
-client = {}
+framework = {}
 
-function client.Notify(msg, type)
+function framework.Notify(msg, type)
     ESX.ShowNotification(msg, type)
 end

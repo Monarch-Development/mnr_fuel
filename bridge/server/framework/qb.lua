@@ -4,14 +4,14 @@ if GetResourceState('qb-core') ~= 'started' then return end
 
 local QBCore = exports['qb-core']:GetCoreObject()
 
-server = {}
+framework = {}
 
-function server.Notify(source, msg, type)
+function framework.Notify(source, msg, type)
     local src = source
     TriggerClientEvent('QBCore:Notify', src, msg, type)
 end
 
-function server.GetPlayerMoney(source, account)
+function framework.GetPlayerMoney(source, account)
     local Player = QBCore.Functions.GetPlayer(source)
 
     local cash = Player.Functions.GetMoney('cash')
@@ -28,7 +28,7 @@ function server.GetPlayerMoney(source, account)
     end
 end
 
-function server.PayMoney(source, method, amount)
+function framework.PayMoney(source, method, amount)
     local Player = QBCore.Functions.GetPlayer(source)
 
     local paymentSuccess = Player.Functions.RemoveMoney(method, amount)

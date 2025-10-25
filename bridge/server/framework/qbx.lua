@@ -2,9 +2,9 @@
 
 if GetResourceState('qbx_core') ~= 'started' then return end
 
-server = {}
+framework = {}
 
-function server.Notify(source, msg, type)
+function framework.Notify(source, msg, type)
     local src = source
     TriggerClientEvent('ox_lib:notify', src, {
         description = msg,
@@ -13,7 +13,7 @@ function server.Notify(source, msg, type)
     })
 end
 
-function server.GetPlayerMoney(source, account)
+function framework.GetPlayerMoney(source, account)
     local cash = exports.qbx_core:GetMoney(source, 'cash')
     local bank = exports.qbx_core:GetMoney(source, 'bank')
 
@@ -28,7 +28,7 @@ function server.GetPlayerMoney(source, account)
     end
 end
 
-function server.PayMoney(source, method, amount)
+function framework.PayMoney(source, method, amount)
     local success = exports.qbx_core:RemoveMoney(source, method, amount)
 
     return success

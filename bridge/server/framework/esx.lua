@@ -4,14 +4,14 @@ if GetResourceState('es_extended') ~= 'started' then return end
 
 local ESX = exports['es_extended']:getSharedObject()
 
-server = {}
+framework = {}
 
-function server.Notify(source, msg, type)
+function framework.Notify(source, msg, type)
     local src = source
     TriggerClientEvent('esx:showNotification', src, msg, type)
 end
 
-function server.GetPlayerMoney(source, account)
+function framework.GetPlayerMoney(source, account)
     local xPlayer = ESX.GetPlayerFromId(source)
     
     local cash = xPlayer.getAccount('money').money
@@ -28,7 +28,7 @@ function server.GetPlayerMoney(source, account)
     end
 end
 
-function server.PayMoney(source, method, amount)
+function framework.PayMoney(source, method, amount)
     local xPlayer = ESX.GetPlayerFromId(source)
     
     if method == 'cash' then
