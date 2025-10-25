@@ -1,12 +1,25 @@
+---@description Dependency ensuring
+assert(GetResourceState('ox_lib') == 'started', 'ox_lib not found or not started before this script, install or start before ox_lib')
+
+---@description Name/Update Checker
+local correctName = GetResourceMetadata(GetCurrentResourceName(), 'name')
+
+AddEventHandler('onResourceStart', function(name)
+    if GetCurrentResourceName() ~= name then return end
+
+    assert(GetCurrentResourceName() == correctName, ('The resource name is incorrect. Please set it to %s.^0'):format(correctName))
+end)
+
+lib.versionCheck(('Monarch-Development/%s'):format(correctName))
+
+---@description Config loading
 local config = lib.load('config.config')
-local nozzles = require 'config.nozzles'
 local zones = lib.load('config.zones')
 
-local utils = require 'server.utils'
+---@description Utilities loading
+local utils = require 'server.modules.utils'
 
 local InStation = {}
-local NozzlesRegistry = {}
-local PumpsRegistry = {}
 
 ---@description Event to check and register when a player enters or exits a fuel station zone
 RegisterNetEvent('mnr_fuel:server:RegisterEntry', function(name)
@@ -19,7 +32,7 @@ RegisterNetEvent('mnr_fuel:server:RegisterEntry', function(name)
 	local playerPed = GetPlayerPed(src)
 	local playerCoords = GetEntityCoords(playerPed)
 	local inside = utils.InsideZone(playerCoords, zone.coords, zone.rotation, zone.size)
-	
+
 	if not inside and InStation[src] == name then
 		InStation[src] = nil
 		return
@@ -47,7 +60,7 @@ lib.callback.register('mnr_fuel:server:InStation', inStation)
 
 lib.callback.register('mnr_fuel:server:GetPlayerMoney', function(source)
 	local src = source
-	local cash, bank = server.GetPlayerMoney(src)
+	local cash, bank = framework.GetPlayerMoney(src)
 
 	return cash, bank
 end)
@@ -67,14 +80,14 @@ local function stationRefuel(src, vehicle, data)
 	end
 
 	local price = math.ceil(data.amount * config.fuelPrice)
-	local money = server.GetPlayerMoney(src, data.method)
+	local money = framework.GetPlayerMoney(src, data.method)
 
 	if money < price then
-		server.Notify(src, locale('notify.not_enough_money'), 'error')
+		framework.Notify(src, locale('notify.not_enough_money'), 'error')
 		return
 	end
 
-	if not server.PayMoney(src, data.method, price) then
+	if not framework.PayMoney(src, data.method, price) then
 		return
 	end
 
@@ -87,7 +100,7 @@ local function jerrycanRefuel(src, vehicle)
 	local fuelLevel = math.ceil(vehState.fuel)
 	local requiredFuel = 100 - fuelLevel
 	if requiredFuel <= 0 then
-		server.Notify(src, locale('notify.vehicle_full'), 'error')
+		framework.Notify(src, locale('notify.vehicle_full'), 'error')
 		return
 	end
 
@@ -128,101 +141,35 @@ RegisterNetEvent('mnr_fuel:server:JerrycanPurchase', function(method)
 	end
 
 	local price = config.jerrycanPrice
-	local money = server.GetPlayerMoney(src, method)
+	local money = framework.GetPlayerMoney(src, method)
 
 	if money < price then
-		server.Notify(src, locale('notify.not_enough_money'), 'error')
+		framework.Notify(src, locale('notify.not_enough_money'), 'error')
 		return
 	end
-	
+
 	local weapon = exports.ox_inventory:GetCurrentWeapon(src)
 	if weapon and weapon.name == 'WEAPON_PETROLCAN' then
-		local weapon = exports.ox_inventory:GetCurrentWeapon(src)
-		if not weapon or weapon.name ~= 'WEAPON_PETROLCAN' then
-		    return
-		end
-
 		if weapon.metadata.durability > 0 then
-		    server.Notify(src, locale('notify.jerrycan_not_empty'), 'error')
+		    framework.Notify(src, locale('notify.jerrycan_not_empty'), 'error')
 		    return
 		end
 
-		if not server.PayMoney(src, method, price) then
+		if not framework.PayMoney(src, method, price) then
 		    return
 		end
 
 		exports.ox_inventory:SetMetadata(src, weapon.slot, { durability = 100, ammo = 100 })
 	else
 		if not exports.ox_inventory:CanCarryItem(src, 'WEAPON_PETROLCAN', 1, { weight = 4000 + 15000 }) then
-			server.Notify(src, locale('notify.not_enough_space'), 'error')
+			framework.Notify(src, locale('notify.not_enough_space'), 'error')
 			return
 		end
 
-		if not server.PayMoney(src, method, price) then
+		if not framework.PayMoney(src, method, price) then
 		    return
 		end
 
 		exports.ox_inventory:AddItem(src, 'WEAPON_PETROLCAN', 1, { durability = 100, ammo = 100 })
-	end
-end)
-
-lib.callback.register('mnr_fuel:server:RequestNozzle', function(source, cat, netId)
-	local playerId = source
-	if not inStation(playerId) then return end
-
-	local pump = NetworkGetEntityFromNetworkId(netId)
-	local coords = GetEntityCoords(pump)
-    local entity = CreateObject(nozzles[cat].nozzle, coords.x, coords.y, coords.z - 2.0, true, false, false)
-	Wait(200) 			-- mandatory for entity creation
-    local nozzleNetId = NetworkGetNetworkIdFromEntity(entity)
-
-	NozzlesRegistry[playerId] = nozzleNetId
-	PumpsRegistry[playerId] = netId
-
-	Entity(pump).state:set('used', nozzleNetId, true)
-
-    return nozzleNetId
-end)
-
-RegisterNetEvent('mnr_fuel:server:RequestDeletion', function()
-	local playerId = source
-	if not inStation(playerId) then return end
-
-	if not NozzlesRegistry[playerId] or not PumpsRegistry[playerId] then return end
-
-	local pump = NetworkGetEntityFromNetworkId(PumpsRegistry[playerId])
-	local nozzle = NetworkGetEntityFromNetworkId(NozzlesRegistry[playerId])
-
-	Entity(pump).state:set('used', nil, true)
-	DeleteEntity(nozzle)
-
-	PumpsRegistry[playerId] = nil
-	NozzlesRegistry[playerId] = nil
-end)
-
-AddEventHandler('playerDropped', function()
-	local playerId = source
-	if not NozzlesRegistry[playerId] or not PumpsRegistry[playerId] then return end
-
-	local pump = NetworkGetEntityFromNetworkId(PumpsRegistry[playerId])
-	local nozzle = NetworkGetEntityFromNetworkId(NozzlesRegistry[playerId])
-
-	Entity(pump).state:set('used', nil, true)
-	DeleteEntity(nozzle)
-
-	NozzlesRegistry[playerId] = nil
-end)
-
-AddEventHandler('onResourceStop', function(name)
-	if name ~= GetCurrentResourceName() then return end
-
-	for _, pumpNetId in pairs(PumpsRegistry) do
-		local pump = NetworkGetEntityFromNetworkId(pumpNetId)
-		Entity(pump).state:set('used', nil, true)
-	end
-
-	for _, nozzleNetId in pairs(NozzlesRegistry) do
-		local nozzle = NetworkGetEntityFromNetworkId(nozzleNetId)
-		DeleteEntity(nozzle)
 	end
 end)
