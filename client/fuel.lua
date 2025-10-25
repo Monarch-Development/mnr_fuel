@@ -20,7 +20,7 @@ local function startFuelConsumption()
 
 	local vehState = Entity(vehicle).state
 	if not vehState.fuel then
-		utils.InitFuelState(vehicle)
+		utils.initFuelState(vehicle)
 	end
 
 	SetVehicleFuelLevel(vehicle, vehState.fuel)

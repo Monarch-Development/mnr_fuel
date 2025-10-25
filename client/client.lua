@@ -186,7 +186,7 @@ local function refuelVehicle(data)
 
     local vehState = Entity(vehicle).state
     if not vehState.fuel then
-        utils.InitFuelState(vehicle)
+        utils.initFuelState(vehicle)
     end
 
 	if state:holdingItem('jerrycan') then
