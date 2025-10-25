@@ -37,7 +37,7 @@ local function createTargetData(ev)
     		icon = 'fas fa-hand',
     		distance = 3.0,
     		canInteract = function(entity)
-    		    return not state.refueling and state.pump == 0 and state:holdingItem('nozzle')
+    		    return not state.refueling and state.pump == entity and state:holdingItem('nozzle')
     		end,
     		onSelect = function(data)
     		    TriggerEvent('mnr_fuel:client:ReturnNozzle', data, ev and 'ev' or 'fv')
