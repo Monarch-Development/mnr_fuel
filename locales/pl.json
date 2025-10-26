@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Stacja paliw",
-        "name_ev": "Stacja ładowania"
-    },
+    "blip_name_fv": "Stacja paliw",
+    "blip_name_ev": "Stacja ładowania",
     "target": {
         "refuel": "Tankuj pojazd",
         "take_nozzle": "Weź dystrybutor",

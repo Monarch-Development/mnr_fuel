@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Stație PEȚ",
-        "name_ev": "Stație de Încărcare"
-    },
+    "blip_name_fv": "Stație PEȚ",
+    "blip_name_ev": "Stație de Încărcare",
     "target": {
         "refuel": "Alimentează Vehiculul",
         "take_nozzle": "Ia Pistolul",

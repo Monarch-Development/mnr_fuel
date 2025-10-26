@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Benzinlik",
-        "name_ev": "Şarj İstasyonu"
-    },
+    "blip_name_fv": "Benzinlik",
+    "blip_name_ev": "Şarj İstasyonu",
     "target": {
         "refuel": "Aracı Doldur",
         "take_nozzle": "Pompayı Al",

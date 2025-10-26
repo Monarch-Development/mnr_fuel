@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "加油站",
-        "name_ev": "充电站"
-    },
+    "blip_name_fv": "加油站",
+    "blip_name_ev": "充电站",
     "target": {
         "refuel": "为车辆加油",
         "take_nozzle": "拿取加油枪",

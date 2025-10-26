@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "محطة وقود",
-        "name_ev": "محطة شحن كهربائي"
-    },
+    "blip_name_fv": "محطة وقود",
+    "blip_name_ev": "محطة شحن كهربائي",
     "target": {
         "refuel": "تعبئة الوقود",
         "take_nozzle": "أخذ المضخة",

@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Posto de Gasolina",
-        "name_ev": "Estação de Recarga"
-    },
+    "blip_name_fv": "Posto de Gasolina",
+    "blip_name_ev": "Estação de Recarga",
     "target": {
         "refuel": "Abastecer Veículo",
         "take_nozzle": "Pegar Bico",

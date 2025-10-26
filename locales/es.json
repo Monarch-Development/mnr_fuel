@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Gasolinera",
-        "name_ev": "Estación de carga"
-    },
+    "blip_name_fv": "Gasolinera",
+    "blip_name_ev": "Estación de carga",
     "target": {
         "refuel": "Repostar vehículo",
         "take_nozzle": "Coger la manguera",

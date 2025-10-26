@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Station-service",
-        "name_ev": "Station de recharge"
-    },
+    "blip_name_fv": "Station-service",
+    "blip_name_ev": "Station de recharge",
     "target": {
         "refuel": "Faire le plein",
         "take_nozzle": "Prendre le pistolet",

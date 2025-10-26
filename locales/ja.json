@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "ガソリンスタンド",
-        "name_ev": "充電ステーション"
-    },
+    "blip_name_fv": "ガソリンスタンド",
+    "blip_name_ev": "充電ステーション",
     "target": {
         "refuel": "車両に給油する",
         "take_nozzle": "ノズルを取る",

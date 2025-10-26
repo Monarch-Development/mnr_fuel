@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Stesen Minyak",
-        "name_ev": "Stesen Pengecasan"
-    },
+    "blip_name_fv": "Stesen Minyak",
+    "blip_name_ev": "Stesen Pengecasan",
     "target": {
         "refuel": "Isi Minyak Kenderaan",
         "take_nozzle": "Ambil Pemegang Pam",

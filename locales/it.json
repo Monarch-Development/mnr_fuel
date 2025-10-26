@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Stazione di Rifornimento",
-        "name_ev": "Stazione di Ricarica"
-    },
+    "blip_name_fv": "Stazione di Rifornimento",
+    "blip_name_ev": "Stazione di Ricarica",
     "target": {
         "refuel": "Rifornisci Veicolo",
         "take_nozzle": "Prendi Pompa",

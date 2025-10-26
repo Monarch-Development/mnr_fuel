@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Tankstation",
-        "name_ev": "Oplaadstation"
-    },
+    "blip_name_fv": "Tankstation",
+    "blip_name_ev": "Oplaadstation",
     "target": {
         "refuel": "Voertuig tanken",
         "take_nozzle": "Neem de pomp",

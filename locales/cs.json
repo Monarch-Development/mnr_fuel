@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Čerpací stanice",
-        "name_ev": "Nabíjecí stanice"
-    },
+    "blip_name_fv": "Čerpací stanice",
+    "blip_name_ev": "Nabíjecí stanice",
     "target": {
         "refuel": "Natankovat vozidlo",
         "take_nozzle": "Vzít hadici",

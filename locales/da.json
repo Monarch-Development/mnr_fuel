@@ -1,8 +1,6 @@
 {
-    "blips": {
-        "name_fv": "Tankstation",
-        "name_ev": "Ladestation"
-    },
+    "blip_name_fv": "Tankstation",
+    "blip_name_ev": "Ladestation",
     "target": {
         "refuel": "Tank køretøj",
         "take_nozzle": "Tag slangen",
