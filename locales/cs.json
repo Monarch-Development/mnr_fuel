@@ -13,13 +13,11 @@
     "input_bank": "Banka (%d$)",
     "input_cash": "Hotově (%d$)",
     "input_amount": "Vyberte množství",
-    "notify": {
-        "not_ev": "Vozidlo není elektrické",
-        "not_fv": "Vozidlo nepoužívá palivo",
-        "not_enough_money": "Nemáte dostatek peněz",
-        "not_enough_space": "Není dostatek místa",
-        "jerrycan_not_empty": "Kanystr není prázdný",
-        "vehicle_full": "Vozidlo je již plné",
-        "refuel_success": "Vozidlo bylo úspěšně natankováno"
-    }
+    "notify_not_ev": "Vozidlo není elektrické",
+    "notify_not_fv": "Vozidlo nepoužívá palivo",
+    "notify_no_money": "Nemáte dostatek peněz",
+    "notify_no_space": "Není dostatek místa",
+    "notify_not_empty": "Kanystr není prázdný",
+    "notify_vehicle_full": "Vozidlo je již plné",
+    "notify_refuel_success": "Vozidlo bylo úspěšně natankováno"
 }

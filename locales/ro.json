@@ -13,13 +13,11 @@
     "input_bank": "Bancă (%d$)",
     "input_cash": "Numerar (%d$)",
     "input_amount": "Selectează Cantitatea",
-    "notify": {
-        "not_ev": "Vehiculul nu este electric",
-        "not_fv": "Vehiculul nu folosește combustibil",
-        "not_enough_money": "Nu ai suficienți bani",
-        "not_enough_space": "Nu ai suficient spațiu",
-        "jerrycan_not_empty": "Bidonul nu este gol",
-        "vehicle_full": "Vehiculul este deja plin",
-        "refuel_success": "Ai alimentat vehiculul cu succes"
-    }
+    "notify_not_ev": "Vehiculul nu este electric",
+    "notify_not_fv": "Vehiculul nu folosește combustibil",
+    "notify_no_money": "Nu ai suficienți bani",
+    "notify_no_space": "Nu ai suficient spațiu",
+    "notify_not_empty": "Bidonul nu este gol",
+    "notify_vehicle_full": "Vehiculul este deja plin",
+    "notify_refuel_success": "Ai alimentat vehiculul cu succes"
 }

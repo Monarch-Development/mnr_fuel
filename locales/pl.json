@@ -13,13 +13,11 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Gotówka (%d$)",
     "input_amount": "Wybierz ilość",
-    "notify": {
-        "not_ev": "Pojazd nie jest elektryczny",
-        "not_fv": "Pojazd nie używa paliwa",
-        "not_enough_money": "Nie masz wystarczająco pieniędzy",
-        "not_enough_space": "Brak wystarczająco miejsca",
-        "jerrycan_not_empty": "Kanister nie jest pusty",
-        "vehicle_full": "Pojazd jest już pełny",
-        "refuel_success": "Pomyślnie zatankowano pojazd"
-    }
+    "notify_not_ev": "Pojazd nie jest elektryczny",
+    "notify_not_fv": "Pojazd nie używa paliwa",
+    "notify_no_money": "Nie masz wystarczająco pieniędzy",
+    "notify_no_space": "Brak wystarczająco miejsca",
+    "notify_not_empty": "Kanister nie jest pusty",
+    "notify_vehicle_full": "Pojazd jest już pełny",
+    "notify_refuel_success": "Pomyślnie zatankowano pojazd"
 }

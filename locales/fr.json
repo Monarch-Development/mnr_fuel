@@ -13,13 +13,11 @@
     "input_bank": "Banque (%d$)",
     "input_cash": "Espèces (%d$)",
     "input_amount": "Sélectionner la quantité",
-    "notify": {
-        "not_ev": "Le véhicule n’est pas électrique",
-        "not_fv": "Le véhicule n’utilise pas de carburant",
-        "not_enough_money": "Vous n’avez pas assez d’argent",
-        "not_enough_space": "Vous n’avez pas assez de place",
-        "jerrycan_not_empty": "Le jerrican n’est pas vide",
-        "vehicle_full": "Le véhicule est déjà plein",
-        "refuel_success": "Vous avez fait le plein avec succès"
-    }
+    "notify_not_ev": "Le véhicule n’est pas électrique",
+    "notify_not_fv": "Le véhicule n’utilise pas de carburant",
+    "notify_no_money": "Vous n’avez pas assez d’argent",
+    "notify_no_space": "Vous n’avez pas assez de place",
+    "notify_not_empty": "Le jerrican n’est pas vide",
+    "notify_vehicle_full": "Le véhicule est déjà plein",
+    "notify_refuel_success": "Vous avez fait le plein avec succès"
 }

@@ -13,13 +13,11 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Tunai (%d$)",
     "input_amount": "Pilih Jumlah",
-    "notify": {
-        "not_ev": "Kenderaan ini bukan elektrik",
-        "not_fv": "Kenderaan ini tidak menggunakan bahan api",
-        "not_enough_money": "Anda tidak mempunyai wang yang mencukupi",
-        "not_enough_space": "Tiada ruang yang mencukupi",
-        "jerrycan_not_empty": "Kanister belum kosong",
-        "vehicle_full": "Kenderaan telah penuh",
-        "refuel_success": "Kenderaan berjaya diisi minyak"
-    }
+    "notify_not_ev": "Kenderaan ini bukan elektrik",
+    "notify_not_fv": "Kenderaan ini tidak menggunakan bahan api",
+    "notify_no_money": "Anda tidak mempunyai wang yang mencukupi",
+    "notify_no_space": "Tiada ruang yang mencukupi",
+    "notify_not_empty": "Kanister belum kosong",
+    "notify_vehicle_full": "Kenderaan telah penuh",
+    "notify_refuel_success": "Kenderaan berjaya diisi minyak"
 }

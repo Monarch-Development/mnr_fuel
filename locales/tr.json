@@ -13,13 +13,11 @@
     "input_bank": "Banka (%d$)",
     "input_cash": "Nakit (%d$)",
     "input_amount": "Miktar Seç",
-    "notify": {
-        "not_ev": "Araç elektrikli değil",
-        "not_fv": "Araç yakıt kullanmıyor",
-        "not_enough_money": "Yeterli paran yok",
-        "not_enough_space": "Yeterli alan yok",
-        "jerrycan_not_empty": "Jerrican boş değil",
-        "vehicle_full": "Araç zaten dolu",
-        "refuel_success": "Araç başarıyla dolduruldu"
-    }
+    "notify_not_ev": "Araç elektrikli değil",
+    "notify_not_fv": "Araç yakıt kullanmıyor",
+    "notify_no_money": "Yeterli paran yok",
+    "notify_no_space": "Yeterli alan yok",
+    "notify_not_empty": "Jerrican boş değil",
+    "notify_vehicle_full": "Araç zaten dolu",
+    "notify_refuel_success": "Araç başarıyla dolduruldu"
 }

@@ -13,13 +13,11 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Contant (%d$)",
     "input_amount": "Kies hoeveelheid",
-    "notify": {
-        "not_ev": "Het voertuig is niet elektrisch",
-        "not_fv": "Het voertuig gebruikt geen brandstof",
-        "not_enough_money": "Je hebt niet genoeg geld",
-        "not_enough_space": "Er is niet genoeg ruimte",
-        "jerrycan_not_empty": "De jerrycan is niet leeg",
-        "vehicle_full": "Het voertuig is al vol",
-        "refuel_success": "Het voertuig is succesvol getankt"
-    }
+    "notify_not_ev": "Het voertuig is niet elektrisch",
+    "notify_not_fv": "Het voertuig gebruikt geen brandstof",
+    "notify_no_money": "Je hebt niet genoeg geld",
+    "notify_no_space": "Er is niet genoeg ruimte",
+    "notify_not_empty": "De jerrycan is niet leeg",
+    "notify_vehicle_full": "Het voertuig is al vol",
+    "notify_refuel_success": "Het voertuig is succesvol getankt"
 }

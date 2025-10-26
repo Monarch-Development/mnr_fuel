@@ -13,13 +13,11 @@
     "input_bank": "銀行 (%d$)",
     "input_cash": "現金 (%d$)",
     "input_amount": "数量を選択",
-    "notify": {
-        "not_ev": "この車両は電気自動車ではありません",
-        "not_fv": "この車両は燃料を使用しません",
-        "not_enough_money": "お金が足りません",
-        "not_enough_space": "スペースが不足しています",
-        "jerrycan_not_empty": "携行缶が空ではありません",
-        "vehicle_full": "車両はすでに満タンです",
-        "refuel_success": "車両の給油に成功しました"
-    }
+    "notify_not_ev": "この車両は電気自動車ではありません",
+    "notify_not_fv": "この車両は燃料を使用しません",
+    "notify_no_money": "お金が足りません",
+    "notify_no_space": "スペースが不足しています",
+    "notify_not_empty": "携行缶が空ではありません",
+    "notify_vehicle_full": "車両はすでに満タンです",
+    "notify_refuel_success": "車両の給油に成功しました"
 }

@@ -157,7 +157,7 @@ local function playAnim(data)
 		ReleaseSoundId(soundId)
 		PlaySoundFromEntity(-1, ('mnr_%s_stop'):format(cat), cache.ped, 'mnr_fuel', true, 0)
 		state:set('refueling', false)
-		framework.Notify(locale('notify.refuel_success'), 'success')
+		framework.Notify(locale('notify_refuel_success'), 'success')
 	end
 
 	local animDict = data.action == 'fuel' and 'timetable@gardener@filling_can' or data.action == 'jerrycan' and 'weapon@w_sp_jerrycan'
@@ -200,7 +200,7 @@ AddEventHandler('mnr_fuel:client:RefuelVehicle', function(data)
 
     local electric = GetIsVehicleElectric(GetEntityModel(vehicle))
 	if (electric and state:nozzleCat() ~= 'ev') or (not electric and state:nozzleCat() ~= 'fv') then
-		framework.Notify(electric and locale('notify.not_fv') or locale('notify.not_ev'), 'error')
+		framework.Notify(electric and locale('notify_not_fv') or locale('notify_not_ev'), 'error')
 		return
 	end
 

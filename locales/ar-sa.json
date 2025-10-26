@@ -13,13 +13,11 @@
     "input_bank": "البنك (%d$)",
     "input_cash": "نقداً (%d$)",
     "input_amount": "اختر الكمية",
-    "notify": {
-        "not_ev": "المركبة ليست كهربائية",
-        "not_fv": "المركبة لا تستخدم الوقود",
-        "not_enough_money": "ليس لديك مال كافٍ",
-        "not_enough_space": "لا توجد مساحة كافية",
-        "jerrycan_not_empty": "الجالون غير فارغ",
-        "vehicle_full": "المركبة ممتلئة بالفعل",
-        "refuel_success": "تمت تعبئة الوقود بنجاح"
-    }
+    "notify_not_ev": "المركبة ليست كهربائية",
+    "notify_not_fv": "المركبة لا تستخدم الوقود",
+    "notify_no_money": "ليس لديك مال كافٍ",
+    "notify_no_space": "لا توجد مساحة كافية",
+    "notify_not_empty": "الجالون غير فارغ",
+    "notify_vehicle_full": "المركبة ممتلئة بالفعل",
+    "notify_refuel_success": "تمت تعبئة الوقود بنجاح"
 }

@@ -13,13 +13,11 @@
     "input_bank": "银行 (%d$)",
     "input_cash": "现金 (%d$)",
     "input_amount": "选择数量",
-    "notify": {
-        "not_ev": "该车辆不是电动车",
-        "not_fv": "该车辆不使用燃料",
-        "not_enough_money": "你的钱不够",
-        "not_enough_space": "空间不足",
-        "jerrycan_not_empty": "油桶未空",
-        "vehicle_full": "车辆已满",
-        "refuel_success": "你已成功为车辆加油"
-    }
+    "notify_not_ev": "该车辆不是电动车",
+    "notify_not_fv": "该车辆不使用燃料",
+    "notify_no_money": "你的钱不够",
+    "notify_no_space": "空间不足",
+    "notify_not_empty": "油桶未空",
+    "notify_vehicle_full": "车辆已满",
+    "notify_refuel_success": "你已成功为车辆加油"
 }

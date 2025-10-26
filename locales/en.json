@@ -13,13 +13,11 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Cash (%d$)",
     "input_amount": "Select Amount",
-    "notify": {
-        "not_ev": "The vehicle isn't electric",
-        "not_fv": "The vehicle doesn't use fuel",
-        "not_enough_money": "You don't have enough money",
-        "not_enough_space": "You don't have enough space",
-        "jerrycan_not_empty": "The jerrycan isn't empty",
-        "vehicle_full": "The vehicle is already full",
-        "refuel_success": "You refueled the vehicle successfully"
-    }
+    "notify_not_ev": "The vehicle isn't electric",
+    "notify_not_fv": "The vehicle doesn't use fuel",
+    "notify_no_money": "You don't have enough money",
+    "notify_no_space": "You don't have enough space",
+    "notify_not_empty": "The jerrycan isn't empty",
+    "notify_vehicle_full": "The vehicle is already full",
+    "notify_refuel_success": "You refueled the vehicle successfully"
 }

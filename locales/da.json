@@ -13,13 +13,11 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Kontant (%d$)",
     "input_amount": "Vælg mængde",
-    "notify": {
-        "not_ev": "Køretøjet er ikke elektrisk",
-        "not_fv": "Køretøjet bruger ikke brændstof",
-        "not_enough_money": "Du har ikke nok penge",
-        "not_enough_space": "Der er ikke nok plads",
-        "jerrycan_not_empty": "Dunken er ikke tom",
-        "vehicle_full": "Køretøjet er allerede fuldt",
-        "refuel_success": "Køretøjet blev tanket med succes"
-    }
+    "notify_not_ev": "Køretøjet er ikke elektrisk",
+    "notify_not_fv": "Køretøjet bruger ikke brændstof",
+    "notify_no_money": "Du har ikke nok penge",
+    "notify_no_space": "Der er ikke nok plads",
+    "notify_not_empty": "Dunken er ikke tom",
+    "notify_vehicle_full": "Køretøjet er allerede fuldt",
+    "notify_refuel_success": "Køretøjet blev tanket med succes"
 }

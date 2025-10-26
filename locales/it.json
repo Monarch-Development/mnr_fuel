@@ -13,13 +13,11 @@
     "input_bank": "Banca (%d$)",
     "input_cash": "Contanti (%d$)",
     "input_amount": "Seleziona Quantità",
-    "notify": {
-        "not_ev": "Il veicolo non è elettrico",
-        "not_fv": "Il veicolo non usa carburante",
-        "not_enough_money": "Non hai abbastanza soldi",
-        "not_enough_space": "Non hai abbastanza spazio",
-        "jerrycan_not_empty": "La tanica non è vuota",
-        "vehicle_full": "Il veicolo è già pieno",
-        "refuel_success": "Hai rifornito con successo il veicolo"
-    }
+    "notify_not_ev": "Il veicolo non è elettrico",
+    "notify_not_fv": "Il veicolo non usa carburante",
+    "notify_no_money": "Non hai abbastanza soldi",
+    "notify_no_space": "Non hai abbastanza spazio",
+    "notify_not_empty": "La tanica non è vuota",
+    "notify_vehicle_full": "Il veicolo è già pieno",
+    "notify_refuel_success": "Hai rifornito con successo il veicolo"
 }

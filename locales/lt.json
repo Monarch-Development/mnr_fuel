@@ -13,13 +13,11 @@
     "input_bank": "Bankas (%d$)",
     "input_cash": "Grynais (%d$)",
     "input_amount": "Pasirinkite kiekį",
-    "notify": {
-        "not_ev": "Transporto priemonė nėra elektrinė",
-        "not_fv": "Transporto priemonė nenaudoja kuro",
-        "not_enough_money": "Neturite pakankamai pinigų",
-        "not_enough_space": "Nėra pakankamai vietos",
-        "jerrycan_not_empty": "Kanistras nėra tuščias",
-        "vehicle_full": "Transporto priemonė jau pilna",
-        "refuel_success": "Transporto priemonė sėkmingai užsipildė"
-    }
+    "notify_not_ev": "Transporto priemonė nėra elektrinė",
+    "notify_not_fv": "Transporto priemonė nenaudoja kuro",
+    "notify_no_money": "Neturite pakankamai pinigų",
+    "notify_no_space": "Nėra pakankamai vietos",
+    "notify_not_empty": "Kanistras nėra tuščias",
+    "notify_vehicle_full": "Transporto priemonė jau pilna",
+    "notify_refuel_success": "Transporto priemonė sėkmingai užsipildė"
 }
