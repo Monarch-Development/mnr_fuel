@@ -13,9 +13,6 @@
     "input_bank": "Banca (%d$)",
     "input_cash": "Contanti (%d$)",
     "input_amount": "Seleziona Quantità",
-    "progress": {
-        "refueling_vehicle": "Rifornendo Veicolo..."
-    },
     "notify": {
         "not_ev": "Il veicolo non è elettrico",
         "not_fv": "Il veicolo non usa carburante",

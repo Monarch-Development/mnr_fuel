@@ -13,9 +13,6 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Contant (%d$)",
     "input_amount": "Kies hoeveelheid",
-    "progress": {
-        "refueling_vehicle": "Voertuig wordt getankt..."
-    },
     "notify": {
         "not_ev": "Het voertuig is niet elektrisch",
         "not_fv": "Het voertuig gebruikt geen brandstof",

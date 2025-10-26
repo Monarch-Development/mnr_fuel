@@ -13,9 +13,6 @@
     "input_bank": "Banque (%d$)",
     "input_cash": "Espèces (%d$)",
     "input_amount": "Sélectionner la quantité",
-    "progress": {
-        "refueling_vehicle": "Remplissage du véhicule..."
-    },
     "notify": {
         "not_ev": "Le véhicule n’est pas électrique",
         "not_fv": "Le véhicule n’utilise pas de carburant",

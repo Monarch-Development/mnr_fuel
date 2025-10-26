@@ -13,9 +13,6 @@
     "input_bank": "银行 (%d$)",
     "input_cash": "现金 (%d$)",
     "input_amount": "选择数量",
-    "progress": {
-        "refueling_vehicle": "正在为车辆加油..."
-    },
     "notify": {
         "not_ev": "该车辆不是电动车",
         "not_fv": "该车辆不使用燃料",

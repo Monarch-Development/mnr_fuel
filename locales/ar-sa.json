@@ -13,9 +13,6 @@
     "input_bank": "البنك (%d$)",
     "input_cash": "نقداً (%d$)",
     "input_amount": "اختر الكمية",
-    "progress": {
-        "refueling_vehicle": "جاري تعبئة الوقود..."
-    },
     "notify": {
         "not_ev": "المركبة ليست كهربائية",
         "not_fv": "المركبة لا تستخدم الوقود",

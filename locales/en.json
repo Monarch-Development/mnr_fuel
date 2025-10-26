@@ -13,9 +13,6 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Cash (%d$)",
     "input_amount": "Select Amount",
-    "progress": {
-        "refueling_vehicle": "Refueling Vehicle..."
-    },
     "notify": {
         "not_ev": "The vehicle isn't electric",
         "not_fv": "The vehicle doesn't use fuel",

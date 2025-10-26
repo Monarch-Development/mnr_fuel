@@ -13,9 +13,6 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Tunai (%d$)",
     "input_amount": "Pilih Jumlah",
-    "progress": {
-        "refueling_vehicle": "Sedang mengisi kenderaan..."
-    },
     "notify": {
         "not_ev": "Kenderaan ini bukan elektrik",
         "not_fv": "Kenderaan ini tidak menggunakan bahan api",

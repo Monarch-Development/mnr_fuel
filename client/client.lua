@@ -167,7 +167,6 @@ local function playAnim(data)
 
 	if lib.progressCircle({
 		duration = (data.amount or 30) * config.refuelTime,
-		label = locale('progress.refueling_vehicle'),
 		position = 'bottom',
 		useWhileDead = false,
 		canCancel = true,

@@ -13,9 +13,6 @@
     "input_bank": "Banka (%d$)",
     "input_cash": "Hotově (%d$)",
     "input_amount": "Vyberte množství",
-    "progress": {
-        "refueling_vehicle": "Probíhá tankování..."
-    },
     "notify": {
         "not_ev": "Vozidlo není elektrické",
         "not_fv": "Vozidlo nepoužívá palivo",

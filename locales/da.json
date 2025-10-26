@@ -13,9 +13,6 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Kontant (%d$)",
     "input_amount": "Vælg mængde",
-    "progress": {
-        "refueling_vehicle": "Tanker køretøj..."
-    },
     "notify": {
         "not_ev": "Køretøjet er ikke elektrisk",
         "not_fv": "Køretøjet bruger ikke brændstof",

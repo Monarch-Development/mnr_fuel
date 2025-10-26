@@ -13,9 +13,6 @@
     "input_bank": "Bancă (%d$)",
     "input_cash": "Numerar (%d$)",
     "input_amount": "Selectează Cantitatea",
-    "progress": {
-        "refueling_vehicle": "Alimentare vehicul..."
-    },
     "notify": {
         "not_ev": "Vehiculul nu este electric",
         "not_fv": "Vehiculul nu folosește combustibil",

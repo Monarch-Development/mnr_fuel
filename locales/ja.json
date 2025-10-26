@@ -13,9 +13,6 @@
     "input_bank": "銀行 (%d$)",
     "input_cash": "現金 (%d$)",
     "input_amount": "数量を選択",
-    "progress": {
-        "refueling_vehicle": "車両に給油中..."
-    },
     "notify": {
         "not_ev": "この車両は電気自動車ではありません",
         "not_fv": "この車両は燃料を使用しません",

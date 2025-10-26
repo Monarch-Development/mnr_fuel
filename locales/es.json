@@ -13,9 +13,6 @@
     "input_bank": "Banco (%d$)",
     "input_cash": "Efectivo (%d$)",
     "input_amount": "Seleccionar cantidad",
-    "progress": {
-        "refueling_vehicle": "Repostando vehículo..."
-    },
     "notify": {
         "not_ev": "El vehículo no es eléctrico",
         "not_fv": "El vehículo no usa combustible",

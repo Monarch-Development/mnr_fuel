@@ -13,9 +13,6 @@
     "input_bank": "Bankas (%d$)",
     "input_cash": "Grynais (%d$)",
     "input_amount": "Pasirinkite kiekį",
-    "progress": {
-        "refueling_vehicle": "Užsipildoma transporto priemonė..."
-    },
     "notify": {
         "not_ev": "Transporto priemonė nėra elektrinė",
         "not_fv": "Transporto priemonė nenaudoja kuro",

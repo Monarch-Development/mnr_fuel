@@ -13,9 +13,6 @@
     "input_bank": "Bank (%d$)",
     "input_cash": "Bar (%d$)",
     "input_amount": "Menge auswählen",
-    "progress": {
-        "refueling_vehicle": "Fahrzeug wird betankt..."
-    },
     "notify": {
         "not_ev": "Das Fahrzeug ist nicht elektrisch",
         "not_fv": "Das Fahrzeug verwendet keinen Kraftstoff",
