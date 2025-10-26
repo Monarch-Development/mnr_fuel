@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "محطة وقود",
     "blip_name_ev": "محطة شحن كهربائي",
-    "target": {
-        "refuel": "تعبئة الوقود",
-        "take_nozzle": "أخذ المضخة",
-        "take_charger": "أخذ الشاحن",
-        "return_nozzle": "إرجاع المضخة",
-        "return_charger": "إرجاع الشاحن",
-        "buy_jerrycan": "شراء/إعادة تعبئة جالون"
-    },
+    "target_refuel_fv": "تعبئة الوقود",
+    "target_take_fv": "أخذ المضخة",
+    "target_take_ev": "أخذ الشاحن",
+    "target_return_fv": "إرجاع المضخة",
+    "target_return_ev": "إرجاع الشاحن",
+    "target_buy_jerrycan": "شراء/إعادة تعبئة جالون",
     "input": {
         "title": "شراء",
         "price": "السعر",

@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Gas Station",
     "blip_name_ev": "EV Station",
-    "target": {
-        "refuel": "Refuel Vehicle",
-        "take_nozzle": "Grab Nozzle",
-        "take_charger": "Grab Charger",
-        "return_nozzle": "Return Nozzle",
-        "return_charger": "Return Charger",
-        "buy_jerrycan": "Buy/Refill Jerry Can"
-    },
+    "target_refuel_fv": "Refuel Vehicle",
+    "target_take_fv": "Grab Nozzle",
+    "target_take_ev": "Grab Charger",
+    "target_return_fv": "Return Nozzle",
+    "target_return_ev": "Return Charger",
+    "target_buy_jerrycan": "Buy/Refill Jerry Can",
     "input": {
         "title": "Purchase",
         "price": "Price",

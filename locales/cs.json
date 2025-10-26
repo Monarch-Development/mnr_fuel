@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Čerpací stanice",
     "blip_name_ev": "Nabíjecí stanice",
-    "target": {
-        "refuel": "Natankovat vozidlo",
-        "take_nozzle": "Vzít hadici",
-        "take_charger": "Vzít nabíječku",
-        "return_nozzle": "Vrátit hadici",
-        "return_charger": "Vrátit nabíječku",
-        "buy_jerrycan": "Koupit/Doplnit kanystr"
-    },
+    "target_refuel_fv": "Natankovat vozidlo",
+    "target_take_fv": "Vzít hadici",
+    "target_take_ev": "Vzít nabíječku",
+    "target_return_fv": "Vrátit hadici",
+    "target_return_ev": "Vrátit nabíječku",
+    "target_buy_jerrycan": "Koupit/Doplnit kanystr",
     "input": {
         "title": "Nákup",
         "price": "Cena",

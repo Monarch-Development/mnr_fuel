@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Tankstelle",
     "blip_name_ev": "Ladestation",
-    "target": {
-        "refuel": "Fahrzeug betanken",
-        "take_nozzle": "Zapfpistole nehmen",
-        "take_charger": "Ladegerät nehmen",
-        "return_nozzle": "Zapfpistole zurückgeben",
-        "return_charger": "Ladegerät zurückgeben",
-        "buy_jerrycan": "Kanister kaufen/auffüllen"
-    },
+    "target_refuel_fv": "Fahrzeug betanken",
+    "target_take_fv": "Zapfpistole nehmen",
+    "target_take_ev": "Ladegerät nehmen",
+    "target_return_fv": "Zapfpistole zurückgeben",
+    "target_return_ev": "Ladegerät zurückgeben",
+    "target_buy_jerrycan": "Kanister kaufen/auffüllen",
     "input": {
         "title": "Kauf",
         "price": "Preis",

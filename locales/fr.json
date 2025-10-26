@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Station-service",
     "blip_name_ev": "Station de recharge",
-    "target": {
-        "refuel": "Faire le plein",
-        "take_nozzle": "Prendre le pistolet",
-        "take_charger": "Prendre le chargeur",
-        "return_nozzle": "Rendre le pistolet",
-        "return_charger": "Rendre le chargeur",
-        "buy_jerrycan": "Acheter/Remplir un jerrican"
-    },
+    "target_refuel_fv": "Faire le plein",
+    "target_take_fv": "Prendre le pistolet",
+    "target_take_ev": "Prendre le chargeur",
+    "target_return_fv": "Rendre le pistolet",
+    "target_return_ev": "Rendre le chargeur",
+    "target_buy_jerrycan": "Acheter/Remplir un jerrican",
     "input": {
         "title": "Achat",
         "price": "Prix",

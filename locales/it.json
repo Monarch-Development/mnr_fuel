@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Stazione di Rifornimento",
     "blip_name_ev": "Stazione di Ricarica",
-    "target": {
-        "refuel": "Rifornisci Veicolo",
-        "take_nozzle": "Prendi Pompa",
-        "take_charger": "Prendi Caricatore",
-        "return_nozzle": "Rimetti Pompa",
-        "return_charger": "Rimetti Caricatore",
-        "buy_jerrycan": "Compra/Riempi Tanica"
-    },
+    "target_refuel_fv": "Rifornisci Veicolo",
+    "target_take_fv": "Prendi Pompa",
+    "target_take_ev": "Prendi Caricatore",
+    "target_return_fv": "Rimetti Pompa",
+    "target_return_ev": "Rimetti Caricatore",
+    "target_buy_jerrycan": "Compra/Riempi Tanica",
     "input": {
         "title": "Acquista",
         "price": "Prezzo",

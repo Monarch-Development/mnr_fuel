@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Stacja paliw",
     "blip_name_ev": "Stacja ładowania",
-    "target": {
-        "refuel": "Tankuj pojazd",
-        "take_nozzle": "Weź dystrybutor",
-        "take_charger": "Weź ładowarkę",
-        "return_nozzle": "Oddaj dystrybutor",
-        "return_charger": "Oddaj ładowarkę",
-        "buy_jerrycan": "Kup/Doładuj kanister"
-    },
+    "target_refuel_fv": "Tankuj pojazd",
+    "target_take_fv": "Weź dystrybutor",
+    "target_take_ev": "Weź ładowarkę",
+    "target_return_fv": "Oddaj dystrybutor",
+    "target_return_ev": "Oddaj ładowarkę",
+    "target_buy_jerrycan": "Kup/Doładuj kanister",
     "input": {
         "title": "Zakup",
         "price": "Cena",

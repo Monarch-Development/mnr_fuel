@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Tankstation",
     "blip_name_ev": "Ladestation",
-    "target": {
-        "refuel": "Tank køretøj",
-        "take_nozzle": "Tag slangen",
-        "take_charger": "Tag opladeren",
-        "return_nozzle": "Aflever slangen",
-        "return_charger": "Aflever opladeren",
-        "buy_jerrycan": "Køb/Genopfyld dunk"
-    },
+    "target_refuel_fv": "Tank køretøj",
+    "target_take_fv": "Tag slangen",
+    "target_take_ev": "Tag opladeren",
+    "target_return_fv": "Aflever slangen",
+    "target_return_ev": "Aflever opladeren",
+    "target_buy_jerrycan": "Køb/Genopfyld dunk",
     "input": {
         "title": "Køb",
         "price": "Pris",

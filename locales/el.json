@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Βενζινάδικο",
     "blip_name_ev": "Σταθμός φόρτισης",
-    "target": {
-        "refuel": "Γέμισμα οχήματος",
-        "take_nozzle": "Πάρε το ακροσωλήνιο",
-        "take_charger": "Πάρε τον φορτιστή",
-        "return_nozzle": "Επέστρεψε το ακροσωλήνιο",
-        "return_charger": "Επέστρεψε τον φορτιστή",
-        "buy_jerrycan": "Αγορά/Γέμισμα δοχείου καυσίμου"
-    },
+    "target_refuel_fv": "Γέμισμα οχήματος",
+    "target_take_fv": "Πάρε το ακροσωλήνιο",
+    "target_take_ev": "Πάρε τον φορτιστή",
+    "target_return_fv": "Επέστρεψε το ακροσωλήνιο",
+    "target_return_ev": "Επέστρεψε τον φορτιστή",
+    "target_buy_jerrycan": "Αγορά/Γέμισμα δοχείου καυσίμου",
     "input": {
         "title": "Αγορά",
         "price": "Τιμή",

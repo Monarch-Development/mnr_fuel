@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "加油站",
     "blip_name_ev": "充电站",
-    "target": {
-        "refuel": "为车辆加油",
-        "take_nozzle": "拿取加油枪",
-        "take_charger": "拿取充电器",
-        "return_nozzle": "归还加油枪",
-        "return_charger": "归还充电器",
-        "buy_jerrycan": "购买/补充油桶"
-    },
+    "target_refuel_fv": "为车辆加油",
+    "target_take_fv": "拿取加油枪",
+    "target_take_ev": "拿取充电器",
+    "target_return_fv": "归还加油枪",
+    "target_return_ev": "归还充电器",
+    "target_buy_jerrycan": "购买/补充油桶",
     "input": {
         "title": "购买",
         "price": "价格",

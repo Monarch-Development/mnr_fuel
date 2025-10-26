@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Stație PEȚ",
     "blip_name_ev": "Stație de Încărcare",
-    "target": {
-        "refuel": "Alimentează Vehiculul",
-        "take_nozzle": "Ia Pistolul",
-        "take_charger": "Ia Încărcătorul",
-        "return_nozzle": "Returnează Pistolul",
-        "return_charger": "Returnează Încărcătorul",
-        "buy_jerrycan": "Cumpără/Umple Bidon"
-    },
+    "target_refuel_fv": "Alimentează Vehiculul",
+    "target_take_fv": "Ia Pistolul",
+    "target_take_ev": "Ia Încărcătorul",
+    "target_return_fv": "Returnează Pistolul",
+    "target_return_ev": "Returnează Încărcătorul",
+    "target_buy_jerrycan": "Cumpără/Umple Bidon",
     "input": {
         "title": "Achiziție",
         "price": "Preț",

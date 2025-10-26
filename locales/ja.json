@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "ガソリンスタンド",
     "blip_name_ev": "充電ステーション",
-    "target": {
-        "refuel": "車両に給油する",
-        "take_nozzle": "ノズルを取る",
-        "take_charger": "充電器を取る",
-        "return_nozzle": "ノズルを戻す",
-        "return_charger": "充電器を戻す",
-        "buy_jerrycan": "携行缶を購入/補充"
-    },
+    "target_refuel_fv": "車両に給油する",
+    "target_take_fv": "ノズルを取る",
+    "target_take_ev": "充電器を取る",
+    "target_return_fv": "ノズルを戻す",
+    "target_return_ev": "充電器を戻す",
+    "target_buy_jerrycan": "携行缶を購入/補充",
     "input": {
         "title": "購入",
         "price": "価格",

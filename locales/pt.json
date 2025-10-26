@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Posto de Gasolina",
     "blip_name_ev": "Estação de Carregamento",
-    "target": {
-        "refuel": "Abastecer Veículo",
-        "take_nozzle": "Pegar Bico",
-        "take_charger": "Pegar Carregador",
-        "return_nozzle": "Devolver Bico",
-        "return_charger": "Devolver Carregador",
-        "buy_jerrycan": "Comprar/Reabastecer Bidão"
-    },
+    "target_refuel_fv": "Abastecer Veículo",
+    "target_take_fv": "Pegar Bico",
+    "target_take_ev": "Pegar Carregador",
+    "target_return_fv": "Devolver Bico",
+    "target_return_ev": "Devolver Carregador",
+    "target_buy_jerrycan": "Comprar/Reabastecer Bidão",
     "input": {
         "title": "Compra",
         "price": "Preço",

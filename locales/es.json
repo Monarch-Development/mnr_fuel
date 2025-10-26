@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Gasolinera",
     "blip_name_ev": "Estación de carga",
-    "target": {
-        "refuel": "Repostar vehículo",
-        "take_nozzle": "Coger la manguera",
-        "take_charger": "Coger el cargador",
-        "return_nozzle": "Devolver la manguera",
-        "return_charger": "Devolver el cargador",
-        "buy_jerrycan": "Comprar/Rellenar bidón"
-    },
+    "target_refuel_fv": "Repostar vehículo",
+    "target_take_fv": "Coger la manguera",
+    "target_take_ev": "Coger el cargador",
+    "target_return_fv": "Devolver la manguera",
+    "target_return_ev": "Devolver el cargador",
+    "target_buy_jerrycan": "Comprar/Rellenar bidón",
     "input": {
         "title": "Compra",
         "price": "Precio",

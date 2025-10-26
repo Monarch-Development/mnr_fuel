@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Stesen Minyak",
     "blip_name_ev": "Stesen Pengecasan",
-    "target": {
-        "refuel": "Isi Minyak Kenderaan",
-        "take_nozzle": "Ambil Pemegang Pam",
-        "take_charger": "Ambil Pengecas",
-        "return_nozzle": "Kembalikan Pemegang Pam",
-        "return_charger": "Kembalikan Pengecas",
-        "buy_jerrycan": "Beli/Isi Semula Kanister"
-    },
+    "target_refuel_fv": "Isi Minyak Kenderaan",
+    "target_take_fv": "Ambil Pemegang Pam",
+    "target_take_ev": "Ambil Pengecas",
+    "target_return_fv": "Kembalikan Pemegang Pam",
+    "target_return_ev": "Kembalikan Pengecas",
+    "target_buy_jerrycan": "Beli/Isi Semula Kanister",
     "input": {
         "title": "Pembelian",
         "price": "Harga",

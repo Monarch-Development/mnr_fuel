@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Tankstation",
     "blip_name_ev": "Oplaadstation",
-    "target": {
-        "refuel": "Voertuig tanken",
-        "take_nozzle": "Neem de pomp",
-        "take_charger": "Neem de lader",
-        "return_nozzle": "Breng de pomp terug",
-        "return_charger": "Breng de lader terug",
-        "buy_jerrycan": "Koop/Vul jerrycan bij"
-    },
+    "target_refuel_fv": "Voertuig tanken",
+    "target_take_fv": "Neem de pomp",
+    "target_take_ev": "Neem de lader",
+    "target_return_fv": "Breng de pomp terug",
+    "target_return_ev": "Breng de lader terug",
+    "target_buy_jerrycan": "Koop/Vul jerrycan bij",
     "input": {
         "title": "Aankoop",
         "price": "Prijs",

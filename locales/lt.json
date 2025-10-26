@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Degalinė",
     "blip_name_ev": "Įkrovimo stotelė",
-    "target": {
-        "refuel": "Užsipildyti transporto priemonę",
-        "take_nozzle": "Paimti žarną",
-        "take_charger": "Paimti įkroviklį",
-        "return_nozzle": "Grąžinti žarną",
-        "return_charger": "Grąžinti įkroviklį",
-        "buy_jerrycan": "Pirkti/Pripildyti kanistrą"
-    },
+    "target_refuel_fv": "Užsipildyti transporto priemonę",
+    "target_take_fv": "Paimti žarną",
+    "target_take_ev": "Paimti įkroviklį",
+    "target_return_fv": "Grąžinti žarną",
+    "target_return_ev": "Grąžinti įkroviklį",
+    "target_buy_jerrycan": "Pirkti/Pripildyti kanistrą",
     "input": {
         "title": "Pirkimas",
         "price": "Kaina",

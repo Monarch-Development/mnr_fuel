@@ -1,14 +1,12 @@
 {
     "blip_name_fv": "Benzinlik",
     "blip_name_ev": "Şarj İstasyonu",
-    "target": {
-        "refuel": "Aracı Doldur",
-        "take_nozzle": "Pompayı Al",
-        "take_charger": "Şarj Cihazını Al",
-        "return_nozzle": "Pompayı Geri Ver",
-        "return_charger": "Şarj Cihazını Geri Ver",
-        "buy_jerrycan": "Jerrican Satın Al/Doldur"
-    },
+    "target_refuel_fv": "Aracı Doldur",
+    "target_take_fv": "Pompayı Al",
+    "target_take_ev": "Şarj Cihazını Al",
+    "target_return_fv": "Pompayı Geri Ver",
+    "target_return_ev": "Şarj Cihazını Geri Ver",
+    "target_buy_jerrycan": "Jerrican Satın Al/Doldur",
     "input": {
         "title": "Satın Alma",
         "price": "Fiyat",
