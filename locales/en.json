@@ -1,10 +1,6 @@
 {
     "blip_name_fv": "Gas Station",
     "blip_name_ev": "EV Station",
-    "blips": {
-        "name_fv": "Gas Station",
-        "name_ev": "EV Station"
-    },
     "target": {
         "refuel": "Refuel Vehicle",
         "take_nozzle": "Grab Nozzle",
