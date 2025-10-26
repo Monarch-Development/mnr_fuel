@@ -7,14 +7,12 @@
     "target_return_fv": "Rendre le pistolet",
     "target_return_ev": "Rendre le chargeur",
     "target_buy_jerrycan": "Acheter/Remplir un jerrican",
-    "input": {
-        "title": "Achat",
-        "price": "Prix",
-        "payment_method": "Sélectionner un mode de paiement",
-        "bank": "Banque (%d$)",
-        "cash": "Espèces (%d$)",
-        "select_amount": "Sélectionner la quantité"
-    },
+    "input_title": "Achat",
+    "input_price": "Prix",
+    "input_method": "Sélectionner un mode de paiement",
+    "input_bank": "Banque (%d$)",
+    "input_cash": "Espèces (%d$)",
+    "input_amount": "Sélectionner la quantité",
     "progress": {
         "refueling_vehicle": "Remplissage du véhicule..."
     },

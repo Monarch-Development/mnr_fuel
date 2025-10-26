@@ -7,14 +7,12 @@
     "target_return_fv": "Pompayı Geri Ver",
     "target_return_ev": "Şarj Cihazını Geri Ver",
     "target_buy_jerrycan": "Jerrican Satın Al/Doldur",
-    "input": {
-        "title": "Satın Alma",
-        "price": "Fiyat",
-        "payment_method": "Ödeme Yöntemi Seç",
-        "bank": "Banka (%d$)",
-        "cash": "Nakit (%d$)",
-        "select_amount": "Miktar Seç"
-    },
+    "input_title": "Satın Alma",
+    "input_price": "Fiyat",
+    "input_method": "Ödeme Yöntemi Seç",
+    "input_bank": "Banka (%d$)",
+    "input_cash": "Nakit (%d$)",
+    "input_amount": "Miktar Seç",
     "progress": {
         "refueling_vehicle": "Araç dolduruluyor..."
     },

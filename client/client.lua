@@ -107,17 +107,17 @@ local function inputDialog(jerrycan, cash, bank, fuel)
 	local rows = {
 		{
 			type = 'number',
-			label = locale('input.price'),
+			label = locale('input_price'),
 			default = jerrycan and config.jerrycanPrice or config.fuelPrice,
 			icon = 'dollar-sign',
 			disabled = true
 		},
 		{
 			type = 'select',
-			label = locale('input.payment_method'),
+			label = locale('input_method'),
 			options = {
-				{ value = 'bank', label = locale('input.bank', bank) },
-				{ value = 'cash', label = locale('input.cash', cash) },
+				{ value = 'bank', label = locale('input_bank', bank) },
+				{ value = 'cash', label = locale('input_cash', cash) },
 			},
 			required = true,
 			default = 'bank',
@@ -127,7 +127,7 @@ local function inputDialog(jerrycan, cash, bank, fuel)
 	if not jerrycan then
 		rows[#rows + 1] = {
 			type = 'slider',
-			label = locale('input.select_amount'),
+			label = locale('input_amount'),
 			required = true,
 			default = fuel,
 			min = fuel,
@@ -135,7 +135,7 @@ local function inputDialog(jerrycan, cash, bank, fuel)
 		}
 	end
 
-	return lib.inputDialog(locale('input.title'), rows)
+	return lib.inputDialog(locale('input_title'), rows)
 end
 
 local function playAnim(data)

@@ -7,14 +7,12 @@
     "target_return_fv": "Grąžinti žarną",
     "target_return_ev": "Grąžinti įkroviklį",
     "target_buy_jerrycan": "Pirkti/Pripildyti kanistrą",
-    "input": {
-        "title": "Pirkimas",
-        "price": "Kaina",
-        "payment_method": "Pasirinkite mokėjimo būdą",
-        "bank": "Bankas (%d$)",
-        "cash": "Grynais (%d$)",
-        "select_amount": "Pasirinkite kiekį"
-    },
+    "input_title": "Pirkimas",
+    "input_price": "Kaina",
+    "input_method": "Pasirinkite mokėjimo būdą",
+    "input_bank": "Bankas (%d$)",
+    "input_cash": "Grynais (%d$)",
+    "input_amount": "Pasirinkite kiekį",
     "progress": {
         "refueling_vehicle": "Užsipildoma transporto priemonė..."
     },

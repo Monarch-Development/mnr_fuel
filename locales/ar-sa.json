@@ -7,14 +7,12 @@
     "target_return_fv": "إرجاع المضخة",
     "target_return_ev": "إرجاع الشاحن",
     "target_buy_jerrycan": "شراء/إعادة تعبئة جالون",
-    "input": {
-        "title": "شراء",
-        "price": "السعر",
-        "payment_method": "اختر طريقة الدفع",
-        "bank": "البنك (%d$)",
-        "cash": "نقداً (%d$)",
-        "select_amount": "اختر الكمية"
-    },
+    "input_title": "شراء",
+    "input_price": "السعر",
+    "input_method": "اختر طريقة الدفع",
+    "input_bank": "البنك (%d$)",
+    "input_cash": "نقداً (%d$)",
+    "input_amount": "اختر الكمية",
     "progress": {
         "refueling_vehicle": "جاري تعبئة الوقود..."
     },

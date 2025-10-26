@@ -7,14 +7,12 @@
     "target_return_fv": "Returnează Pistolul",
     "target_return_ev": "Returnează Încărcătorul",
     "target_buy_jerrycan": "Cumpără/Umple Bidon",
-    "input": {
-        "title": "Achiziție",
-        "price": "Preț",
-        "payment_method": "Selectează Metoda de Plată",
-        "bank": "Bancă (%d$)",
-        "cash": "Numerar (%d$)",
-        "select_amount": "Selectează Cantitatea"
-    },
+    "input_title": "Achiziție",
+    "input_price": "Preț",
+    "input_method": "Selectează Metoda de Plată",
+    "input_bank": "Bancă (%d$)",
+    "input_cash": "Numerar (%d$)",
+    "input_amount": "Selectează Cantitatea",
     "progress": {
         "refueling_vehicle": "Alimentare vehicul..."
     },

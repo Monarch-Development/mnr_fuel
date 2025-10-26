@@ -7,14 +7,12 @@
     "target_return_fv": "Kembalikan Pemegang Pam",
     "target_return_ev": "Kembalikan Pengecas",
     "target_buy_jerrycan": "Beli/Isi Semula Kanister",
-    "input": {
-        "title": "Pembelian",
-        "price": "Harga",
-        "payment_method": "Pilih Kaedah Pembayaran",
-        "bank": "Bank (%d$)",
-        "cash": "Tunai (%d$)",
-        "select_amount": "Pilih Jumlah"
-    },
+    "input_title": "Pembelian",
+    "input_price": "Harga",
+    "input_method": "Pilih Kaedah Pembayaran",
+    "input_bank": "Bank (%d$)",
+    "input_cash": "Tunai (%d$)",
+    "input_amount": "Pilih Jumlah",
     "progress": {
         "refueling_vehicle": "Sedang mengisi kenderaan..."
     },

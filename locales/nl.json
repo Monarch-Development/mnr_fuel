@@ -7,14 +7,12 @@
     "target_return_fv": "Breng de pomp terug",
     "target_return_ev": "Breng de lader terug",
     "target_buy_jerrycan": "Koop/Vul jerrycan bij",
-    "input": {
-        "title": "Aankoop",
-        "price": "Prijs",
-        "payment_method": "Kies betaalmethode",
-        "bank": "Bank (%d$)",
-        "cash": "Contant (%d$)",
-        "select_amount": "Kies hoeveelheid"
-    },
+    "input_title": "Aankoop",
+    "input_price": "Prijs",
+    "input_method": "Kies betaalmethode",
+    "input_bank": "Bank (%d$)",
+    "input_cash": "Contant (%d$)",
+    "input_amount": "Kies hoeveelheid",
     "progress": {
         "refueling_vehicle": "Voertuig wordt getankt..."
     },

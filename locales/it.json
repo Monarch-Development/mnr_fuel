@@ -7,14 +7,12 @@
     "target_return_fv": "Rimetti Pompa",
     "target_return_ev": "Rimetti Caricatore",
     "target_buy_jerrycan": "Compra/Riempi Tanica",
-    "input": {
-        "title": "Acquista",
-        "price": "Prezzo",
-        "payment_method": "Seleziona Metodo di Pagamento",
-        "bank": "Banca (%d$)",
-        "cash": "Contanti (%d$)",
-        "select_amount": "Seleziona Quantità"
-    },
+    "input_title": "Acquista",
+    "input_price": "Prezzo",
+    "input_method": "Seleziona Metodo di Pagamento",
+    "input_bank": "Banca (%d$)",
+    "input_cash": "Contanti (%d$)",
+    "input_amount": "Seleziona Quantità",
     "progress": {
         "refueling_vehicle": "Rifornendo Veicolo..."
     },

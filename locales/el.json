@@ -7,14 +7,12 @@
     "target_return_fv": "Επέστρεψε το ακροσωλήνιο",
     "target_return_ev": "Επέστρεψε τον φορτιστή",
     "target_buy_jerrycan": "Αγορά/Γέμισμα δοχείου καυσίμου",
-    "input": {
-        "title": "Αγορά",
-        "price": "Τιμή",
-        "payment_method": "Επιλέξτε τρόπο πληρωμής",
-        "bank": "Τράπεζα (%d$)",
-        "cash": "Μετρητά (%d$)",
-        "select_amount": "Επιλέξτε ποσότητα"
-    },
+    "input_title": "Αγορά",
+    "input_price": "Τιμή",
+    "input_method": "Επιλέξτε τρόπο πληρωμής",
+    "input_bank": "Τράπεζα (%d$)",
+    "input_cash": "Μετρητά (%d$)",
+    "input_amount": "Επιλέξτε ποσότητα",
     "progress": {
         "refueling_vehicle": "Γέμισμα οχήματος..."
     },

@@ -7,14 +7,12 @@
     "target_return_fv": "Return Nozzle",
     "target_return_ev": "Return Charger",
     "target_buy_jerrycan": "Buy/Refill Jerry Can",
-    "input": {
-        "title": "Purchase",
-        "price": "Price",
-        "payment_method": "Select Payment Method",
-        "bank": "Bank (%d$)",
-        "cash": "Cash (%d$)",
-        "select_amount": "Select Amount"
-    },
+    "input_title": "Purchase",
+    "input_price": "Price",
+    "input_method": "Select Payment Method",
+    "input_bank": "Bank (%d$)",
+    "input_cash": "Cash (%d$)",
+    "input_amount": "Select Amount",
     "progress": {
         "refueling_vehicle": "Refueling Vehicle..."
     },

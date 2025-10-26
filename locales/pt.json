@@ -7,14 +7,12 @@
     "target_return_fv": "Devolver Bico",
     "target_return_ev": "Devolver Carregador",
     "target_buy_jerrycan": "Comprar/Reabastecer Bidão",
-    "input": {
-        "title": "Compra",
-        "price": "Preço",
-        "payment_method": "Selecionar Método de Pagamento",
-        "bank": "Banco (%d$)",
-        "cash": "Dinheiro (%d$)",
-        "select_amount": "Selecionar Quantidade"
-    },
+    "input_title": "Compra",
+    "input_price": "Preço",
+    "input_method": "Selecionar Método de Pagamento",
+    "input_bank": "Banco (%d$)",
+    "input_cash": "Dinheiro (%d$)",
+    "input_amount": "Selecionar Quantidade",
     "progress": {
         "refueling_vehicle": "A abastecer veículo..."
     },

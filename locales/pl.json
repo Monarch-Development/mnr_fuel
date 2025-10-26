@@ -7,14 +7,12 @@
     "target_return_fv": "Oddaj dystrybutor",
     "target_return_ev": "Oddaj ładowarkę",
     "target_buy_jerrycan": "Kup/Doładuj kanister",
-    "input": {
-        "title": "Zakup",
-        "price": "Cena",
-        "payment_method": "Wybierz metodę płatności",
-        "bank": "Bank (%d$)",
-        "cash": "Gotówka (%d$)",
-        "select_amount": "Wybierz ilość"
-    },
+    "input_title": "Zakup",
+    "input_price": "Cena",
+    "input_method": "Wybierz metodę płatności",
+    "input_bank": "Bank (%d$)",
+    "input_cash": "Gotówka (%d$)",
+    "input_amount": "Wybierz ilość",
     "progress": {
         "refueling_vehicle": "Tankowanie pojazdu..."
     },

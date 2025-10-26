@@ -7,14 +7,12 @@
     "target_return_fv": "Zapfpistole zurückgeben",
     "target_return_ev": "Ladegerät zurückgeben",
     "target_buy_jerrycan": "Kanister kaufen/auffüllen",
-    "input": {
-        "title": "Kauf",
-        "price": "Preis",
-        "payment_method": "Zahlungsmethode auswählen",
-        "bank": "Bank (%d$)",
-        "cash": "Bar (%d$)",
-        "select_amount": "Menge auswählen"
-    },
+    "input_title": "Kauf",
+    "input_price": "Preis",
+    "input_method": "Zahlungsmethode auswählen",
+    "input_bank": "Bank (%d$)",
+    "input_cash": "Bar (%d$)",
+    "input_amount": "Menge auswählen",
     "progress": {
         "refueling_vehicle": "Fahrzeug wird betankt..."
     },

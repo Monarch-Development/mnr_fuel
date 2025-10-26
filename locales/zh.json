@@ -7,14 +7,12 @@
     "target_return_fv": "归还加油枪",
     "target_return_ev": "归还充电器",
     "target_buy_jerrycan": "购买/补充油桶",
-    "input": {
-        "title": "购买",
-        "price": "价格",
-        "payment_method": "选择付款方式",
-        "bank": "银行 (%d$)",
-        "cash": "现金 (%d$)",
-        "select_amount": "选择数量"
-    },
+    "input_title": "购买",
+    "input_price": "价格",
+    "input_method": "选择付款方式",
+    "input_bank": "银行 (%d$)",
+    "input_cash": "现金 (%d$)",
+    "input_amount": "选择数量",
     "progress": {
         "refueling_vehicle": "正在为车辆加油..."
     },

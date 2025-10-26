@@ -7,14 +7,12 @@
     "target_return_fv": "Aflever slangen",
     "target_return_ev": "Aflever opladeren",
     "target_buy_jerrycan": "Køb/Genopfyld dunk",
-    "input": {
-        "title": "Køb",
-        "price": "Pris",
-        "payment_method": "Vælg betalingsmetode",
-        "bank": "Bank (%d$)",
-        "cash": "Kontant (%d$)",
-        "select_amount": "Vælg mængde"
-    },
+    "input_title": "Køb",
+    "input_price": "Pris",
+    "input_method": "Vælg betalingsmetode",
+    "input_bank": "Bank (%d$)",
+    "input_cash": "Kontant (%d$)",
+    "input_amount": "Vælg mængde",
     "progress": {
         "refueling_vehicle": "Tanker køretøj..."
     },

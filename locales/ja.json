@@ -7,14 +7,12 @@
     "target_return_fv": "ノズルを戻す",
     "target_return_ev": "充電器を戻す",
     "target_buy_jerrycan": "携行缶を購入/補充",
-    "input": {
-        "title": "購入",
-        "price": "価格",
-        "payment_method": "支払い方法を選択",
-        "bank": "銀行 (%d$)",
-        "cash": "現金 (%d$)",
-        "select_amount": "数量を選択"
-    },
+    "input_title": "購入",
+    "input_price": "価格",
+    "input_method": "支払い方法を選択",
+    "input_bank": "銀行 (%d$)",
+    "input_cash": "現金 (%d$)",
+    "input_amount": "数量を選択",
     "progress": {
         "refueling_vehicle": "車両に給油中..."
     },

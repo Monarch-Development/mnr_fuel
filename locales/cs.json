@@ -7,14 +7,12 @@
     "target_return_fv": "Vrátit hadici",
     "target_return_ev": "Vrátit nabíječku",
     "target_buy_jerrycan": "Koupit/Doplnit kanystr",
-    "input": {
-        "title": "Nákup",
-        "price": "Cena",
-        "payment_method": "Vyberte způsob platby",
-        "bank": "Banka (%d$)",
-        "cash": "Hotově (%d$)",
-        "select_amount": "Vyberte množství"
-    },
+    "input_title": "Nákup",
+    "input_price": "Cena",
+    "input_method": "Vyberte způsob platby",
+    "input_bank": "Banka (%d$)",
+    "input_cash": "Hotově (%d$)",
+    "input_amount": "Vyberte množství",
     "progress": {
         "refueling_vehicle": "Probíhá tankování..."
     },

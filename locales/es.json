@@ -7,14 +7,12 @@
     "target_return_fv": "Devolver la manguera",
     "target_return_ev": "Devolver el cargador",
     "target_buy_jerrycan": "Comprar/Rellenar bidón",
-    "input": {
-        "title": "Compra",
-        "price": "Precio",
-        "payment_method": "Seleccionar método de pago",
-        "bank": "Banco (%d$)",
-        "cash": "Efectivo (%d$)",
-        "select_amount": "Seleccionar cantidad"
-    },
+    "input_title": "Compra",
+    "input_price": "Precio",
+    "input_method": "Seleccionar método de pago",
+    "input_bank": "Banco (%d$)",
+    "input_cash": "Efectivo (%d$)",
+    "input_amount": "Seleccionar cantidad",
     "progress": {
         "refueling_vehicle": "Repostando vehículo..."
     },
