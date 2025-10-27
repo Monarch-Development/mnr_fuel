@@ -17,30 +17,30 @@ exports.ox_target:addGlobalVehicle({
     },
 })
 
-local function createTargetData(ev)
+local function createTargetData(cat)
 	return {
 		{
-    		label = locale(ev and 'target_take_ev' or 'target_take_fv'),
+    		label = locale(('target_take_%s'):format(cat)),
     		name = 'mnr_fuel:pump:option_1',
-    		icon = ev and 'fas fa-bolt' or 'fas fa-gas-pump',
+    		icon = cat and 'fas fa-bolt' or 'fas fa-gas-pump',
     		distance = 3.0,
     		canInteract = function()
     		    return not state.refueling and state.pump == 0 and not state:holdingItem('nozzle')
     		end,
     		onSelect = function(data)
-    		    TriggerEvent('mnr_fuel:client:TakeNozzle', data, ev and 'ev' or 'fv')
+    		    TriggerEvent('mnr_fuel:client:TakeNozzle', data, cat)
     		end,
 		},
 		{
-    		label = locale(ev and 'target_return_ev' or 'target_return_fv'),
+    		label = locale(('target_return_%s'):format(cat)),
     		name = 'mnr_fuel:pump:option_2',
-    		icon = 'fas fa-hand',
+    		icon = cat and 'fas fa-bolt' or 'fas fa-gas-pump',
     		distance = 3.0,
     		canInteract = function(entity)
     		    return not state.refueling and state.pump == entity and state:holdingItem('nozzle')
     		end,
     		onSelect = function(data)
-    		    TriggerEvent('mnr_fuel:client:ReturnNozzle', data, ev and 'ev' or 'fv')
+    		    TriggerEvent('mnr_fuel:client:ReturnNozzle', data, cat)
     		end,
 		},
 		{
@@ -59,6 +59,6 @@ local function createTargetData(ev)
 end
 
 for model, data in pairs(pumps) do
-	local targetData = createTargetData(data.cat == 'ev')
+	local targetData = createTargetData(data.cat)
 	exports.ox_target:addModel(model, targetData)
 end
